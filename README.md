@@ -1,5 +1,5 @@
 # college_mgmt_system
-This is a college management software, that's helps to manage college activities with college's websites.
+This is a college management software, that's helps to manage college activities and college's websites.
 The College Management System is a comprehensive digital platform designed to streamline and enhance various administrative and academic processes within an educational institution. Packed with user-friendly features, it simplifies tasks for administrators, teachers, students, and parents, fostering efficient communication and organization.
 
 Key Features:
