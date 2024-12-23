@@ -55,7 +55,7 @@ if (mysqli_num_rows($staff_result) > 0) {
                             </div>
                             <div class="py-2">
                                 <a class=" btn btn-primary"
-                                    href="http://localhost/school_management_system/public/pages/register.php">Apply Now</a>
+                                    href="register.php">Apply Now</a>
                             </div>
                         </div>
                         <div>
