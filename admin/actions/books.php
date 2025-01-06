@@ -33,15 +33,28 @@ if ( isset( $_POST['save'] ) ) {
 
 	$uploade = check_input( $_POST['uploade'] );
 
-	$errors = array(); // assign all errors in this array
+	$errors = []; // assign all errors in this array
 
-	// check error field is empty or have some error
-	if ( ! empty( $errors ) ) {
-		foreach ( $errors as $error ) {
-			echo $error;
-		}
-	}
+    //validation
+    if( empty( $bname )) {
+        $errors[] = "Please enter book name.";
+    }
 
+    if( empty( $wname ) ) {
+        $errors[] = "Please enter writer name.";
+    }
+
+    if( empty( $class )) {
+        $errors[] = "Please enter class.";
+    }
+
+    if( empty( $pubdate ) ) {
+        $errors[] = "Please enter published date.";
+    }
+
+    if( empty( $book_id )) {
+        $errors[] = "Please enter book ID.";
+    }
 
 	// Error field is emtpty the insert valid data
 	if ( empty( $errors ) ) {
@@ -56,8 +69,12 @@ if ( isset( $_POST['save'] ) ) {
 		if ( $result ) {
             $msg = "Book added successfully!";
 			header( "Location: ".APP_PATH."admin/dashboard.php?content=item11&msg=" . urlencode($msg) );
-		} else {
-			echo 'Data are not inserted!!!';
 		}
-	}
+	} else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
+        }
+        header( "Location: ".APP_PATH."admin/dashboard.php?content=item11&errors=" . urlencode($msg) );
+    }
 }

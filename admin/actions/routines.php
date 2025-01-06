@@ -7,18 +7,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $class = mysqli_real_escape_string($conn, $_POST['class_name']);
     $routineData = $_POST['routine'];
 
+    //validate
+    $errors = [];
+    if( empty( $class )) {
+        $errors[] = "Please enter class.";
+    }
+
+    if( empty( $routineData )) {
+        $errors[] = "Please enter routine.";
+    }
     // Encode the routine array as JSON
     $routineJson = json_encode($routineData);
 
     // Insert data into routines table
-    $sql = "INSERT INTO routines (class, routine) VALUES ('$class', '$routineJson')";
-    $result = mysqli_query($conn, $sql);
+    if( empty( $errors )) {
+        $sql = "INSERT INTO routines (class, routine) VALUES ('$class', '$routineJson')";
+        $result = mysqli_query($conn, $sql);
 
-    if ($result) {
-        $msg = "Routine added successfully!";
-			header( "Location: ".APP_PATH."admin/dashboard.php?content=item6&msg=" . urlencode($msg) );
-    } else {
-        echo "Error: " . mysqli_error($conn);
+        if ($result) {
+            $msg = "Routine added successfully!";
+                header( "Location: ".APP_PATH."admin/dashboard.php?content=item6&msg=" . urlencode($msg) );
+            } 
+        } else {
+            $msg = '';
+            foreach( $errors as $error ) {
+                $msg .= $error . "</br>";
+            }
+            header( "Location: ".APP_PATH."admin/dashboard.php?content=item6&errors=" . urlencode($msg) );
     }
 }
 ?>

@@ -20,7 +20,7 @@ require '../includes/menu.php';
     if( !empty( $exam_schedules ) && is_array( $exam_schedules )) {
         foreach( $exam_schedules as $exam_schedule ) {
             ?>
-            <div class="container" style="background: #fff; width: 70%; height: 100%;" data-aos="fade-up">
+            <div class="container mb-5" style="background: #fff; width: 70%; height: 100%;" data-aos="fade-up">
                 <div class="notice-content py-5" style="margin: 0 50px;">
                     <div class="d-flex justify-content-between">
                         <h3 class="text-left text-uppercase pt-4" style="font-size: 40px;"><b>Examination</b> <br> Schedule</h3>

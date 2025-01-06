@@ -111,8 +111,12 @@ if (isset($_POST['save'])) {
         if ($result) {
             $msg = "Teacher added successfully!";
             header("Location: ".APP_PATH."admin/dashboard.php?content=item4&msg=" . urlencode($msg));
-        } else {
-            echo 'Data are not inserted!!!';
+        } 
+    } else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
         }
+        header("Location: ".APP_PATH."admin/dashboard.php?content=item4&errors=" . urlencode($msg));
     }
 }

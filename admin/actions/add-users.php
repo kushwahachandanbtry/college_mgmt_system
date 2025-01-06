@@ -38,7 +38,11 @@ if ( isset( $_POST['save'] ) ) {
 	$password = check_input( $_POST['password'] );
 	$role = check_input( $_POST['role'] );
 
-	$errors = array(); // assign all errors in this array
+	$errors = [];
+
+    if( empty( $name ) ) {
+        $errors[] = "Please enter your name.";
+    }
 
 	// check valid email or not
 	if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
@@ -94,13 +98,6 @@ if ( isset( $_POST['save'] ) ) {
         }
     }
 
-	// check error field is empty or have some error
-	if ( ! empty( $errors ) ) {
-		foreach ( $errors as $error ) {
-			echo $error;
-		}
-	}
-
     $file = 'uploads/'.$file_name;
 
 	// Error field is emtpty the insert valid data
@@ -114,8 +111,13 @@ if ( isset( $_POST['save'] ) ) {
 		if ( $result ) {
             $msg = "User added successfully!";
             header( "Location: ".APP_PATH."admin/dashboard.php?content=item0&msg=" . urlencode($msg));
-		} else {
-			echo 'Data are not inserted.';
-		}
-	}
+            exit();
+		} 
+	} else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
+        }
+        header( "Location: ".APP_PATH."admin/dashboard.php?content=item0&errors=" . urlencode($msg));
+    }
 }

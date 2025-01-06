@@ -102,6 +102,15 @@ class FetchDataController
     }
 
     /**
+     * Fetch class routine from database
+     * 
+     * @return array - Array of class routine data
+     */
+    public function getClassRoutine(){
+        return $this->FetchDataController('SELECT * FROM routines');
+    }
+
+    /**
      * Fetch exam schedule from database
      * 
      * @return array - Array of exam schedule data
@@ -237,3 +246,4 @@ $staffs = $FetchDataController->getStaff();
 $services = $FetchDataController->getService();
 $notices = $FetchDataController->getNotice();
 $exam_schedules = $FetchDataController->getExamSchedule();
+$class_routines = $FetchDataController->getClassRoutine();

@@ -6,6 +6,9 @@ include "../helpers.php";
 if (isset($_GET['msg'])) {
     add_success_message($_GET['msg']);
 }
+if (isset($_GET['errors'])) {
+    add_failled_message($_GET['errors']);
+}
 ?>
 
 

@@ -120,9 +120,14 @@ if (isset($_POST['save'])) {
             $msg = "Student added successfully!";
             header("Location: ".APP_PATH."admin/dashboard.php?content=item2&msg=" . urlencode($msg));
             exit(); // Use exit to prevent further code execution
-        } else {
-            echo 'Data was not inserted. Error: ' . mysqli_error($conn); // Display error from database
         }
+    } else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
+        }
+        header("Location: ".APP_PATH."admin/dashboard.php?content=item2&errors=" . urlencode($msg));
+
     }
 }
 ?>

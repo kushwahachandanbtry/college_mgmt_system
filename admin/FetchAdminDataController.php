@@ -131,6 +131,16 @@ class FetchAdminDataController {
         return $this->fetchData($sql);
     }
 
+    /**
+     * Fetch notices with pagination.
+     * 
+     * @return array - List of notices
+     */
+    public function getClassRoutines() {
+        $sql = "SELECT * FROM routines ORDER BY id DESC LIMIT {$this->offset}, {$this->limit}";
+        return $this->fetchData($sql);
+    }
+
 
     /**
      * Executes the given query and fetches data.
@@ -165,3 +175,4 @@ $users = $FetchAdminDataController->getUsers();
 $exam_schedules = $FetchAdminDataController->examSchedules();
 $notices = $FetchAdminDataController->getNotices();
 $teacher_payment_lists = $FetchAdminDataController->getTeacherPaymentLists();
+$class_routines = $FetchAdminDataController->getClassRoutines();

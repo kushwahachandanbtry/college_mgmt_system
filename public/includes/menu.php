@@ -62,7 +62,7 @@ mysqli_close($conn);
 
 
 <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+    <div class="container-fluid ms-2 me-4 position-relative d-flex align-items-center">
         <?php
         if ($currentPage === 'index.php') {
             ?>
@@ -91,6 +91,7 @@ mysqli_close($conn);
                 <li><a href="<?php echo APP_PATH; ?>public/pages/contact.php">Contact</a></li>
                 <li><a href="<?php echo APP_PATH; ?>public/pages/notice.php">Notice</a></li>
                 <li><a href="<?php echo APP_PATH; ?>public/pages/exam_schedule.php">Exam Schedule</a></li>
+                <li><a href="<?php echo APP_PATH; ?>public/pages/class_routine.php">Class Routine</a></li>
                 <?php 
                 if( isset( $loginUser )) {
                     if (is_array($username)) {

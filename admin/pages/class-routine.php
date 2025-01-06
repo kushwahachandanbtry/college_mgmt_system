@@ -3,6 +3,9 @@ include "../helpers.php";
 if (isset($_GET['msg'])) {
     add_success_message($_GET['msg']);
 }
+if (isset($_GET['errors'])) {
+    add_failled_message($_GET['errors']);
+}
 ?>
 <div class="container-fluid">
     <?php
@@ -12,25 +15,20 @@ if (isset($_GET['msg'])) {
     <?php } ?>
 
     <?php
-include dirname(__DIR__, 2). '/config.php';
 
-// Retrieve the data from the database
-$routine_sql = "SELECT * FROM routines ORDER BY id DESC";
-$routine_result = mysqli_query($conn, $routine_sql);
-
-if (mysqli_num_rows($routine_result) > 0) {
-    delete_data_message();
+delete_data_message();
+if (!empty($class_routines) && is_array($class_routines)) {
+    foreach ($class_routines as $class_routine) {
     $i = 1;
-    while ($row = mysqli_fetch_assoc($routine_result)) {
         // Decode the JSON data from the routine field
-        $datas = $row['routine'];
-        $deconde_data = json_decode($datas, true);
+        $datas = $class_routine['routine'];
+        $decode_data = json_decode($datas, true);
 ?>
     <div class="routine-list my-5">
         <form action="">
             <div class="py-3 d-flex">
                 <h2><?php echo $i++; ?></h2>
-                <h3>Routine of <span class="text-danger"><?php echo $row['class']; ?></span> Class</h3>
+                <h3>Routine of <span class="text-danger"><?php echo $class_routine['class']; ?></span> Class</h3>
             </div>
 
             <div class="pb-4">
@@ -46,7 +44,7 @@ if (mysqli_num_rows($routine_result) > 0) {
                     </tr>
                     <?php
                     // Loop through each day and display its schedule
-                    foreach ($deconde_data as $day => $schedule) {
+                    foreach ($decode_data as $day => $schedule) {
                     ?>
                     <tr>
                         <input type="text" value="<?php echo $row['id']; ?>" hidden>

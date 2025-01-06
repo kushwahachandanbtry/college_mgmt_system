@@ -34,21 +34,44 @@ if ( isset( $_POST['save'] ) ) {
 
     $childerns_name = check_input( $_POST['chName'] );
 
-	$errors = array(); // assign all errors in this array
+	$errors = [];
 
+    //validation
+    if( empty( $name )){
+        $errors[] = "Please enter name.";
+    }
+
+    if( empty( $gender )) {
+        $errors[] = "Please choose a gender.";
+    }
+
+    if( empty( $occupation )) {
+        $errors[] = "Please enter occupation.";
+    }
+
+    if( empty( $email )){
+        $errors[] = "Please enter email.";
+    }
+
+    if( empty( $address )) {
+        $errors[] = "Please enter address.";
+    }
+
+    if( empty( $number )) {
+        $errors[] = "Please enter phone number.";
+    }
+
+    if( empty( $childerns_name )) {
+        $errors[] = "Please write children's name.";
+    }
+
+    
 
 	// check valid email or not
 	if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
 		$errors[] = 'Please Enter Valid Email.';
 	}
 
-
-	// check error field is empty or have some error
-	if ( ! empty( $errors ) ) {
-		foreach ( $errors as $error ) {
-			echo $error;
-		}
-	}
 
 
 	// Error field is emtpty the insert valid data
@@ -58,15 +81,17 @@ if ( isset( $_POST['save'] ) ) {
 		$sql = "INSERT INTO parents(name, gender, occupation, email, address, phone, childrens_name )
                 VALUES('{$name}', '{$gender}', '{$occupation}', '{$email}', '{$address}', '{$number}', '{$childerns_name}' )";
 
-// print_r( $sql );
-// die();
 
 		$result = mysqli_query( $conn, $sql );
 		if ( $result ) {
             $msg = "Parent added successfully!";
 			header( "Location: ".APP_PATH."admin/dashboard.php?content=item8&msg=" . urlencode($msg) );
-		} else {
-			echo 'Data are not inserted!!!';
 		}
-	}
+	} else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
+        }
+        header( "Location: ".APP_PATH."admin/dashboard.php?content=item8&errors=" . urlencode($msg) );
+    }
 }

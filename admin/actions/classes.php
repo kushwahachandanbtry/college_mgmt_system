@@ -29,30 +29,24 @@ if ( isset( $_POST['save'] ) ) {
     if( empty( $classes ) ) {
         $errors[] = "Please write a proper class name.";
     }
-	// check error field is empty or have some error
-	if ( ! empty( $errors ) ) {
-		foreach ( $errors as $error ) {
-			echo $error;
-		}
-	}
-
+	
 
 	// Error field is emtpty the insert valid data
 	if ( empty( $errors ) ) {
 		include_once 'config.php';
 
 		// print_r( $conn );
-		$sql = "INSERT INTO classes(classes)
-    VALUES('{$classes}')";
-
-
-
+		$sql = "INSERT INTO classes(classes) VALUES('{$classes}')";
 		$result = mysqli_query( $conn, $sql );
 		if ( $result ) {    
             $msg = "Classes added successfully!";
 			header( "Location: ".APP_PATH."admin/dashboard.php?content=item16&msg=" . urlencode($msg) );
-		} else {
-			echo 'Data are not inserted!!!';
-		}
-	}
+		} 
+	} else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
+        }
+        header( "Location: ".APP_PATH."admin/dashboard.php?content=item16&errors=" . urlencode($msg) );
+    }
 }
