@@ -33,7 +33,7 @@ if (isset($_POST['save'])) {
     $class = check_input($_POST['class']);
     $semester = check_input($_POST['semester']);
 
-    $errors = array(); // assign all errors in this array
+    $errors = []; // assign all errors in this array
 
     // check valid email or not
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

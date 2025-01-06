@@ -2,7 +2,7 @@
 /**
  * This file includes all contact related content
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**"

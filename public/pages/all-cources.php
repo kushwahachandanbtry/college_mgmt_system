@@ -2,7 +2,7 @@
 /**
  * This page contains all cources page
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**
@@ -10,7 +10,7 @@
  */
 
 require '../includes/menu.php';
-// include 'config.php';
+include dirname(__DIR__, 2) . '/config.php';
 ?>
 
 <div class="all-course-overlay overlay">

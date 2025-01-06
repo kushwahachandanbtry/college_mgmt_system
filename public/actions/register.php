@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     $phnumber = trim($_POST['pnumber']);
     $fathername = trim($_POST['fathername']);
     $email = trim($_POST['email']);
-    $pass = md5($_POST['pass']);
+    $pass = $_POST['pass'];
     $cources = trim($_POST['cource']);
     $gender = trim($_POST['gender']);
     $paddress = trim($_POST['paddress']);
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
         $errors['password'] = "Password must be at least 8 characters long.";
     } else {
         // Hash the password
-        $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+        $hashed_password = $pass;
     }
 
     // Validate courses

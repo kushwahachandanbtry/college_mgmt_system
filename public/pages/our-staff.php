@@ -1,8 +1,8 @@
 <?php
 /**
- * This file includes all our cources related content
+ * This file includes all our staff related content
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**

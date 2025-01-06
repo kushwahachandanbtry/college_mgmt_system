@@ -14,7 +14,7 @@
                         <a href=""><i class="fa-solid fa-phone"></i> +977, <?php echo $collegePhone; ?></a>
                     </li>
                     <li class="time">
-                        <a href=""><i class="fa-solid fa-clock"></i> Sun - Fri 8.00 - 18.00</a>
+                        <a href=""><i class="fa-solid fa-clock"></i> Sun - Fri 6.00 - 18.00</a>
                     </li>
             </ul>
             </div>
@@ -63,11 +63,14 @@
                     <li>
                         <h4 style="border-bottom: 4px solid #fff; display: inline-block;">Flexible Learning</h4>
                     </li>
-                    <li class="py-5">
+                    <li>
+                        <p>At Yeti Int'l College, we believe education is the foundation of a successful and fulfilling life.</p>
+                    </li>
+                    <li class="py-2">
                         <?php $currentPage = basename($_SERVER['PHP_SELF']); 
                         if( $currentPage == 'index.php' ) {
                             ?>
-                            <img src="assets/images/logo/<?php echo $logo; ?>" style="background-color: none;" class="img-fluid">
+                            <img src="assets/images/logo/<?php echo $logo; ?>" alt="logo" style="background-color: none;" class="img-fluid">
                             <?php
                         } else {
                             ?>
@@ -82,25 +85,28 @@
             <hr>
             <div class="end-footer">
             <div>
-            <p class="py-2">© <?php echo date("Y"); ?> Chandan Kushwaha, All Rights Reserved</p>
+            <p class="py-2"><?php echo date("Y"); ?> &#169; <a target="_blank" class="text-light" href="https://github.com/kushwahachandanbtry"><u>Chandan Kushwaha</u></a>, All Rights Reserved</p>
             </div>
             <div class="d-flex">
                 <div class="">
-                    <p class="py-2">Call ME: +977, 9823196848 </p>
+                    <p class="py-2">Call US: <?php echo $collegePhone; ?> </p>
                 </div>
                 <div class="">
                     <ul class="d-flex">
                         <div>
                             <li>
-                                <p class="py-2">Follow ME</p>
+                                <p class="py-2">Follow US</p>
                             </li>
                         </div>
                         <div>
                             <li>
-                                <a target="_blank" href="https://www.facebook.com/profile.php?id=100030758771026"><i class="fa-brands fa-facebook"></i></a>
+                                <a target="_blank" href="https://www.facebook.com/YETICollege"><i class="fa-brands fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a target="_blank" href="https://www.instagram.com/chandankushwaha5702/"><i class="fa-brands fa-instagram"></i></a>
+                                <a target="_blank" href="https://www.instagram.com/yetiintlcollege/"><i class="fa-brands fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://www.youtube.com/@YETIInternationalCollege"><i class="fa-brands fa-youtube"></i></a>
                             </li>
                         </div>
                     </ul>

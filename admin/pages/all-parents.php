@@ -4,76 +4,60 @@
 </div>
 
 <?php
-include dirname(__DIR__, 2). '/config.php';
 include "../helpers.php";
 
-$limit = 10;
+delete_data_message();
+?>
 
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
+<!-- view data in table -->
+<table id="smsTable" class="table table-striped table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Occupation</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Children's Name</th>
+        <?php if (isset($_SESSION['admin'])) { ?>
+            <th>Actions</th>
+        <?php } ?>
 
-
-$offsets = ($page - 1) * $limit;
-
-$sql = "SELECT * FROM parents LIMIT {$offsets}, {$limit}";
-
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    delete_data_message();
-    ?>
-
-    <!-- view data in table -->
-    <table id="smsTable" class="table table-striped table-hover">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Occupation</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Phone</th>
-            <th>Children's Name</th>
-            <?php if( isset( $_SESSION['admin'] )) { ?>
-                <th>Actions</th>
-            <?php } ?>
-
-        </tr>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
+    </tr>
+    <?php
+    if (!empty($parents) && is_array($parents)) {
+        foreach ($parents as $parent) {
             ?>
             <tr class="fs-1">
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['name']; ?></td>
-                <td><?php echo $row['gender']; ?></td>
-                <td><?php echo $row['occupation']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['address']; ?></td>
-                <td><?php echo $row['phone']; ?></td>
-                <td><?php echo $row['childrens_name']; ?></td>
-                <?php if( isset( $_SESSION['admin'] )) { ?>
-                    <td parent-id="<?php echo $row['id']; ?>" class="parent_actions"
-                    style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
-                    onclick="handleClick(event, this)">
-                    ...
-                        <div action_id="<?php echo $row['id']; ?>" class="actions" style="display:none;">
+                <td><?php echo $parent['id']; ?></td>
+                <td><?php echo $parent['name']; ?></td>
+                <td><?php echo $parent['gender']; ?></td>
+                <td><?php echo $parent['occupation']; ?></td>
+                <td><?php echo $parent['email']; ?></td>
+                <td><?php echo $parent['address']; ?></td>
+                <td><?php echo $parent['phone']; ?></td>
+                <td><?php echo $parent['childrens_name']; ?></td>
+                <?php if (isset($_SESSION['admin'])) { ?>
+                    <td parent-id="<?php echo $parent['id']; ?>" class="parent_actions"
+                        style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
+                        onclick="handleClick(event, this)">
+                        ...
+                        <div action_id="<?php echo $parent['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                                <li data-id="<?php echo $row['id']; ?>"
-                                    onclick="showParentDetails(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>)">
+                                <li data-id="<?php echo $parent['id']; ?>"
+                                    onclick="showParentDetails(<?php echo htmlspecialchars(json_encode($parent), ENT_QUOTES, 'UTF-8'); ?>)">
                                     View</li>
-                                <li><a href="?content=edit_parent&&id=<?php echo $row['id']; ?>">Edit</a></li>
-                                <li style="color: red;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'parent')">Delete</li>
+                                <li><a href="?content=edit_parent&&id=<?php echo $parent['id']; ?>">Edit</a></li>
+                                <li style="color: red;" onclick="confirmDelete(<?php echo $parent['id']; ?>, 'parent')">Delete</li>
                             </ul>
                         </div>
                     </td>
                 <?php } ?>
             </tr>
-            <?php } ?>
-        </table>
-        <!-- table end -->
+        <?php } ?>
+    </table>
+    <!-- table end -->
 <?php } ?>
 
 <!-- view model -->
@@ -126,5 +110,10 @@ if (mysqli_num_rows($result) > 0) {
 <!-- end view model -->
 
 <!-- pagination -->
-<?php get_pagination('parents',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=item7&&page=');?>
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('parents', $conn, $limit, $page, APP_PATH . '/admin/dashboard.php?content=item7&&page=');
+?>
 

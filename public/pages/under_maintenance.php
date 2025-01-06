@@ -1,4 +1,15 @@
-<?php include dirname(__DIR__, 1) . '/includes/header.php'; 
+<?php 
+/**
+ * This file is used to showing under maintenance page
+ *
+ * @package college-management-system
+ */
+
+/**
+ * Requiring header and menu page
+ */
+
+include dirname(__DIR__, 1) . '/includes/header.php'; 
 include dirname(__DIR__, 2). '/constant.php';
 include dirname(__DIR__, 2). '/config.php';
 ?>

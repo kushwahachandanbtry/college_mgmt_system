@@ -6,26 +6,6 @@
 <?php
 include "../helpers.php";
 
-$limit = 3;
-
-if( isset( $_GET['page'] ) ) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-
-
-$offsets = ( $page - 1 ) * $limit;
-
-$sql = "SELECT * FROM teachers LIMIT {$offsets}, {$limit}";
-// echo $sql;
-
-$result = mysqli_query( $conn, $sql );
-
-if( mysqli_num_rows( $result ) > 0 ) {
-
-
-
 ?>
 
 <table id="smsTable" class="table table-striped table-hover">
@@ -40,23 +20,29 @@ if( mysqli_num_rows( $result ) > 0 ) {
 
     </tr>
     <?php
-    while ( $row = mysqli_fetch_assoc($result ) ) {
-    ?>
-        <tr class="fs-1">
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['fname'] . " " . $row['lname']; ?></td>
-            <td><?php echo $row['gender']; ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            <td><?php echo $row['Phone']; ?></td>
-            <td><a target="_self" href="?content=checkout-khalti"><button class="btn btn-primary  ">Pay with Khalti</button></a></td>
-        </tr>
-    <?php
+    if (!empty($teacher_payment_lists) && is_array($teacher_payment_lists)) {
+        foreach ($teacher_payment_lists as $teacher_payment_list) {
+            ?>
+            <tr class="fs-1">
+                <td><?php echo $teacher_payment_list['id']; ?></td>
+                <td><?php echo $teacher_payment_list['fname'] . " " . $teacher_payment_list['lname']; ?></td>
+                <td><?php echo $teacher_payment_list['gender']; ?></td>
+                <td><?php echo $teacher_payment_list['email']; ?></td>
+                <td><?php echo $teacher_payment_list['address']; ?></td>
+                <td><?php echo $teacher_payment_list['Phone']; ?></td>
+                <td><a target="_self" href="?content=checkout-khalti"><button class="btn btn-primary  ">Pay with
+                            Khalti</button></a></td>
+            </tr>
+            <?php
+        }
     }
-}
     ?>
 </table>
 
-<?php get_pagination('teachers',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=item5&&page='); ?>
-
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('teachers', $conn, $limit, $page, APP_PATH . '/admin/dashboard.php?content=item5&&page=');
+?>
 

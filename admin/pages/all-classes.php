@@ -4,64 +4,54 @@
 </div>
 
 <?php
-include dirname(__DIR__, 2). '/config.php';
 include "../helpers.php";
 
-$limit = 10;
+delete_data_message();
+?>
 
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
+<!-- view data in table -->
+<table id="smsTable" class="table table-striped table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Classes</th>
+        <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+            <th>Actions</th>
+        <?php } ?>
 
-
-$offsets = ($page - 1) * $limit;
-
-$sql = "SELECT * FROM classes LIMIT {$offsets}, {$limit}";
-
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    delete_data_message();
-    ?>
-
-    <!-- view data in table -->
-    <table id="smsTable" class="table table-striped table-hover">
-        <tr>
-            <th>Id</th>
-            <th>Classes</th>
-            <?php if( isset( $_SESSION['admin'] ) ||  $_SESSION['role'] == 'teacher') { ?>
-                <th>Actions</th>
-            <?php } ?>
-
-        </tr>
-        <?php
-        $i = 1;
-        while ($row = mysqli_fetch_assoc($result)) {
+    </tr>
+    <?php
+    $i = 1;
+    if (!empty($classes) && is_array($classes)) {
+        foreach ($classes as $class) {
             ?>
             <tr class="fs-1">
                 <td><?php echo $i++; ?></td>
-                <td><?php echo strtoupper($row['classes']); ?></td>
-                <?php if( isset( $_SESSION['admin'] ) ||  $_SESSION['role'] == 'teacher') { ?>
-                    <td parent-id="<?php echo $row['id']; ?>" class="parent_actions"
-                    style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
-                    onclick="handleClick(event, this)">
-                    ...
-                        <div action_id="<?php echo $row['id']; ?>" class="actions" style="display:none;">
+                <td><?php echo strtoupper($class['classes']); ?></td>
+                <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+                    <td parent-id="<?php echo $class['id']; ?>" class="parent_actions"
+                        style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
+                        onclick="handleClick(event, this)">
+                        ...
+                        <div action_id="<?php echo $class['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                                <li><a href="?content=edit_class&&id=<?php echo $row['id']; ?>">Edit</a></li>
-                                <li style="color: red;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'class')">Delete</li>
+                                <li><a href="?content=edit_class&&id=<?php echo $class['id']; ?>">Edit</a></li>
+                                <li style="color: red;" onclick="confirmDelete(<?php echo $class['id']; ?>, 'class')">Delete</li>
                             </ul>
                         </div>
                     </td>
                 <?php } ?>
             </tr>
-            <?php } ?> 
-        </table>
-        <!-- table end -->
+        <?php } ?>
+    </table>
+    <!-- table end -->
 <?php } ?>
 
 
 <!-- pagination -->
-<?php get_pagination('users',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=item3&&page='); ?>
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('users', $conn, $limit, $page, APP_PATH.'/admin/dashboard.php?content=item3&&page=');
+?>
+

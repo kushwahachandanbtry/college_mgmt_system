@@ -2,13 +2,14 @@
 /**
  * This file includes all our single page related content
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**
  * Requiring header and menu file
  */
 require '../includes/menu.php';
+include dirname(__DIR__, 2) . '/config.php';
 
 ?>
 

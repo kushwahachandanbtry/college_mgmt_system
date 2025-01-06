@@ -58,6 +58,25 @@ function add_success_message($msg)
     <?php
 }
 
+function add_failled_message($error){
+    ?>
+    <div class="container text-center mx-auto" style="width: 400px; height: 100%;">
+        <div id="alertBox" class="alert alert-danger text-center" role="alert">
+            <h5 class="fst-italic"><?php echo htmlspecialchars_decode($error); ?></h5>
+        </div>
+    </div>
+    <script>
+        // JavaScript to hide the alert after 3 seconds (3000 milliseconds)
+        setTimeout(function () {
+            var alertBox = document.getElementById('alertBox');
+            if (alertBox) {
+                alertBox.style.display = 'none'; // Hide the alert box
+            }
+        }, 9000); // 2000 milliseconds = 2 seconds
+    </script>
+    <?php 
+}
+
 /**
  * Show edit successfull alert result
  * 

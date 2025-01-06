@@ -4,83 +4,69 @@
 </div>
 
 <?php
-include dirname(__DIR__, 2). '/config.php';
 include "../helpers.php";
-
-$limit = 10;
-
-if( isset( $_GET['page'] ) ) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-
-$offsets = ( $page - 1 ) * $limit;
-
-$sql = "SELECT * FROM students LIMIT {$offsets}, {$limit}";
-
-$result = mysqli_query( $conn, $sql );
-
-if( mysqli_num_rows( $result ) > 0 ) {
-    delete_data_message();
+delete_data_message();
 ?>
 
-    <!-- view data in table -->
-    <table id="smsTable" class="table table-striped table-hover">
-        <tr>
-            <th> Roll</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Dob</th>
-            <th>Blood</th>
-            <th>Religion</th>
-            <th>Email</th>
-            <th>Section</th>
-            <th>Shortbio</th>
-            <th>Class</th>
-            <th>Semester</th>
-            <th>Phone</th>
-            <?php if( isset( $_SESSION['admin'] )) { ?>
-                <th>Actions</th>
-            <?php } ?>
+<!-- view data in table -->
+<table id="smsTable" class="table table-striped table-hover">
+    <tr>
+        <th> Roll</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Dob</th>
+        <th>Blood</th>
+        <th>Religion</th>
+        <th>Email</th>
+        <th>Section</th>
+        <th>Shortbio</th>
+        <th>Class</th>
+        <th>Semester</th>
+        <th>Phone</th>
+        <?php if (isset($_SESSION['admin'])) { ?>
+            <th>Actions</th>
+        <?php } ?>
 
-        </tr>
-        <?php
-        while ( $row = mysqli_fetch_assoc($result ) ) {
-        ?>
+    </tr>
+    <?php
+    if (!empty($students) && is_array($students)) {
+        foreach ($students as $student) {
+            ?>
             <tr class="fs-1">
-                <td><?php echo $row['admissionid']; ?></td>
-                <td><img src="../assets/images/students/<?php echo $row['image'];?>"  alt="student-img" style="width: 60px; height: 60px; border-radius: 50%;"></td>
-                <td><?php echo $row['fname'] . " " . $row['lname']; ?></td>
-                <td><?php echo $row['gender']; ?></td>
-                <td><?php echo $row['dob']; ?></td>
-                <td><?php echo $row['blood']; ?></td>
-                <td><?php echo $row['religion']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['section']; ?></td>
-                <td><?php echo $row['shortbio']; ?></td>
-                <td><?php echo $row['class']; ?></td>
-                <td><?php echo $row['semester']; ?></td>
-                <td><?php echo $row['phone']; ?></td>
-                <?php if( isset( $_SESSION['admin'] )) { ?>
-                    <td parent-id="<?php echo $row['id']; ?>" class="parent_actions"
-                    style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
-                    onclick="handleClick(event, this)">
-                    ...
-                        <div action_id="<?php echo $row['id']; ?>" class="actions" style="display:none;">
+                <td><?php echo $student['admissionid']; ?></td>
+                <td><img src="../assets/images/students/<?php echo $student['image']; ?>" alt="<?php echo $student['fname']; ?>"
+                        style="width: 60px; height: 60px; border-radius: 50%;"></td>
+                <td><?php echo $student['fname'] . " " . $student['lname']; ?></td>
+                <td><?php echo $student['gender']; ?></td>
+                <td><?php echo $student['dob']; ?></td>
+                <td><?php echo $student['blood']; ?></td>
+                <td><?php echo $student['religion']; ?></td>
+                <td><?php echo $student['email']; ?></td>
+                <td><?php echo $student['section']; ?></td>
+                <td><?php echo $student['shortbio']; ?></td>
+                <td><?php echo $student['class']; ?></td>
+                <td><?php echo $student['semester']; ?></td>
+                <td><?php echo $student['phone']; ?></td>
+                <?php if (isset($_SESSION['admin'])) { ?>
+                    <td parent-id="<?php echo $student['id']; ?>" class="parent_actions"
+                        style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
+                        onclick="handleClick(event, this)">
+                        ...
+                        <div action_id="<?php echo $student['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                            <li data-id="<?php echo $row['id']; ?>"
-                                        onclick="showStudentDetails(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>)">
-                                        View</li>
-                                <li><a href="?content=edit_student&&id=<?php echo $row['id']; ?>">Edit</a></li>
-                                <li style="color: red;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'student')">Delete</li>
+                                <li data-id="<?php echo $student['id']; ?>"
+                                    onclick="showStudentDetails(<?php echo htmlspecialchars(json_encode($student), ENT_QUOTES, 'UTF-8'); ?>)">
+                                    View</li>
+                                <li><a href="?content=edit_student&&id=<?php echo $student['id']; ?>">Edit</a></li>
+                                <li style="color: red;" onclick="confirmDelete(<?php echo $student['id']; ?>, 'student')">Delete
+                                </li>
                             </ul>
                         </div>
                     </td>
                 <?php } ?>
             </tr>
-        <?php
+            <?php
         }
         ?>
     </table>
@@ -110,14 +96,14 @@ if( mysqli_num_rows( $result ) > 0 ) {
                     <input type="text" id="lname" class="form-control py-2 px-4" readonly>
                 </div>
 
-                
+
             </div>
             <div class="d-flex py-3">
                 <div class="">
                     <label>Gender:</label>
                     <input type="text" id="gender" class="form-control py-2 px-4" readonly>
                 </div>
-                
+
                 <div class="mx-1 col-5">
                     <label>Email:</label>
                     <input type="text" id="email" class="form-control py-2 px-4" readonly>
@@ -152,9 +138,9 @@ if( mysqli_num_rows( $result ) > 0 ) {
                 </div>
             </div>
             <div class="px-2">
-                    <label>Shortbio:</label><br>
-                    <textarea name="" id="shortbio" cols="50" rows="3" readonly></textarea>
-                </div>
+                <label>Shortbio:</label><br>
+                <textarea name="" id="shortbio" cols="50" rows="3" readonly></textarea>
+            </div>
 
             <div class="text-center">
                 <button type="button" class="btn btn-warning px-5 my-3" onclick="closeModal()">CLOSE</button>
@@ -165,8 +151,10 @@ if( mysqli_num_rows( $result ) > 0 ) {
 <!-- end view model -->
 
 <!-- pagination -->
-<?php get_pagination('students',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=item1&&page='); ?>
-
-
-
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('students', $conn, $limit, $page, APP_PATH . '/admin/dashboard.php?content=item1&&page=');
+?>
 

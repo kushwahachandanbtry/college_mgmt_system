@@ -320,11 +320,13 @@
 </style>
 
 <?php
-ob_start(); // Start output buffering
 include dirname(__DIR__, 1) . '/includes/menu.php';
 
-$message = ''; // Variable to store the message
-$messageType = ''; // Variable to store the message type (success or error)
+
+
+
+$message = '';
+$messageType = '';
 
 if (isset($_POST['submit'])) {
     include dirname(__DIR__, 2) . '/config.php';
@@ -336,27 +338,61 @@ if (isset($_POST['submit'])) {
         $message = "Email and password are required!";
         $messageType = 'error';
     } else {
-        $email = mysqli_real_escape_string($conn, $email);
-        $sql = "SELECT * FROM registered_users WHERE email = '$email'";
-        $result = mysqli_query($conn, $sql);
+        // Function to validate login credentials
+        function checkLogin($conn, $email, $password, $table)
+        {
+            $sql = "SELECT * FROM $table WHERE email = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-        if (mysqli_num_rows($result) > 0) {
-
-            $user = mysqli_fetch_assoc($result);
-            if (password_verify(md5( $password ), $user['password'])) {
-                $message = "Login successful!";
-                $messageType = 'success';
-            } else {
-                $message = "Invalid username or password.";
-                $messageType = 'error';
+            if (mysqli_num_rows($result) > 0) {
+                $user = mysqli_fetch_assoc($result);
+                if ($password == $user['password']) {
+                    return $user;
+                }
             }
+            return null;
+        }
+
+        // Check login in both tables
+        $user = checkLogin($conn, $email, $password, 'registered_users');
+        if (!$user) {
+            $user = checkLogin($conn, $email, $password, 'users');
+        }
+
+        if ($user) {
+            $_SESSION['login_user'] = $user['email'];
+            $loginUser = urlencode($_SESSION['login_user']);
+            $message = "Login successful!";
+            $messageType = 'success';
+
+            // Redirect to a specific page
+            ?>
+            <script>
+                window.location.href = "<?php echo APP_PATH . '?login_user=' . $loginUser; ?>";
+            </script>
+            <?php
+            exit;
         } else {
-            $message = "Invalid username or password.";
+            $message = "Invalid email or password.";
             $messageType = 'error';
         }
     }
 }
-ob_end_flush(); // Send output to the browser
+
+// If already logged in, redirect
+if (isset($_SESSION['login_user'])) {
+    ?>
+    <script>
+        window.location.href = "<?php echo APP_PATH; ?>";
+    </script>
+    <?php
+    exit;
+}
+
+
 ?>
 
 

@@ -4,69 +4,55 @@
 </div>
 
 <?php
-include dirname(__DIR__, 2). '/config.php';
 include "../helpers.php";
 
-$limit = 10;
+delete_data_message();
+?>
+<!-- view data in table -->
+<table id="smsTable" class="table table-striped table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Religion</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Shortbio</th>
+        <?php if (isset($_SESSION['admin'])) { ?>
+            <th>Actions</th>
+        <?php } ?>
 
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-
-$offsets = ($page - 1) * $limit;
-
-$sql = "SELECT * FROM teachers LIMIT {$offsets}, {$limit}";
-
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    delete_data_message();
-    ?>
-    <!-- view data in table -->
-    <table id="smsTable" class="table table-striped table-hover">
-        <tr>
-            <th>Id</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Religion</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Phone</th>
-            <th>Shortbio</th>
-            <?php if( isset( $_SESSION['admin'] )) { ?>
-                <th>Actions</th>
-            <?php } ?>
-
-        </tr>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
+    </tr>
+    <?php
+    if (!empty($teachers) && is_array($teachers)) {
+        foreach ($teachers as $teacher) {
             ?>
             <tr class="fs-1">
-                <td><?php echo $row['id']; ?></td>
-                <td><img src="../assets/images/teachers/<?php echo $row['image']; ?>" alt="teacher-img"
+                <td><?php echo $teacher['id']; ?></td>
+                <td><img src="../assets/images/teachers/<?php echo $teacher['image']; ?>" alt="teacher-img"
                         style="width: 60px; height: 60px; border-radius: 50%;"></td>
-                <td><?php echo $row['fname'] . " " . $row['lname']; ?></td>
-                <td><?php echo $row['gender']; ?></td>
-                <td><?php echo $row['religions']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['address']; ?></td>
-                <td><?php echo $row['Phone']; ?></td>
-                <td><?php echo $row['shortbio']; ?></td>
-                <?php if( isset( $_SESSION['admin'] )) { ?>
-                    <td parent-id="<?php echo $row['id']; ?>" class="parent_actions"
-                    style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
-                    onclick="handleClick(event, this)">
-                    ...
-                        <div action_id="<?php echo $row['id']; ?>" class="actions" style="display:none;">
+                <td><?php echo $teacher['fname'] . " " . $teacher['lname']; ?></td>
+                <td><?php echo $teacher['gender']; ?></td>
+                <td><?php echo $teacher['religions']; ?></td>
+                <td><?php echo $teacher['email']; ?></td>
+                <td><?php echo $teacher['address']; ?></td>
+                <td><?php echo $teacher['Phone']; ?></td>
+                <td><?php echo $teacher['shortbio']; ?></td>
+                <?php if (isset($_SESSION['admin'])) { ?>
+                    <td parent-id="<?php echo $teacher['id']; ?>" class="parent_actions"
+                        style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
+                        onclick="handleClick(event, this)">
+                        ...
+                        <div action_id="<?php echo $teacher['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                                <li data-id="<?php echo $row['id']; ?>"
-                                    onclick="showTeacherDetails(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>)">
+                                <li data-id="<?php echo $teacher['id']; ?>"
+                                    onclick="showTeacherDetails(<?php echo htmlspecialchars(json_encode($teacher), ENT_QUOTES, 'UTF-8'); ?>)">
                                     View</li>
-                                <li><a href="?content=edit_teacher&&id=<?php echo $row['id']; ?>">Edit</a></li>
-                                <li style="color: red;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'teacher')">Delete</li>
+                                <li><a href="?content=edit_teacher&&id=<?php echo $teacher['id']; ?>">Edit</a></li>
+                                <li style="color: red;" onclick="confirmDelete(<?php echo $teacher['id']; ?>, 'teacher')">Delete
+                                </li>
                             </ul>
                         </div>
                     </td>
@@ -74,7 +60,7 @@ if (mysqli_num_rows($result) > 0) {
             </tr>
             <?php
         }
-    ?>
+        ?>
     </table>
     <!-- table end -->
 <?php } ?>
@@ -139,4 +125,10 @@ if (mysqli_num_rows($result) > 0) {
 <!-- end view model -->
 
 <!-- pagination -->
-<?php get_pagination('teachers',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=item3&&page='); ?>
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('teachers', $conn, $limit, $page, APP_PATH . '/admin/dashboard.php?content=item3&&page=');
+?>
+

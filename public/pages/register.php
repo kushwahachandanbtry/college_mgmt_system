@@ -2,7 +2,7 @@
 /**
  * This file is used to register users
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**

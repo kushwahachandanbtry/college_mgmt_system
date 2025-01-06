@@ -4,62 +4,51 @@
 </div>
 
 <?php
-// include dirname(__DIR__, 2). '/config.php';
 include "../helpers.php";
 
-$limit = 10;
-
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-
-$offsets = ($page - 1) * $limit;
-
-$sql = "SELECT * FROM users LIMIT {$offsets}, {$limit}";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    delete_data_message();
+delete_data_message();
 ?>
-    <!-- view data in table -->
-    <table id="smsTable" class="table table-striped table-hover">
-        <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <?php if( isset( $_SESSION['admin'] )) { ?>
-                <th>Actions</th>
-            <?php } ?>
-        </tr>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-        ?>
+<!-- view data in table -->
+<table id="smsTable" class="table table-striped table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <?php if (isset($_SESSION['admin'])) { ?>
+            <th>Actions</th>
+        <?php } ?>
+    </tr>
+    <?php
+    if (!empty($users) && is_array($users)) {
+        foreach ($users as $user) {
+            ?>
             <tr class="fs-1">
-                <td><?php echo $row['id']; ?></td>
-                <td><img src="./pages/message_app/<?php echo $row['image'];?>"  alt="student-img" style="width: 60px; height: 60px; border-radius: 50%;"></td>
-                <td><?php echo $row['username']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['role']; ?></td>
-                <?php if( isset( $_SESSION['admin'] )) { ?>
-                    <td parent-id="<?php echo $row['id']; ?>" class="parent_actions"
-                    style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
-                    onclick="handleClick(event, this)">
-                    ...
-                        <div action_id="<?php echo $row['id']; ?>" class="actions" style="display:none;">
+                <td><?php echo $user['id']; ?></td>
+                <td><img src="./pages/message_app/<?php echo $user['image']; ?>" alt="student-img"
+                        style="width: 60px; height: 60px; border-radius: 50%;"></td>
+                <td><?php echo $user['username']; ?></td>
+                <td><?php echo $user['email']; ?></td>
+                <td><?php echo $user['role']; ?></td>
+                <?php if (isset($_SESSION['admin'])) { ?>
+                    <td parent-id="<?php echo $user['id']; ?>" class="parent_actions"
+                        style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
+                        onclick="handleClick(event, this)">
+                        ...
+                        <div action_id="<?php echo $user['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                                <li data-id="<?php echo $row['id']; ?>" onclick="showUserDetails(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>)">View</li>
-                                <li><a href="?content=edit_user&&id=<?php echo $row['id']; ?>">Edit</a></li>
-                                <li style="color: red;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'user')">Delete</li>
+                                <li data-id="<?php echo $user['id']; ?>"
+                                    onclick="showUserDetails(<?php echo htmlspecialchars(json_encode($user), ENT_QUOTES, 'UTF-8'); ?>)">
+                                    View</li>
+                                <li><a href="?content=edit_user&&id=<?php echo $user['id']; ?>">Edit</a></li>
+                                <li style="color: red;" onclick="confirmDelete(<?php echo $user['id']; ?>, 'user')">Delete</li>
                             </ul>
                         </div>
                     </td>
                 <?php } ?>
             </tr>
-        <?php
+            <?php
         }
         ?>
     </table>
@@ -97,6 +86,10 @@ if (mysqli_num_rows($result) > 0) {
 <!-- end view model -->
 
 <!-- pagination -->
-<?php get_pagination('users',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=allusers&&page='); ?>
-
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('users', $conn, $limit, $page, APP_PATH . '/admin/dashboard.php?content=allusers&&page=');
+?>
 

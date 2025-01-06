@@ -2,7 +2,7 @@
 /**
  * This file includes all gallery related content
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**

@@ -3,6 +3,7 @@ session_start();
 include_once '../FetchDataController.php';
 include_once '../constant.php';
 include dirname(__DIR__, 1) . '/config.php';
+include 'FetchAdminDataController.php';
 
 
 if (!isset($_SESSION['admin']) && !isset($_SESSION['name'])) {
@@ -33,7 +34,7 @@ include('templates/header.php'); ?>
                     class="dropdown-toggle">
                     <i class="fa-solid fa-users pr-2"></i> Users
                 </a>
-                <ul class="collapse list-unstyled <?= in_array($activePage, ['allusers', 'item0']) ? 'show' : '' ?>"
+                <ul class="collapse list-unstyled <?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users']) ? 'show' : '' ?>"
                     id="usersMenu">
                     <li class="<?= $activePage == 'allusers' ? 'active' : '' ?>">
                         <a href="?content=allusers">All Users</a>

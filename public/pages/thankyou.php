@@ -2,7 +2,7 @@
 /**
  * This file is used to respecting the users
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**

@@ -2,13 +2,14 @@
 /**
  * This file includes all our single page related content
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**
  * Requiring header and menu file
  */
 require '../includes/menu.php';
+include dirname(__DIR__, 2) . '/config.php';
 
 ?>
 <?php
@@ -55,7 +56,7 @@ if (mysqli_num_rows($staff_result) > 0) {
                             </div>
                             <div class="py-2">
                                 <a class=" btn btn-primary"
-                                    href="http://localhost/school_management_system/public/pages/register.php">Apply Now</a>
+                                    href="register.php">Apply Now</a>
                             </div>
                         </div>
                         <div>

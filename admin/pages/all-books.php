@@ -4,71 +4,56 @@
 </div>
 
 <?php
-include dirname(__DIR__, 2). '/config.php';
+
+
 include "../helpers.php";
+delete_data_message();
+?>
+<!-- view data in table -->
+<table id="smsTable" class="table table-striped table-hover">
+    <tr>
+        <th>Book Id</th>
+        <th>Book Name</th>
+        <th>Writer Name</th>
+        <th>Class</th>
+        <th>Publication Data</th>
+        <th>Upload Date</th>
+        <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+            <th>Actions</th>
+        <?php } ?>
 
-$limit = 10;
-
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = 1;
-}
-
-$offsets = ($page - 1) * $limit;
-
-$sql = "SELECT * FROM books LIMIT {$offsets}, {$limit}";
-// echo $sql;
-
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    delete_data_message();
-    ?>
-    <!-- view data in table -->
-    <table id="smsTable" class="table table-striped table-hover">
-        <tr>
-            <th>Book Id</th>
-            <th>Book Name</th>
-            <th>Writer Name</th>
-            <th>Class</th>
-            <th>Publication Data</th>
-            <th>Upload Date</th>
-            <?php if( isset( $_SESSION['admin'] ) ||  $_SESSION['role'] == 'teacher') { ?>
-                <th>Actions</th>
-            <?php } ?>
-
-        </tr>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
+    </tr>
+    <?php
+    if (!empty($books) && is_array($books)) {
+        foreach ($books as $book) {
             ?>
             <tr class="fs-1">
-                <td><?php echo $row['book_id']; ?></td>
-                <td><?php echo $row['bname']; ?></td>
-                <td><?php echo $row['wname']; ?></td>
-                <td><?php echo $row['class']; ?></td>
-                <td><?php echo $row['pubdate']; ?></td>
-                <td><?php echo $row['uploade']; ?></td>
-                <?php if( isset( $_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
-                    <td parent-id="<?php echo $row['id']; ?>" class="parent_actions"
+                <td><?php echo $book['book_id']; ?></td>
+                <td><?php echo $book['bname']; ?></td>
+                <td><?php echo $book['wname']; ?></td>
+                <td><?php echo $book['class']; ?></td>
+                <td><?php echo $book['pubdate']; ?></td>
+                <td><?php echo $book['uploade']; ?></td>
+                <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+                    <td parent-id="<?php echo $book['id']; ?>" class="parent_actions"
                         style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
                         onclick="handleClick(event, this)">
                         ...
-                        <div action_id="<?php echo $row['id']; ?>" class="actions" style="display:none;">
+                        <div action_id="<?php echo $book['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                                <li data-id="<?php echo $row['id']; ?>"
-                                    onclick="showBooksDetails(<?php echo htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8'); ?>)">
+                                <li data-id="<?php echo $book['id']; ?>"
+                                    onclick="showBooksDetails(<?php echo htmlspecialchars(json_encode($book), ENT_QUOTES, 'UTF-8'); ?>)">
                                     View</li>
-                                    <li><a href="?content=edit_book&&id=<?php echo $row['id']; ?>">Edit</a></li>
-                                <li style="color: red;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'book')">Delete</li>
+                                <li><a href="?content=edit_book&&id=<?php echo $book['id']; ?>">Edit</a></li>
+                                <li style="color: red;" onclick="confirmDelete(<?php echo $book['id']; ?>, 'book')">Delete</li>
                             </ul>
                         </div>
                     </td>
                 <?php } ?>
             </tr>
-            <?php } ?>
-        </table>
-        <!-- table end -->
+        <?php } ?>
+    </table>
+    <!-- table end -->
 <?php } ?>
 
 <!-- view model -->
@@ -111,5 +96,10 @@ if (mysqli_num_rows($result) > 0) {
 <!-- end view model -->
 
 <!-- pagination -->
-<?php get_pagination('books',  $conn, $limit, $page, 'http://localhost/school_management_system/admin/dashboard.php?content=item10&&page='); ?>
+<?php
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offsets = ($page - 1) * $limit;
+get_pagination('books', $conn, $limit, $page, APP_PATH . '/admin/dashboard.php?content=item10&&page=');
+?>
 

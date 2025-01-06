@@ -2,13 +2,14 @@
 /**
  * This page contains about-us page
  *
- * @package school-management-system
+ * @package college-management-system
  */
 
 /**
  * Requiring header and menu file
  */
 include dirname(__DIR__, 1) . '/includes/menu.php';
+include dirname(__DIR__, 2) . '/config.php';
 
 ?>
 

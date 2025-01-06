@@ -5,10 +5,6 @@
 <?php 
 include "public/includes/menu.php"; 
 
-// Include the database configuration
-
-
-
 ?>
 
 

@@ -4,44 +4,79 @@ include dirname(__DIR__, 2). '/config.php';
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
-    $class = $_POST['class_name'];
-    $exam_time = $_POST['exam-time'];
+    $class = mysqli_real_escape_string($conn, trim($_POST['class_name']));
+    $yearOrSemester = mysqli_real_escape_string($conn, trim($_POST['year_or_semester']));
+    $running_sem_or_year = mysqli_real_escape_string($conn, trim( $_POST['running_sem_or_year']));
 
-    //fetch routin subject name
+    echo $yearOrSemester;
 
-    $array_data = array(
-        'date'    => array(
-            $_POST['date1'],
-            $_POST['date2'],
-            $_POST['date3'],
-            $_POST['date4'],
-            $_POST['date5'],
-        ),
-        'subject'    => array(
-            $_POST['sub1'],
-            $_POST['sub2'],
-            $_POST['sub3'],
-            $_POST['sub4'],
-            $_POST['sub5'],
-        ),
-    );
+    //validation
+    $errors = [];
+    if(empty( $class ) ) {
+        $errors[] = "Please enter a class.";
+    }
 
+    if( empty( $yearOrSemester ) ) {
+        $errors[] = "Please choose year or semester.";
+    }
 
+    if( empty( $running_sem_or_year ) ) {
+        $errors[] = "Please enter the semester or year.";
+    }
 
-    //including config file
+    // Check for image upload
+    $upload_dir = dirname(__DIR__, 2) . '/assets/images/exam_routine/';
+    $file_name = basename($_FILES['exam_images']['name']);
+    $target_file = $upload_dir . $file_name;
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+    // Check if image file is an actual image
+    $check = getimagesize($_FILES['exam_images']['tmp_name']);
+    if ($check === false) {
+        $errors[] = "File is not an image.";
+        $uploadOk = 0;
+    }
 
-    $data_json = json_encode( $array_data );
+    // Check file size (limit to 2MB)
+    if ($_FILES['exam_images']['size'] > 2000000) {
+        $errors[] = "Sorry, your file is too large[accepted: 2MB or Less].";
+        $uploadOk = 0;
+    }
 
-    $sql = "INSERT INTO exam_routine ( class, schedule, time ) VALUES( '{$class }', '$data_json', '{$exam_time}' )";
+    // Allow certain file formats
+    if (!in_array($imageFileType, ['jpg', 'png', 'jpeg'])) {
+        $errors[] = "Sorry, only JPG, JPEG, & PNG files are allowed.";
+        $uploadOk = 0;
+    }
 
-    $result = mysqli_query( $conn, $sql );
-
-    if( $result ) {
-        $msg = "Exam schedule added successfully!";
-        header( "Location: ".APP_PATH."admin/dashboard.php?content=item18&msg=" . urlencode($msg) );
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        $errors[] = "Your file was not uploaded.";
     } else {
-        echo 'Data was not inserted. Error: ' . mysqli_error($conn); // Display error from database
+        // Try to upload file
+        if (move_uploaded_file($_FILES['exam_images']['tmp_name'], $target_file)) {
+            // File upload successful, continue to insert student data
+        } else {
+            $errors[] = "Sorry, there was an error uploading your file.";
+        }
+    }
+
+    if( empty( $errors ) ) {
+        $sql = "INSERT INTO exam_routine(class, year_or_semester, running_sem_or_year, images)
+                VALUES('{$class}', '{$yearOrSemester}', '{$running_sem_or_year}', '{$file_name}')";
+        
+        $result = mysqli_query($conn, $sql);
+        if( $result ) {
+            $msg = "Exam schedule added successfully!";
+            header("Location: ".APP_PATH."admin/dashboard.php?content=item18&msg=" . urlencode($msg));
+        }
+    } else {
+        $msg = '';
+        foreach( $errors as $error ) {
+            $msg .= $error . "</br>";
+        }
+        header("Location: ".APP_PATH."admin/dashboard.php?content=item18&errors=" . urlencode($msg));
     }
 
 }

@@ -4,6 +4,7 @@ include_once 'templates/header.php';
 include_once '../FetchDataController.php';
 include_once '../constant.php';
 
+
 $error = ""; // Initialize an empty error message
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === "POST") {

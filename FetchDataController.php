@@ -1,17 +1,22 @@
 <?php
+/**
+ * This page is used to fetch all the website data dynamically
+ *
+ * @package college-management-system
+ */
 
 // Include the database configuration
 include 'config.php';
 
 /**
- * FetchDataController class to manage database operations
+ * FetchDataController class used to fetch data. 
  */
 class FetchDataController
 {
     private $conn;
 
     /**
-     * Constructor to initialize the database connection
+     * Constructor to initialize the database connection.
      *
      * @param mysqli $conn - Database connection object
      */
@@ -85,6 +90,24 @@ class FetchDataController
      */
     public function getService() {
         return $this->FetchDataController("SELECT * FROM services");
+    }
+
+    /**
+     * Fetch notice from database
+     * 
+     * @return array - Array of notice data
+     */
+    public function getNotice(){
+        return $this->FetchDataController('SELECT * FROM notice ORDER BY id DESC limit 3');
+    }
+
+    /**
+     * Fetch exam schedule from database
+     * 
+     * @return array - Array of exam schedule data
+     */
+    public function getExamSchedule(){
+        return $this->FetchDataController('SELECT * FROM exam_routine');
     }
 
     /**
@@ -212,3 +235,5 @@ $faqs = $FetchDataController->getFAQs();
 $gallerys = $FetchDataController->getGallery();
 $staffs = $FetchDataController->getStaff();
 $services = $FetchDataController->getService();
+$notices = $FetchDataController->getNotice();
+$exam_schedules = $FetchDataController->getExamSchedule();
