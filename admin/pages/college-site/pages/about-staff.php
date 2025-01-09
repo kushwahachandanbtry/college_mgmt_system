@@ -21,7 +21,7 @@
         <textarea class="form-control" placeholder="Leave About Staff here" id="about-staff" name="about_staff" required></textarea>
     </div>
     
-    <label for="staff-image">Staff Image/icon: </label>
+    <label for="staff-image">Staff Image: </label>
     <div class="input-group mb-3">
         <input type="file" class="form-control" id="staff-image" name="staff_image" accept="image/*" required>
     </div>

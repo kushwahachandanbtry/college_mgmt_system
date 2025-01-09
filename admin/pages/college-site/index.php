@@ -27,11 +27,11 @@ if (isset($_GET['msg'])) {
         window.location.href = baseUrl + "/admin/dashboard.php?content=college-website&&page=" + page;
     }, 2000); // 2000 milliseconds = 2 seconds
 </script>
-
-
-
     <?php
 }
+
+
+
 
 
 if (isset($_GET['err_msg'])) {
@@ -65,21 +65,21 @@ if (isset($_GET['err_msg'])) {
                     </div>
                     <div class="text-center">
                         <i class="fa-brands fa-discourse"></i>
-                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=cources">cources</a>
+                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=cources">CourSes</a>
                         </li>
                     </div>
                     <div class="text-center">
                         <i class="fa-solid fa-address-book"></i>
-                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=contact">contact</a>
+                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=contact">Contact</a>
                         </li>
                     </div>
                     <div class="text-center">
                         <i class="fa-solid fa-users"></i>
-                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=staff">staff</a></li>
+                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=staff">Staff</a></li>
                     </div>
                     <div class="text-center">
                         <i class="fa-brands fa-envira"></i>
-                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=gallery">gallery</a>
+                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=gallery">Gallery</a>
                         </li>
                     </div>
                 </ul>
@@ -91,30 +91,98 @@ if (isset($_GET['err_msg'])) {
     // In your main file where you get $_GET['page']:
     if(isset( $_GET['page'] ) ) {
         $data = $_GET['page'];
-    $init = new Init($data);
-    ?>
-    <div class="d-flex py-2">
-        <div class="webpage-side-menu">
-            <ul id="menu">
-                <?php
-                $menu_items = $init->load_menu();
-                if (is_array($menu_items) && !empty($menu_items)) {
-                    foreach ($menu_items as $menu_item) {
-                        ?>
-                        <li class="py-2"><a
-                                href="<?php $base_url ?>pages/college-site/pages/<?php echo $menu_item . '.php'; ?>"><?php echo $menu_item; ?></a>
-                        </li>
-                        <?php
+        $init = new Init($data);
+        ?>
+        <div class="d-flex py-2">
+            <div class="webpage-side-menu">
+                <ul id="menu">
+                    <?php
+                    
+                    $menu_items = $init->load_menu();
+                    if (is_array($menu_items) && !empty($menu_items)) {
+                        foreach ($menu_items as $menu_item) {
+                            ?>
+                            <li class="py-2"><a
+                                    href="<?php $base_url ?>pages/college-site/pages/<?php echo $menu_item . '.php'; ?>"><?php echo $menu_item; ?></a>
+                            </li>
+                            <?php
+                        }
                     }
+                    ?>
+                </ul>
+            </div>
+            <div class="webpage-index-content bg-light" id="content-container">
+                <?php 
+                if( isset( $_GET['content_web_edit'] ) ) {
+                    $content = $_GET['content_web_edit'];
+                    if( $_GET['page'] == 'home' ) {
+                        switch( $content ) {
+                            case 'edit_faq':
+                                include  'pages/edit_faq.php';
+                                break;
+
+                            case 'edit_features':
+                                include 'pages/edit_features.php';
+                                break;
+
+                            case 'edit_testimonials':
+                                include 'pages/edit_testimonials.php';
+                                break;
+
+                            case 'edit_services':
+                                include 'pages/edit_services.php';
+                                break;
+                        }
+                    }
+                    if( $_GET['page'] == 'about' ) {
+                        switch( $content ) {
+                            case 'edit_videos':
+                                include 'pages/edit_videos.php';
+                                break;
+                        }
+                    }
+
+                    if( $_GET['page'] == 'cources') {
+                        switch($content) {
+                            case 'edit_courses':
+                                include 'pages/edit_courses.php';
+                                break;
+                        }
+                    }
+
+                    if( $_GET['page'] == 'contact') {
+                        switch($content) {
+                            case 'edit_contact':
+                                include 'pages/edit_contact.php';
+                                break;
+                        }
+                    }
+
+                    if( $_GET['page'] == 'staff') {
+                        switch($content) {
+                            case 'edit_staff':
+                                include 'pages/edit_staff.php';
+                                break;
+                        }
+                    }
+
+                    if( $_GET['page'] == 'gallery') {
+                        switch($content) {
+                            case 'edit_gallery':
+                                include 'pages/edit_gallery.php';
+                                break;
+                        }
+                    }
+
+                    
                 }
                 ?>
-            </ul>
-        </div>
-        <div class="webpage-index-content bg-light" id="content-container"></div>
-        <script>
+            </div>
+            <div class="" id="edit-content-container"></div>
+            <script>
 
-        </script>
-    </div>
+            </script>
+        </div>
     <?php
     }
     ?>

@@ -4,6 +4,7 @@
 
 
 <?php
+include './FetchAdminDataController.php';
 include "../helpers.php";
 
 ?>

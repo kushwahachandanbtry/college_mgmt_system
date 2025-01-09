@@ -120,6 +120,15 @@ class FetchDataController
     }
 
     /**
+     * Fetch video and contents from database
+     * 
+     * @return array - Array of video and contents data
+     */
+    public function getVideoandContents(){
+        return $this->FetchDataController('SELECT * FROM video_and_content');
+    }
+
+    /**
      * Fetch the college logo
      *
      * @return string|null - The logo image or null if not found
@@ -247,3 +256,4 @@ $services = $FetchDataController->getService();
 $notices = $FetchDataController->getNotice();
 $exam_schedules = $FetchDataController->getExamSchedule();
 $class_routines = $FetchDataController->getClassRoutine();
+$videos_and_contents = $FetchDataController->getVideoandContents();

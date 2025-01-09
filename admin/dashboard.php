@@ -3,7 +3,7 @@ session_start();
 include_once '../FetchDataController.php';
 include_once '../constant.php';
 include dirname(__DIR__, 1) . '/config.php';
-include 'FetchAdminDataController.php';
+
 
 
 if (!isset($_SESSION['admin']) && !isset($_SESSION['name'])) {

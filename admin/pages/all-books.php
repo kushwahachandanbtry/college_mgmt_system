@@ -5,7 +5,7 @@
 
 <?php
 
-
+include './FetchAdminDataController.php';
 include "../helpers.php";
 delete_data_message();
 ?>

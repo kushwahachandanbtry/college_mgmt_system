@@ -23,12 +23,11 @@ require 'services.php';
 ?>
 <?php 
 
-$video_sql = "SELECT * FROM video_and_content";
-$video_result = mysqli_query( $conn, $video_sql );
-if( mysqli_num_rows( $video_result ) > 0 ) {
-    while( $row = mysqli_fetch_assoc( $video_result ) ) {
-        // Assuming $row['video_file'] contains the YouTube URL
-        $video_url = $row['video_file'];
+if( !empty( $videos_and_contents ) && is_array( $videos_and_contents ) ) {
+    foreach( $videos_and_contents as $video_and_content) {
+
+        // Assuming $video_and_content['video_file'] contains the YouTube URL
+        $video_url = $video_and_content['video_file'];
         
         // Extract the video ID from the URL
         parse_str(parse_url($video_url, PHP_URL_QUERY), $query_params);
@@ -53,8 +52,8 @@ if( mysqli_num_rows( $video_result ) > 0 ) {
 
             </div>
             <div class="col-lg-6">
-                <h4 style="margin-left: 20px;"><?php echo htmlspecialchars( $row['video_heading'] ); ?></h4>
-                <p style="color: #000;"><?php echo htmlspecialchars( $row['video_description'] ); ?></p>
+                <h4 style="margin-left: 20px;"><?php echo htmlspecialchars( $video_and_content['video_heading'] ); ?></h4>
+                <p style="color: #000;"><?php echo htmlspecialchars( $video_and_content['video_description'] ); ?></p>
             </div>
         </div>
     </div>
