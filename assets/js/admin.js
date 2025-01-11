@@ -338,6 +338,10 @@ function deleteRecord(id, category) {
         case "examRoutine":
             deleteUrl = "actions/delete_exam_routine.php";
             break;
+        
+        case "delete_service":
+            deleteUrl = "actions/delete_service.php";
+            break;
 
         default:
             console.error("Invalid category specified for deletion.");

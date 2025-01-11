@@ -101,6 +101,43 @@ function edit_success_message()
     <?php
 }
 
+function data_add_success_message()
+{
+    ?>
+    <div class="container text-center mx-auto" style="width: 400px;">
+        <div id="alertBox" class="alert alert-success text-center" role="alert">
+            <h5 class="fst-italic">Added successfully!</h5>
+        </div>
+    </div>
+    <script>
+        setTimeout(function () {
+            var alertBox = document.getElementById('alertBox');
+            if (alertBox) {
+                alertBox.style.display = 'none';
+            }
+        }, 2000);
+    </script>
+    <?php
+}
+
+function data_add_failed_message()
+{
+    ?>
+    <div class="container text-center mx-auto" style="width: 400px;">
+        <div id="alertBox" class="alert alert-danger text-center" role="alert">
+            <h5 class="fst-italic">Added failed!</h5>
+        </div>
+    </div>
+    <script>
+        setTimeout(function () {
+            var alertBox = document.getElementById('alertBox');
+            if (alertBox) {
+                alertBox.style.display = 'none';
+            }
+        }, 2000);
+    </script>
+    <?php
+}
 /**
  * Show edit failed alert result
  * 

@@ -6,9 +6,9 @@
 <?php
 
 // include "../helpers.php";
-include dirname(__DIR__, 4). '/FetchDataController.php';
-include dirname(__DIR__, 4). '/helpers.php';
-include dirname(__DIR__, 4). '/constant.php';
+include dirname(__DIR__, 4) . '/FetchDataController.php';
+include dirname(__DIR__, 4) . '/helpers.php';
+include dirname(__DIR__, 4) . '/constant.php';
 delete_data_message();
 ?>
 <!-- view data in table -->
@@ -21,29 +21,27 @@ delete_data_message();
         <th>Actions</th>
     </tr>
     <?php
-    if (!empty($services ) && is_array($services )) {
+    if (!empty($services) && is_array($services)) {
         $i = 1;
-        foreach ($services  as $service ) {
+        foreach ($services as $service) {
             ?>
-            <tr class="fs-1">
-                <td><?php echo $i++;; ?></td>
+            <tr id="row-<?php echo $service['id']; ?>">
+                <td><?php echo $i++; ?></td>
                 <td><?php echo $service['service_title']; ?></td>
                 <td class="col-12 text-wrap"><?php echo $service['service_description']; ?></td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a href="?content=college-website&&page=home&&content_web_edit=edit_services&&edit_id=<?php echo urlencode($service['id']); ?>" 
-                        class="text-primary edit-button" >
+                        <a href="?content=college-website&&page=home&&content_web_edit=edit_services&&edit_id=<?php echo urlencode($service['id']); ?>"
+                            class="text-primary edit-button">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <a href="#" class="text-danger"><i class="fa-solid fa-delete-left"></i></a>
+                        
+                        <p class="text-danger" onclick="confirmDelete(<?php echo $service['id']; ?>, 'delete_service')"><i class="fa-solid fa-delete-left"></i></p>
                     </div>
                 </td>
-
             </tr>
-        <?php }  ?>
-        <!-- table end -->
         <?php } ?>
-    </table>
-
+    <?php } ?>
+</table>
 
 

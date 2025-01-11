@@ -14,7 +14,7 @@ if (isset($_GET['edit_id'])) {
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         $current_image = $row['image_path'];
-        $upload_dir = dirname(__DIR__, 5) . '/assets/images/gallery/';
+        $upload_dir = dirname(__DIR__, 4) . '/assets/images/gallery/';
 
         // Handle file upload
         if (isset($_FILES['gallery_image']) && $_FILES['gallery_image']['error'] === UPLOAD_ERR_OK) {
@@ -37,7 +37,7 @@ if (isset($_GET['edit_id'])) {
                 $sql = "UPDATE gallery SET image_name = '$image_name', image_path = '$file_name' WHERE id = $id";
 
                 // Execute the query
-                if (mysqli_query($conn, $sql)) {
+                if (mysqli_query($conn, $sql)) { 
                     edit_success_message();
                 } else {
                     edit_failed_message();

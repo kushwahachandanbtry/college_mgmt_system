@@ -460,10 +460,10 @@ include('templates/header.php'); ?>
         datasets: [{
             label: 'Count',
             data: [
-                <?php echo $userCount; ?>,
-                <?php echo $studentCount; ?>,
-                <?php echo $teacherCount; ?>,
-                <?php echo $bookCount; ?>
+                <?php echo !empty($userCount) ? $userCount : ''; ?>,
+                <?php echo !empty($studentCount) ? $studentCount : ''; ?>,
+                <?php echo !empty($teacherCount) ? $teacherCount : ''; ?>,
+                <?php echo !empty($bookCount) ? $bookCount : ''; ?>
             ],
             backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e'],
             borderColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e'],

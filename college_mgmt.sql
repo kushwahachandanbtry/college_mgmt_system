@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 08:56 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Generation Time: Jan 11, 2025 at 04:03 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,10 +88,8 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`id`, `classes`) VALUES
-(12, 'bhm'),
 (13, 'bbs'),
-(14, 'bba'),
-(15, 'bca');
+(14, 'bba');
 
 -- --------------------------------------------------------
 
@@ -161,7 +159,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `course_title`, `duration`, `intake`, `course_description`, `course_image`, `categories`, `course_objectives`, `syllabus_image`) VALUES
-(1, 'Master in Business Administration (MBA)', 2, 'March, July , November', 'This program of studies consists of two (2) compulsory basic modules with credit 6 hours, six (6) compulsory modules with credit hours 18, eight (8) core - elective modules with credit hours 24, and two (2) research reports or thesis. These concentrate on essential understanding, methods, & advantageous performance of the contemporary organization. In addition to core practices studied, the course adopts a cross-functional approach by integrating wider managerial perspectives.', 'mba.jpg', 'Graduate', 'To demonstrate the ability to apply quantitative and qualitative reasoning and problem- solving models & justifications to business situations.\r\nTo demonstrate the ability to use technology in research to add value to presentations including professional reports.\r\nTo demonstrate the ability to apply core business principles in business decision-making and business analysis.\r\nTo produce management professionals, business experts, and dynamic entrepreneurs who can lead present organizations and have the vision to establish and run their ventures in long run.', 'mba_syllabus.png'),
+(1, 'Master in Business Administration (MBA) ', 2, 'March, July , November', 'This program of studies consists of two (2) compulsory basic modules with credit 6 hours, six (6) compulsory modules with credit hours 18, eight (8) core - elective modules with credit hours 24, and two (2) research reports or thesis. These concentrate on essential understanding, methods, & advantageous performance of the contemporary organization. In addition to core practices studied, the course adopts a cross-functional approach by integrating wider managerial perspectives.', 'mba.jpg', 'Graduate', 'To demonstrate the ability to apply quantitative and qualitative reasoning and problem- solving models & justifications to business situations.\r\nTo demonstrate the ability to use technology in research to add value to presentations including professional reports.\r\nTo demonstrate the ability to apply core business principles in business decision-making and business analysis.\r\nTo produce management professionals, business experts, and dynamic entrepreneurs who can lead present organizations and have the vision to establish and run their ventures in long run.', 'mba_syllabus.png'),
 (2, 'BA(Hotel & MICE Management)~ BHM', 4, 'March, July , November', 'Service-minded students want to learn creatively with hotel and MICE management courses and real practice around the world in the stateof-the-art Hotel Information System Lab and develop essential skills for real hoteliers. Unlimited fun with ample opportunities to enhance your ability to think, analyze and solve problems during industry oriented class with virtual work environment. Trainings and classes are conducted by the industry experts and well renowned academicians from the relevant fields. To extend knowledge and put the experience into practice!', 'bhm.jpg', 'Undergraduate', 'To acquire knowledge in business and economics that creates and develops well-rounded managers and executives to enable them to compete at the global hospitality and MICE industry level,\r\nTo produce graduates with the capability to integrate and apply the latest technology in hospitality management.\r\nTo contribute to the country’s development by producing graduates that fulfill the requirements of both private and public sectors in the MICE, tourism, and hospitality industry.', 'bhm syllabus (1).jpg'),
 (3, 'BA(Airlines Business Management) BA-ABM', 4, 'March, July , November', 'Landing at SPU Airline, an airline where students learn from real laborato- ries! Ready to pave the way to the air hostess and air-ground for students! Build young people to have qualifications that match the aviation labor market. After all, there is a job to do! with state-of-the-art courses in the laboratory that simulates from the airport to the plane to practice Pass on knowledge from people who have direct experience in the aviation business to be proficient in both theory and practice Ready to fly with dignity. Awesome course not just focusing on knowledge in textbooks but here we focus on real practice in standard laboratories. Both ground service and in-flight service to Aviation Business Management Tighten your strengths in English and a third language.', 'ba-abm.jpg', 'Undergraduate', 'To develop an understanding of the airline industry,\r\nTo acquire knowledge of airline business management,\r\nTo understand airline marketing & customer service,\r\nTo study airline operations and logistics,\r\nTo develop skills in airline business analysis and decision-making,\r\nTo gain knowledge of aviation regulations and policy,\r\nTo foster an understanding of global aviation trends and challenges,', 'ba-abm syllabus (1).jpg'),
 (4, 'BA( MICE [Event] Management)~ BA-MM', 4, 'March, July , November', 'The BA in MICE (Event) Management program at Sripatum University and YETI International College offers a comprehensive curriculum designed to equip students with the knowledge and skills required to succeed in the dynamic events industry. The program covers event planning, design, marketing, budgeting, risk management, and execution. Students gain hands-on experience through practical projects, internships, and industry interactions. The curriculum also emphasizes leadership, communication, and problem-solving skills, preparing graduates for a wide range of career opportunities in event management, hospitality, tourism, and related fields.', 'ba-mm.jpg', 'Undergraduate', 'Embark on an exciting journey into the dynamic world of events and conferences with a BA in MICE (Event) Management at Sripatum University, in partnership with YETI International College. Here\'s why this program is your gateway to a successful career in the thriving events industry:\r\n\r\n1. Experienced Faculty with Industry Expertise: Learn from seasoned professionals who have real-world experience in organizing and managing successful events, ensuring you receive practical and relevant education.\r\n\r\n2. Strong Industry Connections: Benefit from the university\'s network of event industry partners, providing opportunities for internships, job placements, and networking with potential employers.\r\n\r\n3. Focus on Practical Skills: Go beyond theory with hands-on learning experiences, simulations, and real-world projects that prepare you for the challenges and complexities of event management.\r\n\r\n4. Emphasis on Creativity and Innovation: Develop your creative thinking and problem-solving skills to design unique and memorable events that stand out in the competitive market.\r\n\r\n5. Holistic Development: Develop essential soft skills like communication, leadership, negotiation, and time management, which are crucial for success in the event industry.', 'ba-mm syllabus (1).jpg'),
@@ -176,17 +174,19 @@ INSERT INTO `courses` (`id`, `course_title`, `duration`, `intake`, `course_descr
 
 CREATE TABLE `exam_routine` (
   `id` int(11) NOT NULL,
-  `class` varchar(40) NOT NULL,
-  `schedule` varchar(1000) NOT NULL,
-  `time` varchar(20) NOT NULL
+  `class` varchar(100) NOT NULL,
+  `year_or_semester` varchar(10) NOT NULL,
+  `running_sem_or_year` varchar(10) NOT NULL,
+  `images` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `exam_routine`
 --
 
-INSERT INTO `exam_routine` (`id`, `class`, `schedule`, `time`) VALUES
-(2, '10', '{\"date\":[\"05/31\",\"06/02\",\"06/04\",\"06/06\",\"06/08\"],\"subject\":[\"science\",\"Math\",\"Nepali\",\"English\",\"Social\"]}', '10:00 - 01:00');
+INSERT INTO `exam_routine` (`id`, `class`, `year_or_semester`, `running_sem_or_year`, `images`) VALUES
+(2, 'BHM', 'year', '4', '5bd14f19d5184-wallpaper-preview.jpg'),
+(3, 'BCA', 'semester', '5', '05e2182f79b9001a76644ea7b72a26ec.jpg');
 
 -- --------------------------------------------------------
 
@@ -230,8 +230,8 @@ CREATE TABLE `features` (
 --
 
 INSERT INTO `features` (`id`, `features_title`, `features_heading`, `features_description`, `features_image`) VALUES
-(2, 'lab and Internet', 'Computer lab and Internet', 'The college runs professional business programs based on efficient learning modules. Most BA-HM (BHM), MBA, and BCA curricula require computer support. To meet this need, the college has ensured the availability of a sophisticated computer lab equipped with branded computers, all connected to the Internet through a dedicated 100/100 Mbps lease line serving the needs of 400 students at a time.', 'computer_lab.jpeg'),
-(3, 'Classrooms', 'Classrooms and surroundings', 'The classrooms of Yeti College have an in-built multi-media facility, audio-visual, and computer access. CCTV surveillance covers all the classrooms and most college areas ensuring a safe and secure learning environment.', 'information_rescource_center (1).jpeg');
+(2, 'lab and Internet', 'Computer lab and Internet', 'The college runs professional business programs based on efficient learning modules. Most BA-HM (BHM), MBA, and BCA curricula require computer support. To meet this need, the college has ensured the availability of a sophisticated computer lab equipped with branded computers, all connected to the Internet through a dedicated 100/100 Mbps lease line serving the needs of 400 students at a time.', '05e2182f79b9001a76644ea7b72a26ec.jpg'),
+(3, 'Classrooms updated', 'Classrooms and surroundings', 'The classrooms of Yeti College have an in-built multi-media facility, audio-visual, and computer access. CCTV surveillance covers all the classrooms and most college areas ensuring a safe and secure learning environment.', '5bd14f19d5184-wallpaper-preview.jpg');
 
 -- --------------------------------------------------------
 
@@ -378,7 +378,9 @@ INSERT INTO `message` (`id`, `msgid`, `sender`, `receiver`, `message`, `files`, 
 (11, 'OZatEdniypgQ4QKFULnbRaNUAePUNJU', 894, 4, 'sdfsdf', NULL, '2024-11-29 08:13:19', 0, 0, 0, 0),
 (12, 'iJNF9kn866dbGQDnHvnmsxKN', 221116416, 335548718849331, 'hello chandan', NULL, '2024-12-12 05:39:15', 1, 1, 0, 0),
 (13, 'iJNF9kn866dbGQDnHvnmsxKN', 335548718849331, 221116416, 'hii ramesh', NULL, '2024-12-12 05:39:31', 1, 1, 0, 0),
-(14, 'iJNF9kn866dbGQDnHvnmsxKN', 221116416, 335548718849331, 'hello', NULL, '2024-12-12 09:52:30', 1, 1, 1, 0);
+(14, 'iJNF9kn866dbGQDnHvnmsxKN', 221116416, 335548718849331, 'hello', NULL, '2024-12-12 09:52:30', 1, 1, 1, 0),
+(15, 'urgDktmOHPnFnxZZuOLZ', 0, 335548718849331, 'heelo', NULL, '2025-01-05 04:54:13', 0, 0, 0, 0),
+(16, 'trd36znprvUU4smFoFZS65wYK6nFqUewmos1ydzarTifVpnFOvqxQ', 63269363, 32859348, 'hryugjyh', NULL, '2025-01-08 03:48:37', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -477,10 +479,7 @@ CREATE TABLE `registered_users` (
 --
 
 INSERT INTO `registered_users` (`id`, `fname`, `mname`, `lname`, `phone`, `fathername`, `email`, `password`, `course`, `gender`, `address`) VALUES
-(1, 'chandan', '', 'kushwahah', 2147483647, '', 'admin@gmail.com', '$2y$10$BudXLZolopw4U', 'BCA', 'male', 'Buddhanagar'),
-(2, 'chandan', '', 'kushwahah', 2147483647, '', 'chandan@gmail.com', '$2y$10$ErYYkS.O8QkXu', 'BCA', 'male', 'Imadol'),
-(3, 'siya', '', 'khadka', 2147483647, '', 'siya@gmail.com', '$2y$10$jkRkYTrVA3ijM', 'BCA', 'female', 'Buddhanagar'),
-(4, 'chandan', '', 'kushwahah', 2147483647, '', 'siya@gmail.com', '$2y$10$T729eapLcnwBB', 'BCA', 'male', 'Imadol');
+(1, 'chandan', '', 'kushwahah', 2147483647, '', 'chandan@gmail.com', 'chandan@123', 'BCA', 'male', 'Imadol');
 
 -- --------------------------------------------------------
 
@@ -499,7 +498,8 @@ CREATE TABLE `routines` (
 --
 
 INSERT INTO `routines` (`id`, `class`, `routine`) VALUES
-(11, '11', '{\"sunday\":{\"1st\":\"sf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"ewf\",\"5th\":\"sef\"},\"monday\":{\"1st\":\"rewf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sfd\",\"5th\":\"sef\"},\"tuesday\":{\"1st\":\"sdfv\",\"2nd\":\"xcv\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sfd\",\"5th\":\"sef\"},\"wednesday\":{\"1st\":\"sdf\",\"2nd\":\"sdf\",\"3rd\":\"er\",\"break\":\"2-3\",\"4th\":\"sdf\",\"5th\":\"sfewef\"},\"thrusdady\":{\"1st\":\"sdf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sef\",\"5th\":\"sdf\"},\"friday\":{\"1st\":\"sdfr\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sf\",\"5th\":\"sfd\"}}');
+(11, '11', '{\"sunday\":{\"1st\":\"sf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"ewf\",\"5th\":\"sef\"},\"monday\":{\"1st\":\"rewf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sfd\",\"5th\":\"sef\"},\"tuesday\":{\"1st\":\"sdfv\",\"2nd\":\"xcv\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sfd\",\"5th\":\"sef\"},\"wednesday\":{\"1st\":\"sdf\",\"2nd\":\"sdf\",\"3rd\":\"er\",\"break\":\"2-3\",\"4th\":\"sdf\",\"5th\":\"sfewef\"},\"thrusdady\":{\"1st\":\"sdf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sef\",\"5th\":\"sdf\"},\"friday\":{\"1st\":\"sdfr\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"2-3\",\"4th\":\"sf\",\"5th\":\"sfd\"}}'),
+(12, 'BCA', '{\"sunday\":{\"1st\":\"sf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"sdf\",\"4th\":\"ewf\",\"5th\":\"sef\"},\"monday\":{\"1st\":\"rewf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"sfd\",\"4th\":\"sfd\",\"5th\":\"sef\"},\"tuesday\":{\"1st\":\"sdfv\",\"2nd\":\"xcv\",\"3rd\":\"sdf\",\"break\":\"sdf\",\"4th\":\"sfd\",\"5th\":\"sef\"},\"wednesday\":{\"1st\":\"sdf\",\"2nd\":\"sdf\",\"3rd\":\"er\",\"break\":\"sdf\",\"4th\":\"sdf\",\"5th\":\"sfewef\"},\"thrusdady\":{\"1st\":\"sdf\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"sdf\",\"4th\":\"sef\",\"5th\":\"sdf\"},\"friday\":{\"1st\":\"sdfr\",\"2nd\":\"sdf\",\"3rd\":\"sdf\",\"break\":\"sf\",\"4th\":\"sf\",\"5th\":\"sfd\"}}');
 
 -- --------------------------------------------------------
 
@@ -561,12 +561,9 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `staff_name`, `staff_phone`, `staff_email`, `about_staff`, `staff_image`) VALUES
-(1, 'Ram Dinesh Misra', '9851037482', 'rdmisra@gmail.com', 'I am a management graduate in Accounting and Ph. D. Scholar in Management. Prior to join in YETI , I was served as Principal, Vice principal cum sr. faculty member of Accountancy in undergraduate and graduate level of different management colleges in Kathmandu, Nepal more than 25 years.', 'rd_misra.jpg'),
-(2, 'Dr. Sanjay Jha', '9851005847', 'sanjay@gmail.com', 'Dear Students\r\n\r\nIt is my immense pleasure to welcome you as the best of the best students to Yeti college, which is affiliated to the Sripatum University of Thailand; approved and recognized by the Ministry of Education, Science and Technology (MOEST), Nepal, where the knowledge and skills are simultaneously imparted to make the students capable of standing on their own feet in this competitive world of professionals. The educational environment in YETI is unique in comparison to other colleges in Nepal in terms of its teaching-learning which has made it possible to produce many achievers. Earning while learning has been its strongest educational process that helps its students to become financially self- dependent towards their profession at the end of courses. We provide you with the opportunity to be an integral part of the international student community by providing globally accepted education. We have partnered with universities abroad to help you gain seamless entry into their programs.\r\n\r\nOur dedicated, passionate, professionally educated and trained faculty members leave no stone unturned to educate and train our students to the best of their knowledge to achieve their educational and professional objectives. I, on behalf of YETI, warmly welcome the parents to visit our college and meet our trained counselors for facilitating you to make the appropriate decision for the bright future of your children\r\n\r\nWishing you all the best for a bright and successful career ahead.\r\n\r\nS.K. Jha, Ph.D. Scholar in Mgmt., M.Phil.,\r\n\r\nMBA, M.Sc. (Math) Founder,\r\n\r\nCEO', 'jha_sir.jpg'),
-(3, 'Ram Dinesh Misra', '657453', 'chandan@gmail.com', 'sdfsds', 'IMG20241101170dfd956.jpg'),
-(4, 'Ram Dinesh Misra', '45646435', 'mainaliak@gmail.com', 'sdfdsfs', 'IMG20241101170dfd956.jpg'),
-(5, 'Ram Dinesh Misra', '56745', 'chandan@gmail.com', 'dfgdf', 'IMG20241101170dfd956.jpg'),
-(6, 'Ram Dinesh Misra', '654353453', 'chandan@gmail.com', 'sdfs', 'IMG20241101170dfd956.jpg');
+(1, 'Ram Dinesh Misra', '45435345', 'chandan@gmail.com', 'fdgf', 'IMG20241101170dfd956.jpg'),
+(2, 'sdfsd', '4564356', 'chandan@gmail.com', 'fghdh', 'IMG20241101170956.jpg'),
+(3, 'dfgdfgd', '43532', 'chandan@gmail.com', 'dfssd', '430169078_1473210063634241_6871166501460939405_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -615,7 +612,6 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `fname`, `lname`, `gender`, `dob`, `blood`, `religion`, `email`, `admissionid`, `section`, `shortbio`, `phone`, `class`, `semester`, `image`) VALUES
-(4, 'chandan1', 'kushwahah', 'male', '2024-10-08', 'A+', 'Islam', 'chandan@gmail.com', '1', 'A', 'dfgdf', '9823196848', 'BBA', '3rd', 'IMG-20241013-WA0007.jpg'),
 (5, 'Ananta', 'Mainali', 'male', '2024-10-30', 'A-', 'Islam', 'mainaliak@gmail.com', '12', 'A', 'sdfsdf', '9851079023', 'BBA', '2nd', 'chandan.jpg'),
 (6, 'chandan', 'kushwahah', 'male', '2024-11-12', 'A-', 'Hindu', 'chandan@gmail.com', '1', 'A', 'gfdgfdg', '9823196848', 'BCA', '1st', '70.jpg');
 
@@ -669,8 +665,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `userid`, `username`, `email`, `gender`, `password`, `image`, `date`, `online`, `role`) VALUES
-(3, 335548718849331, 'chandan kushwahah', 'chandan@gmail.com', 'Male', 'password', 'uploads/IMG20241101170dfd956.jpg', '0000-00-00 00:00:00', 0, 'student'),
-(4, 221116416, 'Ramesh Jaiswal', 'rame@gmail.com', '', 'rame@1234', 'uploads/462239533_2526420907746946_7764136427036266634_n.jpg', '0000-00-00 00:00:00', 0, 'student');
+(1, 32859348, 'chandanone', 'test@gmail.com', '', 'test@123', 'uploads/IMG_20241224_132521.jpg', '0000-00-00 00:00:00', 0, 'student'),
+(2, 63269363, 'dhiraj', 'dhiraj@gmail.com', '', 'dhiraj@123', 'uploads/320673188_693809542181058_364238290040878925_n.jpg', '0000-00-00 00:00:00', 0, 'student');
 
 -- --------------------------------------------------------
 
@@ -690,7 +686,7 @@ CREATE TABLE `video_and_content` (
 --
 
 INSERT INTO `video_and_content` (`id`, `video_heading`, `video_description`, `video_file`) VALUES
-(1, '𝟭𝟮𝘁𝗵 𝗔𝗻𝗻𝘂𝗮𝗹 𝗗𝗮𝘆, 𝗙𝗮𝗿𝗲𝘄𝗲𝗹𝗹 𝗮𝗻𝗱 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝗣𝗿𝗼𝗴𝗿𝗮𝗺 𝟮𝟬𝟴𝟬 || Yeti International College', '𝟭𝟮𝘁𝗵 𝗔𝗻𝗻𝘂𝗮𝗹 𝗗𝗮𝘆, 𝗙𝗮𝗿𝗲𝘄𝗲𝗹𝗹 𝗮𝗻𝗱 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝗣𝗿𝗼𝗴𝗿𝗮𝗺 𝟮𝟬𝟴𝟬!!!👨‍🎓👩‍🎓\r\n𝐅𝐫𝐨𝐦 𝐅𝐫𝐞𝐬𝐡𝐦𝐞𝐧 𝐭𝐨 𝐀𝐥𝐮𝐦𝐧𝐢. 𝐀 𝐒𝐩𝐞𝐜𝐭𝐚𝐜𝐮𝐥𝐚𝐫 𝐅𝐚𝐫𝐞𝐰𝐞𝐥𝐥 𝐏𝐫𝐨𝐠𝐫𝐚𝐦 𝐌𝐚𝐫𝐤𝐢𝐧𝐠 𝐭𝐡𝐞 𝐄𝐧𝐝 𝐨𝐟 𝐚𝐧 𝐔𝐧𝐟𝐨𝐫𝐠𝐞𝐭𝐭𝐚𝐛𝐥𝐞 𝐂𝐡𝐚𝐩𝐭𝐞𝐫🧑‍🎓🎓\r\nAlso we would like to welcome new learners with endorsement and provide best wishes for the graduates. 🌸🌸\r\n𝗔𝗱𝗺𝗶𝘀𝘀𝗶𝗼𝗻 𝗢𝗽𝗲𝗻 !!!✨✨✨✨\r\nHurry up and get yourself enrolled in 𝗬𝗲𝘁𝗶. ', 'https://www.youtube.com/watch?v=KKVNhm7afvo');
+(1, '𝟭𝟮𝘁𝗵 𝗔𝗻𝗻𝘂𝗮𝗹 𝗗𝗮𝘆, 𝗙𝗮𝗿𝗲𝘄𝗲𝗹𝗹 𝗮𝗻𝗱 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝗣𝗿𝗼𝗴𝗿𝗮𝗺 𝟮𝟬𝟴𝟬 || Yeti International College ', '𝟭𝟮𝘁𝗵 𝗔𝗻𝗻𝘂𝗮𝗹 𝗗𝗮𝘆, 𝗙𝗮𝗿𝗲𝘄𝗲𝗹𝗹 𝗮𝗻𝗱 𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝗣𝗿𝗼𝗴𝗿𝗮𝗺 𝟮𝟬𝟴𝟬!!!👨‍🎓👩‍🎓\r\n𝐅𝐫𝐨𝐦 𝐅𝐫𝐞𝐬𝐡𝐦𝐞𝐧 𝐭𝐨 𝐀𝐥𝐮𝐦𝐧𝐢. 𝐀 𝐒𝐩𝐞𝐜𝐭𝐚𝐜𝐮𝐥𝐚𝐫 𝐅𝐚𝐫𝐞𝐰𝐞𝐥𝐥 𝐏𝐫𝐨𝐠𝐫𝐚𝐦 𝐌𝐚𝐫𝐤𝐢𝐧𝐠 𝐭𝐡𝐞 𝐄𝐧𝐝 𝐨𝐟 𝐚𝐧 𝐔𝐧𝐟𝐨𝐫𝐠𝐞𝐭𝐭𝐚𝐛𝐥𝐞 𝐂𝐡𝐚𝐩𝐭𝐞𝐫🧑‍🎓🎓\r\nAlso we would like to welcome new learners with endorsement and provide best wishes for the graduates. 🌸🌸\r\n𝗔𝗱𝗺𝗶𝘀𝘀𝗶𝗼𝗻 𝗢𝗽𝗲𝗻 !!!✨✨✨✨\r\nHurry up and get yourself enrolled in 𝗬𝗲𝘁𝗶. ', 'https://www.youtube.com/watch?v=KKVNhm7afvo');
 
 -- --------------------------------------------------------
 
@@ -711,7 +707,7 @@ CREATE TABLE `what_people_say` (
 --
 
 INSERT INTO `what_people_say` (`id`, `overview`, `name`, `batch`, `image`) VALUES
-(1, 'For me, choosing Yeti turned out to be the best decision. Yeti International College offers an outstanding blend of practical and theoretical knowledge. The faculty is highly supportive, maintainable,&nbsp;and the resources provided are top-notch. It&#39;s truly a place where students can thrive and achieve their academic goals.', 'Chandan Kushwaha', '2020 BCA [Batch]', 'IMG20241101170dfd956.jpg'),
+(1, 'For me, choosing Yeti turned out to be the best decision. Yeti International College offers an outstanding blend of practical and theoretical knowledge. The faculty is highly supportive, maintainable, and the resources provided are top-notch. It\'s truly a place where students can thrive and achieve their academic goals.', 'Chandan Kushwaha', '2020 BCA [Batch]', 'IMG20241101170dfd956.jpg'),
 (2, 'Words convey our feelings and a &ldquo;THANK YOU&rdquo; conveys our gratitude and appreciation. So, I must thank YETI Int&rsquo;l College (Former ICHM Lalitpur College) for striding the dream in all of us and supporting a lot in fulfilling it. YETI Int&rsquo;l College supports developing a strong feeling of self-confidence among the students to win in this competitive world.', 'Dhiraj Shah ', '2020 BCA [Batch]', 'dhiraj.jpg'),
 (3, 'Yeti international college is the best college in kathmandu .This College has good infrastructure and monument and vast college environment and equipment are good in condition and libraries are plenty of books and sports centers with all sports equipment and classrooms with good classrooms and infrastructure.', 'Rupesh kushwaha', '2021 BCA [Batch]', '448461924_2232329540461838_259339875270183246_n.jpg'),
 (4, 'sdfsfs', 'sfdsdf', '2020 BCA [Batch]', 'samsung.jpg');
@@ -781,12 +777,6 @@ ALTER TABLE `gallery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `home-logo`
---
-ALTER TABLE `home-logo`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `home_logo`
 --
 ALTER TABLE `home_logo`
@@ -808,13 +798,7 @@ ALTER TABLE `map`
 -- Indexes for table `message`
 --
 ALTER TABLE `message`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `deleted_receiver` (`deleted_receiver`),
-  ADD KEY `deleted_sender` (`deleted_sender`),
-  ADD KEY `sender` (`sender`),
-  ADD KEY `receiver` (`receiver`),
-  ADD KEY `seen` (`seen`),
-  ADD KEY `msgid` (`msgid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `notice`
@@ -853,12 +837,6 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `slider`
---
-ALTER TABLE `slider`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -886,13 +864,7 @@ ALTER TABLE `teachers`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userid` (`userid`),
-  ADD KEY `username` (`username`),
-  ADD KEY `email` (`email`),
-  ADD KEY `online` (`online`),
-  ADD KEY `date` (`date`),
-  ADD KEY `gender` (`gender`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `video_and_content`
@@ -920,7 +892,7 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `classes`
@@ -950,7 +922,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `exam_routine`
 --
 ALTER TABLE `exam_routine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `faq`
@@ -971,16 +943,10 @@ ALTER TABLE `gallery`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `home-logo`
---
-ALTER TABLE `home-logo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `home_logo`
 --
 ALTER TABLE `home_logo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -998,7 +964,7 @@ ALTER TABLE `map`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `notice`
@@ -1010,49 +976,43 @@ ALTER TABLE `notice`
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `registered_users`
 --
 ALTER TABLE `registered_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `routines`
 --
 ALTER TABLE `routines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `slider`
---
-ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status_table`
 --
 ALTER TABLE `status_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -1070,7 +1030,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `video_and_content`

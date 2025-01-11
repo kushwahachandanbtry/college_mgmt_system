@@ -154,7 +154,7 @@ if (isset($_GET['edit_id'])) {
                         <div class="mr-3">
                             <img id="syllabusThumbnailImage" width="200px" height="200px"
                                 src="<?php echo APP_PATH . 'assets/images/courses/course_images/' . $row['course_image']; ?>"
-                                alt="<?php echo htmlspecialchars($row['syllabus_image']); ?>">
+                                alt="<?php echo htmlspecialchars($row['course_image']); ?>">
                             <br>
                             <button type="button" onclick="document.getElementById('imageInputthumb').click();"
                                 class="btn btn-secondary mt-2">Change Image</button>
