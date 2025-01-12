@@ -2,7 +2,7 @@
 
 <h3><i>FAQ</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/faq.php";?> method="POST" enctype="multipart/form-data">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/faq.php";?>" method="POST" enctype="multipart/form-data">
     
     <label for="card-title">FAQ Title: </label>
     <div class="input-group flex-nowrap">

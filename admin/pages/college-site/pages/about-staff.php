@@ -1,6 +1,6 @@
 <h3><i>Staff</i></h3>
 <?php include dirname(__DIR__, 4). '/constant.php'; ?>
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/staff.php";?> method="POST" enctype="multipart/form-data">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/staff.php";?>" method="POST" enctype="multipart/form-data">
     <label for="staff-name">Staff Name: </label>
     <div class="input-group flex-nowrap">
         <input type="text" class="form-control" id="staff-name" name="staff_name" placeholder="Enter staff name" required>

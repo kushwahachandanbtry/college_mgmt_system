@@ -129,6 +129,15 @@ class FetchDataController
     }
 
     /**
+     * Fetch meta setting's data from database
+     * 
+     * @return array - Array of meta setting's data data
+     */
+    public function getMetaSettingDatas(){
+        return $this->FetchDataController('SELECT * FROM meta_setting');
+    }
+
+    /**
      * Fetch the college logo
      *
      * @return string|null - The logo image or null if not found
@@ -257,3 +266,4 @@ $notices = $FetchDataController->getNotice();
 $exam_schedules = $FetchDataController->getExamSchedule();
 $class_routines = $FetchDataController->getClassRoutine();
 $videos_and_contents = $FetchDataController->getVideoandContents();
+$meta_setting_datas = $FetchDataController->getMetaSettingDatas();

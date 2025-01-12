@@ -2,7 +2,7 @@
 
 <h3><i>Courses</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/course.php";?>
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/course.php";?>"
     method="POST" enctype="multipart/form-data">
     <label for="card-title">Course Title: </label>
     <div class="input-group flex-nowrap">
@@ -18,7 +18,7 @@
     </div>
     <div class="form-floating py-3">
         <select id="country" name="categories" class="form-control col-12" required>
-            <option value="" disabled selected>Select Categories</option>
+            <option value="" disabled>Select Categories</option>
             <option value="Graduate" data-code="Graduate" data-flag="🇳🇵">Graduate</option>
             <option value="Undergraduate" data-code="Undergraduate" data-flag="🇺🇸">Undergraduate</option>
             <option value="Proffessional" data-code="Proffessional" data-flag="🇨🇦">Proffessional</option>

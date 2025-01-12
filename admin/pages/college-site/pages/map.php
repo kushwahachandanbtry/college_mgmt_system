@@ -2,7 +2,7 @@
 
 <h3><i>Map</i></h3>
 
-<form class="px-5" method="POST" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/map.php";?>>
+<form class="px-5" method="POST" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/map.php";?>">
     
     <label for="floatingifrme">Insert iframe tag for Map: </label>
     <div class="form-floating">

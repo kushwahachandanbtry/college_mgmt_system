@@ -2,7 +2,7 @@
 
 <h3><i>What People Say's</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/what_people_say.php";?> method="POST" enctype="multipart/form-data">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/what_people_say.php";?>" method="POST" enctype="multipart/form-data">
     <label for="floatingTextarea">Overview: </label>
     <div class="form-floating">
         <textarea class="form-control" placeholder="Leave Overview here" id="floatingTextarea" name="overview" required></textarea>

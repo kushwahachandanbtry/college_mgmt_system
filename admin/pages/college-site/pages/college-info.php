@@ -2,7 +2,7 @@
 
 <h3><i>College Info</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/college_info.php";?> method="POST">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/college_info.php";?>" method="POST">
     <label for="clz-name">College Name: </label>
     <div class="input-group flex-nowrap">
         <input type="text" class="form-control" id="clz-name" name="college_name" placeholder="Enter College Name" required>

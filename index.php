@@ -1,6 +1,6 @@
 <!-- =======================================================
   * Template Name: College management system
-  * Author: Chandan
+  * Author: Chandan Kushwaha
 ======================================================== -->
 <?php 
 include "public/includes/menu.php"; 

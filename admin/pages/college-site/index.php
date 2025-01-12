@@ -162,7 +162,13 @@ if (isset($_GET['err_msg'])) {
                             case 'edit_courses':
                                 include 'pages/edit_courses.php';
                                 break;
+
+                            case 'edit_meta_data':
+                                include 'pages/edit_meta_data.php';
+                                break;
                         }
+
+                        
                     }
 
                     if ($_GET['page'] == 'contact') {

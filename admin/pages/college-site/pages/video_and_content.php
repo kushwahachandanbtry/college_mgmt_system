@@ -2,7 +2,7 @@
 
 <h3><i>Video & Content</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/video_and_content.php";?> method="POST">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/video_and_content.php";?>" method="POST">
     <label for="inputGroupFile02">Insert Video Link: </label>
     <div class="input-group mb-3">
         <input type="text" class="form-control" id="inputGroupFile02" name="video_file" required>

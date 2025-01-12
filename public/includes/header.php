@@ -1,11 +1,65 @@
 <!doctype html>
 <html lang="en">
-<?php include dirname(__DIR__, 2). '/FetchDataController.php'; ?>
+<?php
+include dirname(__DIR__, 2) . '/FetchDataController.php';
+$og_image_path = 'http://localhost/college_mgmt_system/assets/images/Og_images';
+$page = basename($_SERVER['PHP_SELF']);
+$title = '';
+$description = '';
+$keywords = '';
+$canonical = '';
+$og_title = '';
+$og_description = '';
+$og_url = '';
+$og_image = '';
+if (!empty($meta_setting_datas) && is_array($meta_setting_datas)) {
+    foreach ($meta_setting_datas as $meta_setting_data) {
+        if( $meta_setting_data['meta_title'] == 'home') {
+            if ($page == 'index.php') {
+                $title = $meta_setting_data['meta_title'];
+                $description = $meta_setting_data['meta_description'];
+                $keywords = $meta_setting_data['meta_keywords'];
+                $canonical = $meta_setting_data['canonical_tag'];
+                $og_title = $meta_setting_data['og_title'];
+                $og_description = $meta_setting_data['og_description'];
+                $og_url = $meta_setting_data['og_url'];
+                $og_image = $meta_setting_data['og_image'];
+            }
+        }
+
+        if ($page == 'single_course.php') {
+            if( isset( $_GET['id']) ) {
+                if( $_GET['id'] == $meta_setting_data['pages']) {
+                    $title = $meta_setting_data['meta_title'];
+                    $description = $meta_setting_data['meta_description'];
+                    $keywords = $meta_setting_data['meta_keywords'];
+                    $canonical = $meta_setting_data['canonical_tag'];
+                    $og_title = $meta_setting_data['og_title'];
+                    $og_description = $meta_setting_data['og_description'];
+                    $og_url = $meta_setting_data['og_url'];
+                    $og_image = $meta_setting_data['og_image'];
+                }
+            }
+            
+        }
+    }
+}
+?>
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="<?php echo htmlspecialchars($title); ?>">
+    <meta name="description" content="<?php echo htmlspecialchars($description); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="<?php echo htmlspecialchars($canonical); ?>">
+
+    <meta property="og:title" content="<?php echo htmlspecialchars($og_title); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($og_description); ?>">
+    <meta property="og:image" content=<?php echo $og_image_path . '/' . $og_image ?>>
+    <meta property="og:url" content="<?php echo htmlspecialchars($og_url); ?>">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,13 +84,11 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="http://localhost/college_mgmt_system/assets/vendor/bootstrap/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link href="http://localhost/college_mgmt_system/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost/college_mgmt_system/assets/vendor/bootstrap-icons/bootstrap-icons.css"
         rel="stylesheet">
     <link href="http://localhost/college_mgmt_system/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="http://localhost/college_mgmt_system/assets/vendor/glightbox/css/glightbox.min.css"
-        rel="stylesheet">
+    <link href="http://localhost/college_mgmt_system/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="http://localhost/college_mgmt_system/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- main css -->
@@ -44,7 +96,7 @@
 
     <!-- =======================================================
   * Template Name: School management system
-  * Author: Chandan
+  * Author: Chandan Kushwaha
     ======================================================== -->
 </head>
 

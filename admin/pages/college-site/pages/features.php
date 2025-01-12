@@ -2,7 +2,7 @@
 
 <h3><i>Features</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/features.php";?> method="POST" enctype="multipart/form-data">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/features.php";?>" method="POST" enctype="multipart/form-data">
     
     <label for="card-title">Features Title: </label>
     <div class="input-group flex-nowrap">

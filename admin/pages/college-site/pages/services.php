@@ -2,7 +2,7 @@
 
 <h3><i>Services</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/services.php";?> method="POST" enctype="multipart/form-data">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/services.php";?>" method="POST" enctype="multipart/form-data">
     
     <label for="card-title">Service Title: </label>
     <div class="input-group flex-nowrap">

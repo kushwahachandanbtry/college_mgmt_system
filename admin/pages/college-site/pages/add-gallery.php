@@ -2,7 +2,7 @@
 
 <h3><i>Gallery</i></h3>
 
-<form class="px-5" action=<?php echo APP_PATH . "admin/pages/college-site/pages/actions/gallery.php";?> method="POST" enctype="multipart/form-data">
+<form class="px-5" action="<?php echo APP_PATH . "admin/pages/college-site/pages/actions/gallery.php";?>" method="POST" enctype="multipart/form-data">
     <label for="img-name">Image Name: </label>
     <div class="input-group flex-nowrap">
         <input type="text" class="form-control" id="img-name" name="image_name" placeholder="Enter Image Name" required>

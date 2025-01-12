@@ -40,6 +40,7 @@ class Init {
                 'menu1' => 'Add-cources',
                 'menu2' => 'All_Cources',
                 'menu3' => 'Meta_Setting',
+                'menu4' => 'All_Meta_Datas',
                 // 'menu2' => 'Videos',
                 // 'menu3' => 'Categories',
             );
@@ -65,16 +66,6 @@ class Init {
                 'menu2' => 'Gallery',
             );
             return $gallery;
-        }
-    }
-
-    public function load_edit_menu() {
-        if ($this->data == 'edit_faq') {
-            $edit_home = array(
-                'menu1' => 'edit_faq',
-                
-            );
-            return $edit_home;
         }
     }
 }
