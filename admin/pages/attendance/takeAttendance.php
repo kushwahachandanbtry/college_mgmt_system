@@ -32,14 +32,29 @@ if (mysqli_num_rows($result2) > 0) {
     }
 }
 
+//populate subjects 
+$subjects = [];
+if ($selected_class && $selected_semester) {
+    $sql3 = "SELECT DISTINCT s_name FROM subjects WHERE class = '$selected_class' AND semester = '$selected_semester'";
+    $result3 = mysqli_query($conn, $sql3);
+    if (mysqli_num_rows($result3) > 0) {
+        while ($row = mysqli_fetch_assoc($result3)) {
+            $subjects[] = $row;
+        }
+    }
+}
+
+
 if (isset($_POST['save'])) {
     // Sanitize input data
     $name = mysqli_real_escape_string($conn, $_POST['fname']) . " " . mysqli_real_escape_string($conn, $_POST['lname']);
     $admission_id = mysqli_real_escape_string($conn, $_POST['admission_id']);
     $class = mysqli_real_escape_string($conn, $_POST['classes']);
     $semester = mysqli_real_escape_string($conn, $_POST['semester']);
+    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
     $status = mysqli_real_escape_string($conn, isset($_POST['status']) ? "1" : "0");
     $date = date("Y-m-d");
+    $taken_by = $_SESSION['name'];
 
     // Create attendance data array
     $atten_data = array(
@@ -47,8 +62,10 @@ if (isset($_POST['save'])) {
         "admission_id" => $admission_id,
         "class" => $class,
         "semester" => $semester,
+        "subject" => $subject,
         "status" => $status,
-        "date" => $date
+        "date" => $date,
+        "taken_by" => $taken_by
     );
 
     // Convert the array to JSON
@@ -127,28 +144,48 @@ if (isset($_POST['save'])) {
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">All Student in Class
                         <select name="class" onchange="this.form.submit()">
-                            <option value="">Select Classes</option>
+                            <option value="" disabled>Select Classes</option>
                             <?php 
-                            foreach ($classes as $class) {
-                                $is_selected = ($selected_class == strtoupper($class['classes'])) ? 'selected' : '';
-                                echo "<option value='" . strtoupper($class['classes']) . "' $is_selected>" . strtoupper($class['classes']) . "</option>";
+                            if( !empty( $classes ) && is_array($classes )) {
+                                foreach ($classes as $class) {
+                                    $is_selected = ($selected_class == strtoupper($class['classes'])) ? 'selected' : '';
+                                    echo "<option value='" . strtoupper($class['classes']) . "' $is_selected>" . strtoupper($class['classes']) . "</option>";
+                                }
                             }
                             ?>
                         </select>
                     </h6>
                     <h6 class="m-0 font-weight-bold text-primary">Select Semester
                         <select name="semester" onchange="this.form.submit()">
-                            <option value="">Select semester</option>
-                            <option value="1st" <?php if ($selected_semester == "1st") echo "selected"; ?>>1st</option>
-                            <option value="2nd" <?php if ($selected_semester == "2nd") echo "selected"; ?>>2nd</option>
-                            <option value="3rd" <?php if ($selected_semester == "3rd") echo "selected"; ?>>3rd</option>
-                            <option value="4th" <?php if ($selected_semester == "4th") echo "selected"; ?>>4th</option>
-                            <option value="5th" <?php if ($selected_semester == "5th") echo "selected"; ?>>5th</option>
-                            <option value="6th" <?php if ($selected_semester == "6th") echo "selected"; ?>>6th</option>
-                            <option value="7th" <?php if ($selected_semester == "7th") echo "selected"; ?>>7th</option>
-                            <option value="8th" <?php if ($selected_semester == "8th") echo "selected"; ?>>8th</option>
+                            <option value="" disabled>Select semester</option>
+                            <option value="1st" <?php echo ($selected_semester == "1st") ? "selected" : ""; ?>>1st</option>
+                            <option value="2nd" <?php echo ($selected_semester == "2nd") ? "selected" : ""; ?>>2nd</option>
+                            <option value="3rd" <?php echo ($selected_semester == "3rd") ? "selected" : ""; ?>>3rd</option>
+                            <option value="4th" <?php echo ($selected_semester == "4th") ? "selected" : ""; ?>>4th</option>
+                            <option value="5th" <?php echo ($selected_semester == "5th") ? "selected" : ""; ?>>5th</option>
+                            <option value="6th" <?php echo ($selected_semester == "6th") ? "selected" : ""; ?>>6th</option>
+                            <option value="7th" <?php echo ($selected_semester == "7th") ? "selected" : ""; ?>>7th</option>
+                            <option value="8th" <?php echo ($selected_semester == "8th") ? "selected" : ""; ?>>8th</option>
                         </select>
                     </h6>
+
+
+                    <h6 class="m-0 font-weight-bold text-primary">Select Subject
+                        <select name="subject">
+                            <option value="" disabled <?php echo empty($subjects) ? 'selected' : ''; ?>>Select subject</option>
+                            <?php 
+                            if (!empty($subjects) && is_array($subjects)) {
+                                foreach ($subjects as $subject) {
+                                    $is_selected = isset($_POST['subject']) && $_POST['subject'] == $subject['s_name'] ? 'selected' : '';
+                                    echo "<option value='" . htmlspecialchars($subject['s_name']) . "' $is_selected>" . htmlspecialchars($subject['s_name']) . "</option>";
+                                }
+                            } else {
+                                echo "<option value='' disabled>No subjects available</option>";
+                            }
+                            ?>
+                        </select>
+                    </h6>
+
                     <h6 class="m-0 font-weight-bold text-danger">Note: <i>Click on the
                             checkboxes besides each student to take attendance!</i></h6>
                 </div>

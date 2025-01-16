@@ -12,7 +12,7 @@ if (isset($_GET['errors'])) {
 
 <div class="container-fluid">
     <?php
-    if (isset($_SESSION['admin'])) {
+    if ($_SESSION['role'] == 'admin') {
         ?>
         <button class="add-exam-routine btn btn-primary">Add Exam Routine</button>
         <?php
@@ -35,7 +35,7 @@ if (isset($_GET['errors'])) {
                         alt="<?php echo $exam_schedule['images']; ?>" style="width: 100%; height: auto; ">
 
                     <?php
-                    if (isset($_SESSION['admin'])) {
+                    if ($_SESSION['role'] == 'admin') {
                         ?>
                         <div class="text-center py-3">
                             <a style="background: #0D6EFD; padding: 5px 15px; color: #fff; font-size: 18px; border-radius: 10px;"

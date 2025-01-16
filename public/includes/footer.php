@@ -85,7 +85,7 @@
             <hr>
             <div class="end-footer">
             <div>
-            <p class="py-2"><?php echo date("Y"); ?> &#169; <a target="_blank" class="text-light" href="https://github.com/kushwahachandanbtry"><u>Chandan Kushwaha</u></a>, All Rights Reserved</p>
+            <p class="py-2"><?php echo date("Y"); ?> &#169; <?php echo htmlspecialchars($collegeName); ?>, All Rights Reserved, Developed By: <a target="_blank" class="text-light" href="https://github.com/kushwahachandanbtry"><u>Chandan Kushwaha</u></a></p>
             </div>
             <div class="d-flex">
                 <div class="">

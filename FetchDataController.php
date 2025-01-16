@@ -129,6 +129,34 @@ class FetchDataController
     }
 
     /**
+     * Fetch teachers from database
+     * 
+     * @return array - Array of teachers data
+     */
+    public function getTeachers(){
+        return $this->FetchDataController('SELECT * FROM teachers');
+    }
+
+    /**
+     * Fetch Classes from database
+     * 
+     * @return array - Array of Classes data
+     */
+    public function getClasses(){
+        return $this->FetchDataController('SELECT * FROM classes');
+    }
+
+    /**
+     * Fetch Subjects from database
+     * 
+     * @return array - Array of Subjects data
+     */
+    public function getSubjects(){
+        return $this->FetchDataController('SELECT * FROM subjects');
+    }
+
+
+    /**
      * Fetch meta setting's data from database
      * 
      * @return array - Array of meta setting's data data
@@ -267,3 +295,6 @@ $exam_schedules = $FetchDataController->getExamSchedule();
 $class_routines = $FetchDataController->getClassRoutine();
 $videos_and_contents = $FetchDataController->getVideoandContents();
 $meta_setting_datas = $FetchDataController->getMetaSettingDatas();
+$teachers = $FetchDataController->getTeachers();
+$classes = $FetchDataController->getClasses();
+$subjects = $FetchDataController->getSubjects();

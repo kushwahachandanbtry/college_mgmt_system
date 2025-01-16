@@ -215,7 +215,7 @@ select option{
     color: #444;
     float: left;
     box-shadow: 0 0 10px #aaa;
-    border-bottom-left-radius: 50%;
+    /* border-bottom-left-radius: 50%; */
     position: relative;
     width: 60%;
 }
@@ -247,7 +247,7 @@ select option{
     color: #fff;
     float: right;
     box-shadow: 0 0 10px #aaa;
-    border-bottom-right-radius: 50%;
+    /* border-bottom-right-radius: 50%; */
     position: relative;
     width: 60%;
 }

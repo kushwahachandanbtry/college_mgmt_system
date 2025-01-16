@@ -10,7 +10,7 @@ if (isset($_GET['errors'])) {
 ?>
 <div class="container-fluid">
     <?php
-    if( isset( $_SESSION['admin'] ) ||  $_SESSION['role'] == 'teacher' ) {
+    if( $_SESSION['role'] == 'admin' ||  $_SESSION['role'] == 'teacher' ) {
     ?>
         <button class="mt-4 add-routine btn btn-primary"><a href="?content=add-routine">Add New Routine</a></button>
     <?php } ?>
@@ -60,7 +60,7 @@ if (!empty($class_routines) && is_array($class_routines)) {
                     <?php } ?>
                 </table>
             </div>
-            <?php if( isset( $_SESSION['admin'] ) || $_SESSION['role'] == 'teacher' ) { ?>
+            <?php if( $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher' ) { ?>
                 <div class="text-center py-3">
                     <a style="background: #0D6EFD; padding: 5px 15px; color: #fff; font-size: 18px; border-radius: 10px;" href="?content=edit_routine&&id=<?php echo $row['id']; ?>">Edit</a>
                     <a style="background: red; cursor: pointer; padding: 5px 15px; color: #fff; font-size: 18px; border-radius: 10px;" onclick="confirmDelete(<?php echo $row['id']; ?>, 'routine')">Delete</a>

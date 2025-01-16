@@ -58,8 +58,8 @@
     <script type="text/javascript">
         var CURRENT_CHAT_USER = "";
         var SEEN_STATUS = false;
-        var sent_audio = new Audio("ui/sounds/message_sent.mp3");
-        var received_audio = new Audio("ui/sounds/message_received.mp3");
+        // var sent_audio = new Audio("ui/sounds/message_sent.mp3");
+        // var received_audio = new Audio("ui/sounds/message_received.mp3");
         function __(element) {
             return document.getElementById(element);
         }
@@ -124,7 +124,7 @@
                                 messages_holder.innerHTML = obj.messages;
                                 if( typeof obj.new_message != 'undefined' ) {
                                     if( obj.new_message ) {
-                                        received_audio.play();
+                                        // received_audio.play();
                                         messages_holder.scrollTo(0, messages_holder.scrollHeight);
                                         
                                     }
@@ -132,7 +132,7 @@
                                 break;
 
                             case "send_message":
-                                sent_audio.play();
+                                // sent_audio.play();
 
                             case "chats":
                                 SEEN_STATUS = false;
@@ -143,13 +143,13 @@
                                 inner_right_pannel.innerHTML = obj.messages;
                                 var messages_holder = __("messages_holder");
 
-                                received_audio.play();
+                                // received_audio.play();
                                 messages_holder.scrollTo(0, messages_holder.scrollHeight);
                                 var message_text = __('message_text');
                                 message_text.focus();
                                 if( typeof obj.new_message != 'undefined' ) {
                                     if( obj.new_message ) {
-                                        received_audio.play();
+                                        // received_audio.play();
                                     }
                                 }
                                 break;

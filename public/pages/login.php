@@ -411,8 +411,8 @@ if (isset($_SESSION['login_user'])) {
             <!-- Display Message -->
             <?php if (!empty($message)): ?>
                 <div style="color: <?= $messageType === 'success' ? 'green' : 'red'; ?>; 
-                           margin-bottom: 10px; 
-                           font-weight: bold;">
+                            margin-bottom: 10px; 
+                            font-weight: bold;">
                     <?= htmlspecialchars($message) ?>
                 </div>
             <?php endif; ?>

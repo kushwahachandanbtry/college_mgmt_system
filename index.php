@@ -2,10 +2,7 @@
   * Template Name: College management system
   * Author: Chandan Kushwaha
 ======================================================== -->
-<?php 
-include "public/includes/menu.php"; 
-
-?>
+<?php include "public/includes/menu.php"; ?>
 
 
 <main class="main">

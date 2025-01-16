@@ -18,7 +18,7 @@ delete_data_message();
         <th>Class</th>
         <th>Publication Data</th>
         <th>Upload Date</th>
-        <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+        <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
             <th>Actions</th>
         <?php } ?>
 
@@ -34,7 +34,7 @@ delete_data_message();
                 <td><?php echo $book['class']; ?></td>
                 <td><?php echo $book['pubdate']; ?></td>
                 <td><?php echo $book['uploade']; ?></td>
-                <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+                <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
                     <td parent-id="<?php echo $book['id']; ?>" class="parent_actions"
                         style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
                         onclick="handleClick(event, this)">

@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION['admin'])) {
+if (!$_SESSION['role'] == 'admin') {
     exit();
 }
 if (isset($_GET['msg'])) {

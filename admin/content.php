@@ -39,6 +39,16 @@ switch ($content) {
         include("pages/class-routine.php");
         break;
 
+    case 'add_subject':
+        echo "<h2>Add Subject</h2>";
+        include("pages/add-subject.php");
+        break;
+
+    case 'all_subject':
+        echo "<h2>All Subjects</h2>";
+        include("pages/all-subject.php");
+        break;
+
     case 'item7':
         echo '<h2>All Parents Data</h2>';
         include("pages/all-parents.php");
@@ -116,6 +126,11 @@ switch ($content) {
     case 'item23':
         echo '<h2>View Student Attendance</h2>';
         include("pages/attendance/viewStudentAttendance.php");
+        break;
+
+    case 'download_attendance':
+        echo '<h2>View Student Attendance</h2>';
+        include("pages/attendance/download_attendance.php");
         break;
 
     case 'item24':
@@ -202,8 +217,5 @@ switch ($content) {
         echo '<h2>Welcome to the Site</h2>';
         echo '<p>Please select an item from the sidebar to view its content.</p>';
         break;
+    }
 }
-}
-
-
-?>

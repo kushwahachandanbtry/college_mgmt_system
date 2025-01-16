@@ -25,7 +25,7 @@ delete_data_message();
         <th>Class</th>
         <th>Semester</th>
         <th>Phone</th>
-        <?php if (isset($_SESSION['admin'])) { ?>
+        <?php if ($_SESSION['role'] == 'admin') { ?>
             <th>Actions</th>
         <?php } ?>
 
@@ -49,7 +49,7 @@ delete_data_message();
                 <td><?php echo $student['class']; ?></td>
                 <td><?php echo $student['semester']; ?></td>
                 <td><?php echo $student['phone']; ?></td>
-                <?php if (isset($_SESSION['admin'])) { ?>
+                <?php if ($_SESSION['role'] == 'admin') { ?>
                     <td parent-id="<?php echo $student['id']; ?>" class="parent_actions"
                         style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
                         onclick="handleClick(event, this)">

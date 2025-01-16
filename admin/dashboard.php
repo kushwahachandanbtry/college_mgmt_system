@@ -5,15 +5,13 @@ include_once '../constant.php';
 include dirname(__DIR__, 1) . '/config.php';
 
 
-
-if (!isset($_SESSION['admin']) && !isset($_SESSION['name'])) {
+if (!$_SESSION['role'] == 'admin' && !isset($_SESSION['name'])) {
     // Redirect to login page if neither is set
     header("Location: " . APP_PATH . "admin"); // Adjust URL if necessary
     exit();
 }
 
-
-// echo $_SESSION['admin'];
+ob_start();
 
 include('templates/header.php'); ?>
 
@@ -28,7 +26,8 @@ include('templates/header.php'); ?>
 
         <ul class="list-unstyled components">
 
-            <li class="<?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users']) ? 'active' : '' ?>">
+            <li
+                class="<?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users']) ? 'active' : '' ?>">
                 <a href="#usersMenu" data-toggle="collapse"
                     aria-expanded="<?= in_array($activePage, ['allusers', 'item0']) ? 'true' : 'false' ?>"
                     class="dropdown-toggle">
@@ -39,13 +38,15 @@ include('templates/header.php'); ?>
                     <li class="<?= $activePage == 'allusers' ? 'active' : '' ?>">
                         <a href="?content=allusers">All Users</a>
                     </li>
+                    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
                     <li class="<?= $activePage == 'register_users' ? 'active' : '' ?>">
                         <a href="?content=register_users">Registered Users</a>
                     </li>
                     <li class="<?= $activePage == 'enquiry_users' ? 'active' : '' ?>">
                         <a href="?content=enquiry_users">Enquiry Users</a>
                     </li>
-                    <?php if (isset($_SESSION['admin'])) { ?>
+                    <?php } ?>
+                    <?php if ($_SESSION['role'] == 'admin') { ?>
                         <li class="<?= $activePage == 'item0' ? 'active' : '' ?>">
                             <a href="?content=item0">Add New Users</a>
                         </li>
@@ -53,7 +54,7 @@ include('templates/header.php'); ?>
                 </ul>
             </li>
 
-            <?php if (isset($_SESSION['admin'])) { ?>
+            <?php if ($_SESSION['role'] == 'admin') { ?>
                 <li class="<?= $activePage == 'college-website' ? 'active' : '' ?>">
                     <a href="?content=college-website"><i class="fa-solid fa-pen-to-square pr-2"></i> Manage Website</a>
                 </li>
@@ -71,10 +72,31 @@ include('templates/header.php'); ?>
                         <a href="?content=item15">All Classes</a>
                     </li>
                     <?php
-                    if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') {
+                    if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') {
                         ?>
                         <li class="<?= $activePage == 'item16' ? 'active' : '' ?>">
                             <a href="?content=item16">Add New Classes</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </li>
+
+            <li class="<?= in_array($activePage, ['add_subject', 'all_subject']) ? 'active' : '' ?>">
+                <a href="#pagesubjectMenu" data-toggle="collapse"
+                    aria-expanded="<?= in_array($activePage, ['add_subject', 'all_subject']) ? 'true' : 'false' ?>"
+                    class="dropdown-toggle">
+                    <i class="fa-solid fa-book pr-2"></i> Subject
+                </a>
+                <ul class="collapse list-unstyled <?= in_array($activePage, ['add_subject', 'all_subject']) ? 'show' : '' ?>"
+                    id="pagesubjectMenu">
+                    <li class="<?= $activePage == 'all_subject' ? 'active' : '' ?>">
+                        <a href="?content=all_subject">All Subjects</a>
+                    </li>
+                    <?php
+                    if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') {
+                        ?>
+                        <li class="<?= $activePage == 'add_subject' ? 'active' : '' ?>">
+                            <a href="?content=add_subject">Add New Subject</a>
                         </li>
                     <?php } ?>
                 </ul>
@@ -91,7 +113,7 @@ include('templates/header.php'); ?>
                     <li class="<?= $activePage == 'item1' ? 'active' : '' ?>">
                         <a href="?content=item1">All Student</a>
                     </li>
-                    <?php if (isset($_SESSION['admin'])) { ?>
+                    <?php if ($_SESSION['role'] == 'admin') { ?>
                         <li class="<?= $activePage == 'item2' ? 'active' : '' ?>">
                             <a href="?content=item2">Add Students</a>
                         </li>
@@ -110,7 +132,7 @@ include('templates/header.php'); ?>
                     <li class="<?= $activePage == 'item3' ? 'active' : '' ?>">
                         <a href="?content=item3">All Teachers</a>
                     </li>
-                    <?php if (isset($_SESSION['admin'])) { ?>
+                    <?php if ($_SESSION['role'] == 'admin') { ?>
                         <li class="<?= $activePage == 'item4' ? 'active' : '' ?>">
                             <a href="?content=item4">Add Teachers</a>
                         </li>
@@ -137,7 +159,7 @@ include('templates/header.php'); ?>
                     <li class="<?= $activePage == 'item7' ? 'active' : '' ?>">
                         <a href="?content=item7">All Parents</a>
                     </li>
-                    <?php if (isset($_SESSION['admin'])) { ?>
+                    <?php if ($_SESSION['role'] == 'admin') { ?>
                         <li class="<?= $activePage == 'item8' ? 'active' : '' ?>">
                             <a href="?content=item8">Add Parent</a>
                         </li>
@@ -145,27 +167,31 @@ include('templates/header.php'); ?>
                 </ul>
             </li>
 
-            <li class="<?= in_array($activePage, ['item21', 'item22', 'item23']) ? 'active' : '' ?>">
-                <a href="#pageSubmenu7" data-toggle="collapse"
-                    aria-expanded="<?= in_array($activePage, ['item21', 'item22', 'item23']) ? 'true' : 'false' ?>"
-                    class="dropdown-toggle">
-                    <i class="fa-solid fa-clipboard-user"></i> Attendence
-                </a>
-                <ul class="collapse list-unstyled <?= in_array($activePage, ['item21', 'item22', 'item23']) ? 'show' : '' ?>"
-                    id="pageSubmenu7">
-                    <li class="<?= $activePage == 'item21' ? 'active' : '' ?>">
-                        <a href="?content=item21">Take Attendance</a>
-                    </li>
-                    <li class="<?= $activePage == 'item22' ? 'active' : '' ?>">
-                        <a href="?content=item22">View Class Attendance</a>
-                    </li>
-                    <li class="<?= $activePage == 'item23' ? 'active' : '' ?>">
-                        <a href="?content=item23">View Student Attendance</a>
-                    </li>
+            <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
+                <li class="<?= in_array($activePage, ['item21', 'item22', 'item23']) ? 'active' : '' ?>">
+                    <a href="#pageSubmenu7" data-toggle="collapse"
+                        aria-expanded="<?= in_array($activePage, ['item21', 'item22', 'item23']) ? 'true' : 'false' ?>"
+                        class="dropdown-toggle">
+                        <i class="fa-solid fa-clipboard-user"></i> Attendence
+                    </a>
+                    <ul class="collapse list-unstyled <?= in_array($activePage, ['item21', 'item22', 'item23']) ? 'show' : '' ?>"
+                        id="pageSubmenu7">
+                        <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
+                            <li class="<?= $activePage == 'item21' ? 'active' : '' ?>">
+                                <a href="?content=item21">Take Attendance</a>
+                            </li>
+                        <?php } ?>
+                        <li class="<?= $activePage == 'item22' ? 'active' : '' ?>">
+                            <a href="?content=item22">View Class Attendance</a>
+                        </li>
+                        <li class="<?= $activePage == 'item23' ? 'active' : '' ?>">
+                            <a href="?content=item23">View Student Attendance</a>
+                        </li>
 
 
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            <?php } ?>
 
             <li class="<?= in_array($activePage, ['item10', 'item11']) ? 'active' : '' ?>">
                 <a href="#pageSubmenu3" data-toggle="collapse"
@@ -178,16 +204,13 @@ include('templates/header.php'); ?>
                     <li class="<?= $activePage == 'item10' ? 'active' : '' ?>">
                         <a href="?content=item10">All Books</a>
                     </li>
-                    <?php if (isset($_SESSION['admin']) || $_SESSION['role'] == 'teacher') { ?>
+                    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
                         <li class="<?= $activePage == 'item11' ? 'active' : '' ?>">
                             <a href="?content=item11">Add New Book</a>
                         </li>
                     <?php } ?>
                 </ul>
             </li>
-
-
-
 
             <li class="<?= $activePage == 'item14' ? 'active' : '' ?>">
                 <a href="?content=item14"><i class="fa-solid fa-flag pr-2"></i> Notice</a>
@@ -197,22 +220,11 @@ include('templates/header.php'); ?>
                 <a target="_blank" href="pages/message_app"><i class="fa-solid fa-message pr-2"></i> Message</a>
             </li>
 
-            <li class="<?= in_array($activePage, ['item18', 'item19']) ? 'active' : '' ?>">
-                <a href="#pageSubmenu6" data-toggle="collapse"
-                    aria-expanded="<?= in_array($activePage, ['item18', 'item19']) ? 'true' : 'false' ?>"
-                    class="dropdown-toggle">
-                    <i class="fa-solid fa-clipboard-question pr-2"></i> Exam
-                </a>
-                <ul class="collapse list-unstyled <?= in_array($activePage, ['item18', 'item19']) ? 'show' : '' ?>"
-                    id="pageSubmenu6">
-                    <li class="<?= $activePage == 'item18' ? 'active' : '' ?>">
-                        <a href="?content=item18">Exam Schedule</a>
-                    </li>
-                    <li class="<?= $activePage == 'item19' ? 'active' : '' ?>">
-                        <a href="?content=item19">Exam Grades</a>
-                    </li>
-                </ul>
+            <li class="<?= $activePage == 'item18' ? 'active' : '' ?>">
+                <a href="?content=item18"><i class="fa-solid fa-flag pr-2"></i> Exam Schedule</a>
             </li>
+
+            
 
 
             <li class="<?= $activePage == 'item20' ? 'active' : '' ?>">
@@ -224,9 +236,9 @@ include('templates/header.php'); ?>
     <!-- End sidebar -->
 
     <!-- Page Content Holder -->
-    <div id="content" >
+    <div id="content">
 
-        <nav  id="navbar" class="navbar py-0 navbar-expand-lg navbar-light bg-light">
+        <nav id="navbar" class="navbar py-0 navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
 
                 <button type="button" id="sidebarCollapse" class="navbar-btn">
@@ -239,18 +251,19 @@ include('templates/header.php'); ?>
                     aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
-                
-                <?php 
-                if( isset( $_SESSION['admin'] ) ) {
+
+                <?php
+                if ($_SESSION['role'] == 'admin') {
                     ?>
-                    <div class="text-center text-light" style="margin-left: 350px; background-color: #C43D3D; padding: 10px; border: 1px solid red;">
+                    <div class="text-center text-light"
+                        style="margin-left: 350px; background-color: #C43D3D; padding: 10px; border: 1px solid red;">
                         <p style="color: #fff;">WEBSITE ON UNDER MAINTENANCE <span id="statusText"></span></p>
                         <label class="switch">
                             <input type="checkbox" id="statusSwitch">
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <?php 
+                    <?php
                 }
 
                 ?>
@@ -269,7 +282,7 @@ include('templates/header.php'); ?>
                                             ?>
                                             <img src="pages/message_app/<?php echo $image_row['image']; ?>"
                                                 style="width: 60px; height: 60px; border-radius: 50%;" alt="">
-                                        <?php
+                                            <?php
                                         }
                                     }
                                 } else {
@@ -277,7 +290,7 @@ include('templates/header.php'); ?>
                                     <img src="../assets/images/logo/<?php echo urlencode($logo); ?>"
                                         style="width: 60px; border: 1px solid red; height: 60px; border-radius: 50%;"
                                         alt="">
-                                <?php
+                                    <?php
                                 }
 
                                 ?>
@@ -285,10 +298,10 @@ include('templates/header.php'); ?>
                             </a>
                             <div>
                                 <p style="font-size: 13px;" class="text-center"><?php
-                                if (isset($_SESSION['admin'])) {
-                                    echo $_SESSION['admin'];
+                                if ($_SESSION['role'] == 'admin') {
+                                    echo "<b style='font-size: 20px;'>". $_SESSION['name'] . "</b>";
                                 } else {
-                                    echo "Welcome, " . $_SESSION['name'];
+                                    echo "<b style='font-size: 20px;'>Welcome, " . $_SESSION['name']. "</b>";
                                 }
                                 ?></p>
                             </div>
@@ -334,7 +347,7 @@ include('templates/header.php'); ?>
                                             <p class="text-primary"><?php echo '@' . $notice_row['posted_by']; ?></p>
                                         </div>
                                     </div>
-                                <?php
+                                    <?php
                                 }
                             }
                             ?>
@@ -401,7 +414,8 @@ include('templates/header.php'); ?>
                         </div>
 
                         <div class="col-4">
-                            <div class="card text-center" style="">
+                            <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
+                            <div class="card text-center">
                                 <div class="card-body">
                                     <h5 class="card-title">Attendence</h5>
 
@@ -409,8 +423,9 @@ include('templates/header.php'); ?>
                                         class="text-primary"><i class="fa-solid fa-eye"></i> View </a>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
-                        <?php if (isset($_SESSION['admin'])) { ?>
+                        <?php if ($_SESSION['role'] == 'admin') { ?>
                             <div class="col-4">
                                 <div class="card text-center" style="">
                                     <div class="card-body">
@@ -427,9 +442,6 @@ include('templates/header.php'); ?>
                             <canvas id="dashboardChart"></canvas>
                         </div>
                     </div>
-
-
-
                     <?php
                 }
 
@@ -447,7 +459,11 @@ include('templates/header.php'); ?>
 
 </div>
 
-<?php include('templates/footer.php'); ?>
+<?php 
+include('templates/footer.php');
+ob_end_flush();
+
+?>
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -497,26 +513,25 @@ include('templates/header.php'); ?>
     new Chart(document.getElementById('dashboardChart'), config);
 
     //undermaintenence button
-document.getElementById("statusSwitch").addEventListener("change", function () {
-    const status = this.checked ? "on" : "off";
-    document.getElementById("statusText").innerText = status.charAt(0).toUpperCase() + status.slice(1);
+    document.getElementById("statusSwitch").addEventListener("change", function () {
+        const status = this.checked ? "on" : "off";
+        document.getElementById("statusText").innerText = status.charAt(0).toUpperCase() + status.slice(1);
 
-    // Make AJAX request to update the status in the database
-    fetch("actions/update_status.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: status }),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data.message);
+        // Make AJAX request to update the status in the database
+        fetch("actions/update_status.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status: status }),
         })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
-});
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.message);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
 
 </script>
-

@@ -117,7 +117,7 @@ function message_controls() {
     return "
     </div>
     <span onclick='delete_thread(event)' style='color: purple; cursor: pointer'>Delete this thread </span>
-        <div style='display:flex; width: 100%; height: 40px;'>
+        <div style='display:flex; width: 100%; height: 40px; margin-top: -25px;'>
             <label for='message_file'><img src='ui/icons/attach.png' alt='Attach File' style='width: 37px; opacity: .7; margin: 2px;' /></label>
             <input type='file' id='message_file' name='file' style='display:none;' onchange='send_image(this.files)' />
             <input id='message_text' onkeyup='enter_pressed(event)' style='flex:6; border: none; font-size: 14px; border: solid thin #aaa; border-bottom: none;' type='text' placeholder='Write your messages here...'  />
