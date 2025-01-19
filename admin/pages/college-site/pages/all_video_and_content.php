@@ -49,7 +49,7 @@ delete_data_message();
                             class="text-primary edit-button">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <a href="#" class="text-danger"><i class="fa-solid fa-delete-left"></i></a>
+                        <p class="text-danger" style="cursor: pointer;" onclick="confirmWebDataDelete(<?php echo $video_and_content['id']; ?>, 'delete_video_and_content')"><i class="fa-solid fa-delete-left"></i></p>
                     </div>
                 </td>
             </tr>

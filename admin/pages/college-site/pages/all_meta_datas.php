@@ -27,17 +27,7 @@ delete_data_message();
             <tr class="fs-1">
                 <td><?php echo $i++;; ?></td>
                 <td>
-                    <?php 
-                    $selected_id = $meta_setting_data['pages'];
-                    $sql = "SELECT course_title FROM courses WHERE id = $selected_id";
-                    $result = mysqli_query($conn, $sql);
-                    if( mysqli_num_rows( $result ) > 0 ) {
-                        while( $row = mysqli_fetch_assoc( $result )) {
-
-                            echo $row['course_title']; 
-                        }
-                    }
-                    ?>
+                    <?php echo htmlspecialchars($meta_setting_data['pages']); ?>
                 </td>
                 
                 <td>
@@ -46,7 +36,7 @@ delete_data_message();
                         class="text-primary edit-button" >
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <a href="#" class="text-danger"><i class="fa-solid fa-delete-left"></i></a>
+                        <p class="text-danger" style="cursor: pointer;" onclick="confirmWebDataDelete(<?php echo $meta_setting_data['id']; ?>, 'delete_meta_setting_data')"><i class="fa-solid fa-delete-left"></i></p>
                     </div>
                 </td>
 

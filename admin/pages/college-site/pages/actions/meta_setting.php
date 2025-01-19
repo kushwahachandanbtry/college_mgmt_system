@@ -33,9 +33,24 @@ if (isset($_POST['save'])) {
     }
 
     if (empty($canonical_tag)) {
-        $errors[] = 'Please enter canonical_tag.';
+        $errors[] = 'Please enter canonical tag.';
     }
 
+    if (empty($og_title)) {
+        $errors[] = 'Please enter OG title.';
+    }
+
+    if (empty($og_description)) {
+        $errors[] = 'Please enter OG description.';
+    }
+
+    if (empty($og_url)) {
+        $errors[] = 'Please enter OG URL.';
+    }
+
+    if (!isset($_FILES['og_image'])) {
+        $errors[] = 'Please insert an OG image.';
+    }
 
     if (empty($errors)) {
         if (isset($_FILES['og_image']) && $_FILES['og_image']['error'] == 0) {

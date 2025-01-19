@@ -4,53 +4,61 @@ include_once 'templates/header.php';
 include_once '../FetchDataController.php';
 include_once '../constant.php';
 
-
-$error = ""; // Initialize an empty error message
+// Initialize error message
+$error = "";
 session_start();
+
+// Generate a new session ID to prevent session fixation
+session_regenerate_id(true);
+
+// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_POST['login'])) {
 
-        $current_user = mysqli_real_escape_string($conn, $_POST['email']);
-        $admin_passwords = mysqli_real_escape_string($conn, md5($_POST['password']));
-        $current_password = mysqli_real_escape_string($conn, $_POST['password']);
+        // Sanitize user input to prevent XSS
+        $current_user = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $current_password = $_POST['password'];
 
-
-        // Fetch user info from the database
-        $query = "SELECT userid, email, password, role, username FROM users WHERE email = '$current_user' LIMIT 1";
-        $result = mysqli_query($conn, $query);
-
-        if (mysqli_num_rows($result) == 1) {
-            $user = mysqli_fetch_assoc($result);
-
-            // Verify the password
-
-            if ($current_user === $user['email'] && $admin_passwords === $user['password']) {
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['name'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
-                $_SESSION['userid'] = $user['userid'];
-                header("Location: " . APP_PATH . "admin/dashboard.php");
-                exit();
-            }
-
-            if ($current_password == $user['password']) {
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['role'] = $user['role'];
-                $_SESSION['name'] = $user['username'];
-                $_SESSION['userid'] = $user['userid'];
-
-                // Redirect to dashboard
-                header("Location: " . APP_PATH . "admin/dashboard.php");
-                exit();
-            } else {
-                $error = "Invalid password.";
-            }
+        // Validate email format
+        if (!filter_var($current_user, FILTER_VALIDATE_EMAIL)) {
+            $error = "Invalid email format.";
         } else {
-            $error = "No account found with this email.";
+            // Use prepared statements to prevent SQL injection
+            $query = "SELECT userid, email, password, role, username FROM users WHERE email = ? LIMIT 1";
+            if ($stmt = mysqli_prepare($conn, $query)) {
+                mysqli_stmt_bind_param($stmt, "s", $current_user);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                // Check if user exists
+                if (mysqli_num_rows($result) == 1) {
+                    $user = mysqli_fetch_assoc($result);
+
+                    // Verify the password using password_verify()
+                    if (password_verify($current_password, $user['password'])) {
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['name'] = $user['username'];
+                        $_SESSION['role'] = $user['role'];
+                        $_SESSION['userid'] = $user['userid'];
+
+                        // Redirect to the dashboard
+                        header("Location: " . APP_PATH . "admin/dashboard.php");
+                        exit();
+                    } else {
+                        $error = "Invalid password.";
+                    }
+                } else {
+                    $error = "No account found with this email.";
+                }
+
+                // Close the statement
+                mysqli_stmt_close($stmt);
+            } else {
+                $error = "Database query failed.";
+            }
         }
     }
 }
-
 
 ?>
 
@@ -62,15 +70,17 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                     <form action="" method="POST">
                         <img src="../assets/images/logo/<?php echo urlencode($logo); ?>" alt="logo">
                         <div class="email my-4">
-                            <input type="email" name="email" placeholder="Enter Your Email">
+                            <input type="email" name="email" placeholder="Enter Your Email" required>
                         </div>
                         <div class="email my-4">
-                            <input type="password" name="password" placeholder="Enter Your Password">
+                            <input type="password" name="password" placeholder="Enter Your Password" required>
                         </div>
                         <!-- Display the error message here if it exists -->
-                        <div id="errorMsg" class="alert alert-danger d-none" role="alert">
-                            <?php echo $error; ?>
-                        </div>
+                        <?php if (!empty($error)) : ?>
+                            <div id="errorMsg" class="alert alert-danger" role="alert">
+                                <?php echo htmlspecialchars($error); ?>
+                            </div>
+                        <?php endif; ?>
                         <div class="">
                             <button class="btn login-btn my-1" type="submit" name="login">Login</button>
                         </div>

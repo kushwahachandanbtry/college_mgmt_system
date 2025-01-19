@@ -5,7 +5,7 @@ include dirname(__DIR__, 2). '/config.php';
 // fetch all data from input field and chek valid input or not
 if ( isset( $_POST['save'] ) ) {
 	// assign in all variable null data
-	$tname = $gender = $time = $email = $address = $classes = $sections = $Phone = '';
+	$classes = $university = '';
 
 
 	/**
@@ -23,11 +23,16 @@ if ( isset( $_POST['save'] ) ) {
 
 
 	$classes = check_input( $_POST['classes'] );
+	$university = check_input( $_POST['university'] );
 
 	$errors = []; // assign all errors in this array
 
     if( empty( $classes ) ) {
         $errors[] = "Please write a proper class name.";
+    }
+
+    if( empty( $university ) ) {
+        $errors[] = "Please write a universisty name.";
     }
 	
 
@@ -36,7 +41,7 @@ if ( isset( $_POST['save'] ) ) {
 		include_once 'config.php';
 
 		// print_r( $conn );
-		$sql = "INSERT INTO classes(classes) VALUES('{$classes}')";
+		$sql = "INSERT INTO classes(classes, university) VALUES('{$classes}', '{$university}')";
 		$result = mysqli_query( $conn, $sql );
 		if ( $result ) {    
             $msg = "Classes added successfully!";

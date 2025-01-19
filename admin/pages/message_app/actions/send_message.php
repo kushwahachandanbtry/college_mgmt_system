@@ -42,7 +42,7 @@ if( is_array( $result ) ) {
 
     $messages ="
         <div id='messages_holder_parent' style=' height: 630px; '>
-        <div id='messages_holder' style=' height: 485px; overflow-y: scroll;'>";
+        <div id='messages_holder' style=' height: 445px; overflow-y: scroll;'>";
         
         //read from db
         $a['msgid'] = $arr['msgid'];

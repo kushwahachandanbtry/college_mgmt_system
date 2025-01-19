@@ -8,7 +8,6 @@
 /**
  * Requiring header and menu page
  */
-require '../includes/menu.php';
 ?>
 <style>
     .bell-icon {
@@ -153,11 +152,11 @@ require '../includes/menu.php';
                 </div>
                 <div class="notice-content py-5" style="margin: 0 100px 0px 100px;">
                     <div class="text-center">
-                        <h6 class="text-dark"><?php echo $notice['date']; ?></h6>
-                        <h4><?php echo $notice['title']; ?></h4>
-                        <p class="text-italic"><?php echo $notice['details']; ?></p>
+                        <h6 class="text-dark"><?php echo htmlspecialchars($notice['date'], ENT_QUOTES, 'UTF-8'); ?></h6>
+                        <h4><?php echo htmlspecialchars($notice['title'], ENT_QUOTES, 'UTF-8'); ?></h4>
+                        <p class="text-italic"><?php echo htmlspecialchars($notice['details'], ENT_QUOTES, 'UTF-8'); ?></p>
                         <h5 class="text-dark">
-                            <?php echo "Posted By: " . "<span class='text-primary'>" . $notice['posted_by'] . "</span>"; ?>
+                            <?php echo "Posted By: " . "<span class='text-primary'>" . htmlspecialchars($notice['posted_by'], ENT_QUOTES, 'UTF-8') . "</span>"; ?>
                         </h5>
                     </div>
                 </div>
@@ -170,8 +169,3 @@ require '../includes/menu.php';
         <?php }
     } ?>
 </div>
-
-<?php
-require '../includes/footer.php';
-?>
-

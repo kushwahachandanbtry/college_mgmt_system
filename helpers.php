@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Return back to the previous page
  * 
@@ -8,6 +7,9 @@
  */
 function go_back($content)
 {
+    // Sanitize content to avoid XSS
+    $content = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
+
     // Get the current URL
     $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
@@ -39,10 +41,12 @@ function go_back($content)
  */
 function add_success_message($msg)
 {
+    // Sanitize and escape the message to avoid XSS
+    $msg = htmlspecialchars($msg, ENT_QUOTES, 'UTF-8');
     ?>
     <div class="container text-center mx-auto" style="width: 400px;">
         <div id="alertBox" class="alert alert-success text-center" role="alert">
-            <h5 class="fst-italic"><?php echo htmlspecialchars($msg); ?></h5>
+            <h5 class="fst-italic"><?php echo $msg; ?></h5>
         </div>
     </div>
 
@@ -58,11 +62,14 @@ function add_success_message($msg)
     <?php
 }
 
-function add_failled_message($error){
+function add_failled_message($error)
+{
+    // Sanitize and escape the error message to avoid XSS
+    $error = htmlspecialchars($error, ENT_QUOTES, 'UTF-8');
     ?>
     <div class="container text-center mx-auto" style="width: 400px; height: 100%;">
         <div id="alertBox" class="alert alert-danger text-center" role="alert">
-            <h5 class="fst-italic"><?php echo htmlspecialchars_decode($error); ?></h5>
+            <h5 class="fst-italic"><?php echo $error; ?></h5>
         </div>
     </div>
     <script>
@@ -138,6 +145,7 @@ function data_add_failed_message()
     </script>
     <?php
 }
+
 /**
  * Show edit failed alert result
  * 
@@ -203,13 +211,13 @@ function get_pagination($table_name, $conn, $limit, $page, $url)
     <div class="pagination py-5 text-center">
         <nav aria-label="Page navigation example mx-auto">
             <?php
+            // Use prepared statements to avoid SQL injection
+            $stmt = $conn->prepare("SELECT * FROM $table_name");
+            $stmt->execute();
+            $result1 = $stmt->get_result();
 
-            $sql1 = "SELECT * FROM $table_name";
-
-            $result1 = mysqli_query($conn, $sql1);
-
-            if (mysqli_num_rows($result1) > 0) {
-                $total_records = mysqli_num_rows($result1);
+            if ($result1->num_rows > 0) {
+                $total_records = $result1->num_rows;
 
                 $total_pages = ceil($total_records / $limit);
                 ?>
@@ -258,11 +266,9 @@ function get_pagination($table_name, $conn, $limit, $page, $url)
 function text_limit($x, $length)
 {
     if (strlen($x) <= $length) {
-        echo $x;
+        echo htmlspecialchars($x, ENT_QUOTES, 'UTF-8'); // Escape the text before displaying
     } else {
         $y = substr($x, 0, $length) . '...';
-        echo $y;
+        echo htmlspecialchars($y, ENT_QUOTES, 'UTF-8'); // Escape the text before displaying
     }
 }
-
-

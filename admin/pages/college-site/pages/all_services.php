@@ -36,7 +36,7 @@ delete_data_message();
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         
-                        <p class="text-danger" onclick="confirmDelete(<?php echo $service['id']; ?>, 'delete_service')"><i class="fa-solid fa-delete-left"></i></p>
+                        <p class="text-danger" style="cursor: pointer;" onclick="confirmWebDataDelete(<?php echo $service['id']; ?>, 'delete_service')"><i class="fa-solid fa-delete-left"></i></p>
                     </div>
                 </td>
             </tr>

@@ -8,25 +8,24 @@
 /**
  * Requiring header and menu file
  */
-require '../includes/menu.php';
-
 ?>
 <div class="gallery-overlay overlay">
     <h1>Gallery</h1>
 </div>
 <div class="gallery-body-section py-5">
-    <div class="container ;y-5">
+    <div class="container py-5">
         <div class="row">
             <?php if (!empty($gallerys)): ?>
                 <?php foreach ($gallerys as $gallery): ?>
                     <div class="col-lg-3 py-5">
                         <a href="javascript:void(0);"
-                            onclick="showLargeImage('<?php echo '../../assets/images/gallery/' . $gallery['image_path']; ?>')">
+                            onclick="showLargeImage('<?php echo 'assets/images/gallery/' . urlencode($gallery['image_path']); ?>')">
                             <div class="image-items">
                                 <i class="fa-solid fa-eye"></i>
-                                <img src="../../assets/images/gallery/<?php echo urlencode( $gallery['image_path'] ); ?>"
-                                    style="width: 100%; height: 280px;" class="img-fluid">
-                                <h5 class="text-center py-3"><?php echo htmlspecialchars( $gallery['image_name'] ); ?></h5>
+                                <img src="assets/images/gallery/<?php echo urlencode($gallery['image_path']); ?>"
+                                    style="width: 100%; height: 280px;" class="img-fluid"
+                                    alt="<?php echo htmlspecialchars($gallery['image_name']); ?>">
+                                <h5 class="text-center py-3"><?php echo htmlspecialchars($gallery['image_name']); ?></h5>
                             </div>
                         </a>
                     </div>
@@ -34,26 +33,9 @@ require '../includes/menu.php';
             <?php else: ?>
                 <h4>Coming soon...</h4>
             <?php endif; ?>
-
         </div>
     </div>
 </div>
-
-<!-- <div class="pegination">
-    <div class="container text-center pb-4">
-        <div class="d-grid gap-2 d-md-block">
-            <button class="btn" type="button">Prev</button>
-            <button class="btn" type="button">1</button>
-            <button class="btn" type="button">2</button>
-            <button class="btn" type="button">3</button>
-            <button class="btn" type="button">Next</button>
-        </div>
-    </div>
-</div> -->
-
-<?php
-require '../includes/footer.php';
-?>
 
 <!-- Modal for Large Image -->
 <div id="imageModal" class="image-modal">
@@ -65,7 +47,6 @@ require '../includes/footer.php';
         <button class="next-button" onclick="showNextImage()"> &#10095;</button>
     </div>
 </div>
-
 
 <style>
     /* Modal Styling */
@@ -244,7 +225,4 @@ require '../includes/footer.php';
         const imageElements = document.querySelectorAll('.image-items img'); // Select all image elements
         images = Array.from(imageElements).map(img => img.src); // Get their source paths
     };
-
-
-
 </script>

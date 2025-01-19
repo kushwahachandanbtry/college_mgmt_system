@@ -1,4 +1,12 @@
-<?php include dirname(__DIR__, 2). '/constant.php'; ?>
+<?php 
+// Include the constants file securely
+include dirname(__DIR__, 2) . '/constant.php'; 
+
+// Sanitize dynamic variables to ensure security
+$collegeAddress = htmlspecialchars($collegeAddress, ENT_QUOTES, 'UTF-8');
+$collegePhone = htmlspecialchars($collegePhone, ENT_QUOTES, 'UTF-8');
+$collegeEmail = htmlspecialchars($collegeEmail, ENT_QUOTES, 'UTF-8');
+?>
 
 <div class="top_menu">
     <div class="d-flex justify-content-between">
@@ -26,9 +34,11 @@
         <ul class="d-flex d-sm-none"> <!-- This will only be visible on mobile devices -->
             <div class="d-flex">
                 <li>
-                    <a href="tel:<?php echo $collegePhone; ?>"><i class="fa-solid fa-phone"></i></a>
+                    <!-- Sanitize the phone number link properly -->
+                    <a href="tel:+977<?php echo $collegePhone; ?>"><i class="fa-solid fa-phone"></i></a>
                 </li>
                 <li>
+                    <!-- Sanitize the email link properly -->
                     <a href="mailto:<?php echo $collegeEmail; ?>"><i class="fa-solid fa-envelope"></i></a>
                 </li>
             </div>

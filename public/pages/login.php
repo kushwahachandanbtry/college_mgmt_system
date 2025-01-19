@@ -320,77 +320,7 @@
 </style>
 
 <?php
-include dirname(__DIR__, 1) . '/includes/menu.php';
 
-
-
-
-$message = '';
-$messageType = '';
-
-if (isset($_POST['submit'])) {
-    include dirname(__DIR__, 2) . '/config.php';
-
-    $email = trim($_POST['login']);
-    $password = trim($_POST['password']);
-
-    if (empty($email) || empty($password)) {
-        $message = "Email and password are required!";
-        $messageType = 'error';
-    } else {
-        // Function to validate login credentials
-        function checkLogin($conn, $email, $password, $table)
-        {
-            $sql = "SELECT * FROM $table WHERE email = ?";
-            $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $email);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-
-            if (mysqli_num_rows($result) > 0) {
-                $user = mysqli_fetch_assoc($result);
-                if ($password == $user['password']) {
-                    return $user;
-                }
-            }
-            return null;
-        }
-
-        // Check login in both tables
-        $user = checkLogin($conn, $email, $password, 'registered_users');
-        if (!$user) {
-            $user = checkLogin($conn, $email, $password, 'users');
-        }
-
-        if ($user) {
-            $_SESSION['login_user'] = $user['email'];
-            $loginUser = urlencode($_SESSION['login_user']);
-            $message = "Login successful!";
-            $messageType = 'success';
-
-            // Redirect to a specific page
-            ?>
-            <script>
-                window.location.href = "<?php echo APP_PATH . '?login_user=' . $loginUser; ?>";
-            </script>
-            <?php
-            exit;
-        } else {
-            $message = "Invalid email or password.";
-            $messageType = 'error';
-        }
-    }
-}
-
-// If already logged in, redirect
-if (isset($_SESSION['login_user'])) {
-    ?>
-    <script>
-        window.location.href = "<?php echo APP_PATH; ?>";
-    </script>
-    <?php
-    exit;
-}
 
 
 ?>
@@ -417,23 +347,18 @@ if (isset($_SESSION['login_user'])) {
                 </div>
             <?php endif; ?>
             <!-- Login Form -->
-            <form action="login.php" method="POST">
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Email">
+            <form action="" method="POST">
+                <input type="text" id="login" class="fadeIn second" name="username" placeholder="Email">
                 <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
-                <input type="submit" class="fadeIn fourth" name="submit" value="Log In">
+                <input type="submit" class="fadeIn fourth" name="login" value="Log In">
             </form>
 
             <!-- Register link -->
             <div id="formFooter">
-                <a class="underlineHover" href="register.php">Register now</a>
+                <a class="underlineHover" href="?page=register">Register now</a>
             </div>
         </div>
     </div>
 </div>
 
-
-
-<?php
-include dirname(__DIR__, 1) . '/includes/footer.php';
-?>
 

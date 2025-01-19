@@ -87,31 +87,7 @@ const searchByName = () => {
     }
 }
 
-//hanlde add new routine for class routine
-// function handleAddNewRoutine() {
-//     const routineBtn = document.querySelector('.add-routine');
-//     const routineSection = document.querySelector('.main-routine');
 
-//     if (routineBtn && routineSection) {
-//         routineBtn.addEventListener('click', function () {
-//             routineSection.style.display = 'flex';
-//             document.body.classList.add('no-scroll');
-//             console.log('hello');
-//         });
-
-//         const routineCloseBtn = document.querySelector('.routine_close');
-//         if (routineCloseBtn) {
-//             routineCloseBtn.addEventListener('click', function () {
-//                 routineSection.style.display = 'none';
-//                 document.body.classList.remove('no-scroll');
-//                 console.log('hello');
-//             });
-//         }
-//     }
-// }
-
-// Call the function when the DOM is ready
-// document.addEventListener('DOMContentLoaded', handleAddNewRoutine);
 
 //handle adding new routine for exam
 document.addEventListener('DOMContentLoaded', function () {
@@ -291,6 +267,14 @@ function confirmDelete(id, category) {
     document.getElementById("confirmModal").style.display = "flex";
 }
 
+deleteWebData = null;
+deleteWebCategory = "";
+function confirmWebDataDelete(id, category) {
+    deleteWebData = id;
+    deleteWebCategory = category;
+    deleteRecord(deleteWebData, deleteWebCategory);
+}
+
 // Event listener for "No" button
 document.getElementById("confirmNo").addEventListener("click", function () {
     document.getElementById("confirmModal").style.display = "none";
@@ -343,9 +327,42 @@ function deleteRecord(id, category) {
             deleteUrl = "actions/delete_subject.php";
             break;
 
+        //delete web datas
         case "delete_service":
             deleteUrl = "actions/delete_service.php";
             break;
+
+        case "delete_testimoials":
+            deleteUrl = "actions/delete_testimoials.php";
+            break;
+
+        case "delete_feature":
+        deleteUrl = "actions/delete_feature.php";
+        break;
+
+        case "delete_FAQ":
+        deleteUrl = "actions/delete_FAQ.php";
+        break;
+
+        case "delete_video_and_content":
+        deleteUrl = "actions/delete_video_and_content.php";
+        break;
+
+        case "delete_course":
+        deleteUrl = "actions/delete_course.php";
+        break;
+
+        case "delete_meta_setting_data":
+            deleteUrl = "actions/delete_meta_setting_data.php";
+            break;
+
+        case "delete_staff":
+            deleteUrl = "actions/delete_staff.php";
+            break;
+
+        case "delete_gallery":
+        deleteUrl = "actions/delete_gallery.php";
+        break;
 
         default:
             console.error("Invalid category specified for deletion.");
@@ -357,16 +374,27 @@ function deleteRecord(id, category) {
     xhr.open("POST", deleteUrl, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            const response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                showNotification("Deleted successfully!");
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        showNotification("Deleted successfully!");
+                    } else {
+                        showNotification(response.message || "Failed to delete data.", "error");
+                    }
+                } catch (e) {
+                    console.error("Failed to parse JSON:", xhr.responseText);
+                    showNotification("Unexpected server response.", "error");
+                }
             } else {
-                showNotification("Failed to delete data.", "error");
+                console.error("Request failed with status:", xhr.status);
+                showNotification("Failed to delete data. Server error.", "error");
             }
         }
     };
-    xhr.send("id=" + id);
+
+    xhr.send("id=" + encodeURIComponent(id));
 }
 
 // Function to show custom notification and reload page after 2 seconds

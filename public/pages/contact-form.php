@@ -20,7 +20,7 @@
                         </div>
                         <div class="content">
                             <h4>Our Location</h4>
-                            <p><?php echo htmlspecialchars( $collegeAddress ); ?></p>
+                            <p><?php echo htmlspecialchars($collegeAddress, ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                         </div>
                         <div class="content">
                             <h4>Phone Number</h4>
-                            <p><?php echo htmlspecialchars( $collegePhone ); ?></p>
+                            <p><?php echo htmlspecialchars($collegePhone, ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                         </div>
                         <div class="content">
                             <h4>Email Address</h4>
-                            <p><?php echo htmlspecialchars( $collegeEmail ); ?></p>
+                            <p><?php echo htmlspecialchars($collegeEmail, ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -48,29 +48,27 @@
 
             <div class="col-lg-7">
                 <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
-                    <h3>Get In Touch</h3>
+                    <h3>Get In Touch - Mail</h3>
 
-                    <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-                        data-aos-delay="200">
+                    <!-- Add security to the form action -->
+                    <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
                         <div class="row gy-4">
 
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                                <!-- Sanitize user input using PHP filter_input -->
+                                <input type="text" name="name" class="form-control" placeholder="Your Name" required="" value="<?php echo htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                             </div>
 
-                            <div class="col-md-6 ">
-                                <input type="email" class="form-control" name="email" placeholder="Your Email"
-                                    required="">
-                            </div>
-
-                            <div class="col-12">
-                                <input type="text" class="form-control" name="subject" placeholder="Subject"
-                                    required="">
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" name="email" placeholder="Your Email" required="" value="<?php echo htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                             </div>
 
                             <div class="col-12">
-                                <textarea class="form-control" name="message" rows="6" placeholder="Message"
-                                    required=""></textarea>
+                                <input type="text" class="form-control" name="subject" placeholder="Subject" required="" value="<?php echo htmlspecialchars($_POST['subject'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                            </div>
+
+                            <div class="col-12">
+                                <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""><?php echo htmlspecialchars($_POST['message'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                             </div>
 
                             <div class="col-12 text-center">
@@ -92,3 +90,30 @@
     </div>
 
 </section><!-- /Contact Section -->
+
+<script>
+    // Ensure safe form submission using fetch API and display appropriate messages
+    document.querySelector(".php-email-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.text())
+            .then((result) => {
+                if (result === "success") {
+                    document.querySelector(".sent-message").style.display = "block";
+                    form.reset(); // Clear the form
+                } else {
+                    document.querySelector(".error-message").style.display = "block";
+                }
+            })
+            .catch((error) => {
+                document.querySelector(".error-message").style.display = "block";
+            });
+    });
+</script>

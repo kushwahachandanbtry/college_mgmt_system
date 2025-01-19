@@ -27,7 +27,7 @@
                     <label id="label_chat" for="radio_chats">Chats <img src="ui/icons/chat.png" alt=""></label>
                     <label id="label_contacts" for="radio_contacts">contacts <img src="ui/icons/contacts.png" alt=""></label>
                     <label id="label_setting" for="radio_settings">setting <img src="ui/icons/settings.png" alt=""></label>
-                    <label id="logout" for="logout">Logout <img src="ui/icons/logout.png" alt=""></label>
+                    <!-- <label id="logout" for="logout">Logout <img src="ui/icons/logout.png" alt=""></label> -->
                 </div>
             </div>
         </div>
@@ -73,8 +73,8 @@
         var label_setting = __("label_setting");
         label_setting.addEventListener("click", get_settings);
 
-        var logout = __("logout");
-        logout.addEventListener("click", logout_user);
+        // var logout = __("logout");
+        // logout.addEventListener("click", logout_user);
 
         function get_data(find, type ) {
             var xml = new XMLHttpRequest();
@@ -187,12 +187,12 @@
             }
         }
 
-        function logout_user() {
-            var answer = confirm("Are you sure want to logout??");
-            if( answer ) {
-                get_data({}, "logout");
-            }
-        }
+        // function logout_user() {
+        //     var answer = confirm("Are you sure want to logout??");
+        //     if( answer ) {
+        //         get_data({}, "logout");
+        //     }
+        // }
 
         get_data({}, "user_info");
         get_data({}, "contacts");

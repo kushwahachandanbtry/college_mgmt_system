@@ -13,10 +13,15 @@ if (isset($_GET['errors'])) {
         <h5>Add New Classes</h5>
         <div class="d-flex py-3">
             <div class="">
-                <lable>Class Name *</lable>
-                <input type="text"  name="classes" aria-label="First name" class="form-control py-2 px-4" required>
+                <lable>Class's Name *</lable>
+                <input type="text"  name="classes" aria-label="classes name" class="form-control py-2 px-4" required>
             </div>
             
+
+            <div class="ml-5">
+                <lable>Affliated University's Name *</lable>
+                <input type="text"  name="university" aria-label="university name" class="form-control py-2 px-4" required>
+            </div>
         </div>
         <div>
             <button type="submit" name="save">Save</button>

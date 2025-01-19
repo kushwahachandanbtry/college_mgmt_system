@@ -10,25 +10,26 @@
     <link href="http://localhost/college_mgmt_system/assets/images/logo/svg.jpg" rel="icon">
     <link href="http://localhost/college_mgmt_system/assets/images/logo/svg.jpg" rel="apple-touch-icon">
     <style>
-
+        /* Add any additional styles here */
     </style>
 </head>
 
 <body>
     <div id="wrapper" style="margin: 60px 220px;">
-        <form id="loginForm" class="login" style="padding: 0 30px;" action="">
+        <form id="loginForm" class="login" style="padding: 0 30px;" action="" method="POST">
             <div id="error"></div>
-            <input type="text" name="email" placeholder="Email">
             
-            <input type="password" name="password" placeholder="Password"><br>
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+
+            <input type="text" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required><br>
             <input type="submit" id="login_button" value="Login"><br>
-            <a style="display: block; text-align:center; text-decoration: none; padding-top: 10px;" href="signup.php">Don't have an account?? Signup here</a>
         </form>
     </div>
 </body>
 
 </html>
-
 
 <script type="text/javascript">
     function __(element) {
@@ -50,7 +51,6 @@
             var key = inputs[i].name;
 
             switch (key) {
-
                 case "email":
                     datas.email = inputs[i].value;
                     break;
@@ -59,12 +59,13 @@
                     datas.password = inputs[i].value;
                     break;
 
+                case "csrf_token":
+                    datas.csrf_token = inputs[i].value;
+                    break;
             }
         }
 
         send_data(datas, "login");
-
-
     }
 
     function send_data(data, type) {
@@ -75,12 +76,13 @@
                 loginButton.disabled = false;
                 loginButton.value = "Login";
             }
-
         }
+
         data.data_type = type;
         var dataString = JSON.stringify(data);
 
         xml.open("POST", "api.php", true);
+        xml.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xml.send(dataString);
     }
 

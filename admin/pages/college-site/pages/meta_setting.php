@@ -15,7 +15,7 @@ include dirname(__DIR__, 4) . '/FetchDataController.php';
             if (!empty($courses) && is_array($courses)) {
                 foreach ($courses as $course) {
                     ?>
-                    <option value="<?php echo htmlspecialchars($course['id']); ?>"
+                    <option value="<?php echo htmlspecialchars($course['course_title']); ?>"
                         data-code="<?php echo htmlspecialchars($course['course_title']); ?>" data-flag="🇳🇵">
                         <?php echo htmlspecialchars($course['course_title']); ?></option>
                 <?php
@@ -55,32 +55,32 @@ include dirname(__DIR__, 4) . '/FetchDataController.php';
     <br>
     <h4 class="text-center text-info" for="meta_title">Open Graph Tags </h4>
     <hr>
-    <label for="og_title">og Title: </label>
+    <label for="og_title">og Title*: </label>
     <div class="form-floating">
         <textarea class="form-control" cols="20" rows="5"
             placeholder="hint: [Your College Name/Course Name] - Excellence in Education" id="og_title"
-            name="og_title"></textarea>
+            name="og_title" required></textarea>
     </div>
 
-    <label for="og_description">og Description: </label>
+    <label for="og_description">og Description*: </label>
     <div class="form-floating">
         <textarea class="form-control" palceholder="" cols="20" rows="6"
             placeholder="hint: it’s best to keep it short and concise—around 1–2 sentences or 50–160 characters"
-            id="og_description" name="og_description"></textarea>
+            id="og_description" name="og_description" required></textarea>
     </div>
 
-    <label for="og_url">og URL: </label>
+    <label for="og_url">og URL*: </label>
     <div class="form-floating">
         <textarea class="form-control" cols="20" rows="3"
             placeholder="hint: https://www.yourcollege.edu or https://www.yourcollege.edu/courses.php" id="og_url"
-            name="og_url"></textarea>
+            name="og_url" required></textarea>
     </div>
 
-    <label for="og_image">og Image: </label>
+    <label for="og_image">og Image*: </label>
     <p class="text-info">Hint: Use 1200 x 630 pixels as the standard size. Ensure the aspect ratio is 1.91:1. Keep the
         file size under 1 MB to ensure fast loading. JPEG: Best for photos with lots of colors.</p>
     <div class="input-group mb-3">
-        <input type="file" class="form-control" id="og_image" name="og_image" accept="image/*">
+        <input required type="file" class="form-control" id="og_image" name="og_image" accept="image/*">
     </div>
 
 

@@ -32,7 +32,7 @@ class FetchDataController
      */
     public function getCourses()
     {
-        return $this->FetchDataController("SELECT * FROM courses");
+        return $this->fetchData("SELECT * FROM courses");
     }
 
     /**
@@ -42,7 +42,7 @@ class FetchDataController
      */
     public function getTestimonials()
     {
-        return $this->FetchDataController("SELECT * FROM what_people_say");
+        return $this->fetchData("SELECT * FROM what_people_say");
     }
 
     /**
@@ -52,7 +52,7 @@ class FetchDataController
      */
     public function getFeatures()
     {
-        return $this->FetchDataController("SELECT * FROM features");
+        return $this->fetchData("SELECT * FROM features");
     }
 
     /**
@@ -62,16 +62,16 @@ class FetchDataController
      */
     public function getFAQs()
     {
-        return $this->FetchDataController("SELECT * FROM faq");
+        return $this->fetchData("SELECT * FROM faq");
     }
 
     /**
-     * Fetch gallery form databse
+     * Fetch gallery from database
      * 
-     * @return array -Array of gallery data
+     * @return array - Array of gallery data
      */
     public function getGallery() {
-        return $this->FetchDataController("SELECT * FROM gallery");
+        return $this->fetchData("SELECT * FROM gallery");
     }
 
     /**
@@ -80,7 +80,7 @@ class FetchDataController
      * @return array - Array of staffs data
      */
     public function getStaff() {
-        return $this->FetchDataController("SELECT * FROM staff");
+        return $this->fetchData("SELECT * FROM staff");
     }
 
     /**
@@ -89,7 +89,7 @@ class FetchDataController
      * @return array - Array of services data
      */
     public function getService() {
-        return $this->FetchDataController("SELECT * FROM services");
+        return $this->fetchData("SELECT * FROM services");
     }
 
     /**
@@ -98,7 +98,7 @@ class FetchDataController
      * @return array - Array of notice data
      */
     public function getNotice(){
-        return $this->FetchDataController('SELECT * FROM notice ORDER BY id DESC limit 3');
+        return $this->fetchData('SELECT * FROM notice ORDER BY id DESC limit 3');
     }
 
     /**
@@ -107,7 +107,7 @@ class FetchDataController
      * @return array - Array of class routine data
      */
     public function getClassRoutine(){
-        return $this->FetchDataController('SELECT * FROM routines');
+        return $this->fetchData('SELECT * FROM routines');
     }
 
     /**
@@ -116,7 +116,7 @@ class FetchDataController
      * @return array - Array of exam schedule data
      */
     public function getExamSchedule(){
-        return $this->FetchDataController('SELECT * FROM exam_routine');
+        return $this->fetchData('SELECT * FROM exam_routine');
     }
 
     /**
@@ -125,7 +125,7 @@ class FetchDataController
      * @return array - Array of video and contents data
      */
     public function getVideoandContents(){
-        return $this->FetchDataController('SELECT * FROM video_and_content');
+        return $this->fetchData('SELECT * FROM video_and_content');
     }
 
     /**
@@ -134,7 +134,7 @@ class FetchDataController
      * @return array - Array of teachers data
      */
     public function getTeachers(){
-        return $this->FetchDataController('SELECT * FROM teachers');
+        return $this->fetchData('SELECT * FROM teachers');
     }
 
     /**
@@ -143,7 +143,7 @@ class FetchDataController
      * @return array - Array of Classes data
      */
     public function getClasses(){
-        return $this->FetchDataController('SELECT * FROM classes');
+        return $this->fetchData('SELECT * FROM classes');
     }
 
     /**
@@ -152,9 +152,8 @@ class FetchDataController
      * @return array - Array of Subjects data
      */
     public function getSubjects(){
-        return $this->FetchDataController('SELECT * FROM subjects');
+        return $this->fetchData('SELECT * FROM subjects');
     }
-
 
     /**
      * Fetch meta setting's data from database
@@ -162,7 +161,7 @@ class FetchDataController
      * @return array - Array of meta setting's data data
      */
     public function getMetaSettingDatas(){
-        return $this->FetchDataController('SELECT * FROM meta_setting');
+        return $this->fetchData('SELECT * FROM meta_setting');
     }
 
     /**
@@ -244,7 +243,10 @@ class FetchDataController
      */
     private function fetchSingleRow($query)
     {
-        $result = mysqli_query($this->conn, $query);
+        // Prepared Statement to prevent SQL injection
+        $stmt = mysqli_prepare($this->conn, $query);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
         if ($result && mysqli_num_rows($result) > 0) {
             return mysqli_fetch_assoc($result);
         }
@@ -257,10 +259,13 @@ class FetchDataController
      * @param string $query - SQL query
      * @return array - Array of fetched data
      */
-    private function FetchDataController($query)
+    private function fetchData($query)
     {
         $data = [];
-        $result = mysqli_query($this->conn, $query);
+        // Prepared Statement to prevent SQL injection
+        $stmt = mysqli_prepare($this->conn, $query);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $data[] = $row;
@@ -281,8 +286,7 @@ $collegePhone = $FetchDataController->getCollegePhone();
 $collegeEmail = $FetchDataController->getCollegeEmail();
 $collegeStatus = $FetchDataController->getStatus();
 
-
-//Fetch bulks data
+// Fetch bulk data
 $courses = $FetchDataController->getCourses();
 $testimonials = $FetchDataController->getTestimonials();
 $features = $FetchDataController->getFeatures();

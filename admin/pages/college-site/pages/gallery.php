@@ -35,7 +35,7 @@ delete_data_message();
                         class="text-primary edit-button" >
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <a href="#" class="text-danger"><i class="fa-solid fa-delete-left"></i></a>
+                        <p class="text-danger" style="cursor: pointer;" onclick="confirmWebDataDelete(<?php echo $gallery['id']; ?>, 'delete_gallery')"><i class="fa-solid fa-delete-left"></i></p>
                     </div>
                 </td>
 

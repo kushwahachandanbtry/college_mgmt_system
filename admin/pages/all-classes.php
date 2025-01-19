@@ -15,6 +15,7 @@ delete_data_message();
     <tr>
         <th>Id</th>
         <th>Classes</th>
+        <th>Affliated University</th>
         <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
             <th>Actions</th>
         <?php } ?>
@@ -28,6 +29,7 @@ delete_data_message();
             <tr class="fs-1">
                 <td><?php echo $i++; ?></td>
                 <td><?php echo strtoupper($class['classes']); ?></td>
+                <td><?php echo strtoupper($class['university']); ?></td>
                 <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
                     <td parent-id="<?php echo $class['id']; ?>" class="parent_actions"
                         style="font-family:bold; font-size: 30px; padding-left:25px; color: #0D6EFD; cursor:pointer;"
@@ -45,7 +47,8 @@ delete_data_message();
         <?php } ?>
     </table>
     <!-- table end -->
-<?php } ?>
+<?php }
+?>
 
 
 <!-- pagination -->
