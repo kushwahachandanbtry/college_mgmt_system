@@ -47,60 +47,75 @@ if ($selected_class && $selected_semester) {
 
 if (isset($_POST['save'])) {
     // Sanitize input data
+    
     $name = mysqli_real_escape_string($conn, $_POST['fname']) . " " . mysqli_real_escape_string($conn, $_POST['lname']);
     $admission_id = mysqli_real_escape_string($conn, $_POST['admission_id']);
-    $class = mysqli_real_escape_string($conn, $_POST['classes']);
-    $semester = mysqli_real_escape_string($conn, $_POST['semester']);
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+    $class = isset($_POST['classes']) ? mysqli_real_escape_string($conn, $_POST['classes']) : "" ;
+    $semester = isset($_POST['semester']) ? mysqli_real_escape_string($conn, $_POST['semester']) : "";
+    $subject = isset($_POST['subject']) ? mysqli_real_escape_string($conn, $_POST['subject']) : "";
     $status = mysqli_real_escape_string($conn, isset($_POST['status']) ? "1" : "0");
     $date = date("Y-m-d");
     $taken_by = $_SESSION['name'];
 
-    // Create attendance data array
-    $atten_data = array(
-        "name" => $name,
-        "admission_id" => $admission_id,
-        "class" => $class,
-        "semester" => $semester,
-        "subject" => $subject,
-        "status" => $status,
-        "date" => $date,
-        "taken_by" => $taken_by
-    );
+    $errors = [];
+    if( empty( $class )) {
+        $errors[] = "Please select a class.";
+    }
 
-    // Convert the array to JSON
-    $json_data = json_encode($atten_data);
+    if( empty( $semester )) {
+        $errors[] = "Please select a semester.";
+    }
 
-    // Escape the JSON string for safe use in the SQL query
-    $json_data_escaped = mysqli_real_escape_string($conn, $json_data);
+    if( empty( $subject )) {
+        $errors[] = "Please select a subject.";
+    }
 
-    // SQL query to insert the JSON data into the attendance column
-    $query = "INSERT INTO attendance (attendance) VALUES ('$json_data_escaped')";
+    if( empty( $errors )) {
+        // Create attendance data array
+        $atten_data = array(
+            "name" => $name,
+            "admission_id" => $admission_id,
+            "class" => $class,
+            "semester" => $semester,
+            "subject" => $subject,
+            "status" => $status,
+            "date" => $date,
+            "taken_by" => $taken_by
+        );
 
-    // Execute the query
-    $results = mysqli_query($conn, $query);
+        // Convert the array to JSON
+        $json_data = json_encode($atten_data);
 
-    // Check the result and handle response
-    if ($results) {
-        ?>
-        <div class="container text-center mx-auto" style="width: 400px;">
-            <div id="alertBox" class="alert alert-success text-center" role="alert">
-                <h5 class="fst-italic">Attendance Saved</h5>
+        // Escape the JSON string for safe use in the SQL query
+        $json_data_escaped = mysqli_real_escape_string($conn, $json_data);
+
+        // SQL query to insert the JSON data into the attendance column
+        $query = "INSERT INTO attendance (attendance) VALUES ('$json_data_escaped')";
+
+        // Execute the query
+        $results = mysqli_query($conn, $query);
+
+        // Check the result and handle response
+        if ($results) {
+            ?>
+            <div class="container text-center mx-auto" style="width: 400px;">
+                <div id="alertBox" class="alert alert-success text-center" role="alert">
+                    <h5 class="fst-italic">Attendance Saved</h5>
+                </div>
             </div>
-        </div>
 
-        <script>
-        // JavaScript to hide the alert after 3 seconds (3000 milliseconds)
-        setTimeout(function () {
-            var alertBox = document.getElementById('alertBox');
-            if (alertBox) {
-                alertBox.style.display = 'none'; // Hide the alert box
-            }
-        }, 2000); // 2000 milliseconds = 2 seconds
-        </script>
-        <?php
-    } else {
-        ?>
+            <script>
+            // JavaScript to hide the alert after 3 seconds (3000 milliseconds)
+            setTimeout(function () {
+                var alertBox = document.getElementById('alertBox');
+                if (alertBox) {
+                    alertBox.style.display = 'none'; // Hide the alert box
+                }
+            }, 2000); // 2000 milliseconds = 2 seconds
+            </script>
+            <?php
+        } else {
+            ?>
         <div class="container text-center mx-auto" style="width: 400px;">
             <div id="alertBox" class="alert alert-success text-center" role="alert">
                 <h5 class="fst-italic">Failed</h5>
@@ -117,6 +132,30 @@ if (isset($_POST['save'])) {
         }, 2000); // 2000 milliseconds = 2 seconds
         </script>
         <?php
+        }
+    } else {
+        ?>
+            <div class="container text-center mx-auto" style="width: 400px;">
+                <div id="alertBox" class="alert alert-danger text-center" role="alert">
+                    <h5 class="fst-italic"><?php
+                        foreach( $errors as $error ) {
+                            echo htmlspecialchars( $error ) . "<br>";
+                        }
+                    ?></h5>
+                </div>
+            </div>
+
+            <script>
+            // JavaScript to hide the alert after 3 seconds (3000 milliseconds)
+            setTimeout(function () {
+                var alertBox = document.getElementById('alertBox');
+                if (alertBox) {
+                    alertBox.style.display = 'none'; // Hide the alert box
+                }
+            }, 2000); // 2000 milliseconds = 2 seconds
+            </script>
+            <?php
+        
     }
 }
 

@@ -272,3 +272,16 @@ function text_limit($x, $length)
         echo htmlspecialchars($y, ENT_QUOTES, 'UTF-8'); // Escape the text before displaying
     }
 }
+
+/**
+ * Handle send email
+ * @param mixed $to
+ * @param mixed $subject
+ * @param mixed $body
+ * @return bool
+ */
+function sendEmail($to, $subject, $body) {
+    $headers = "From: no-reply@example.com\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    return mail($to, $subject, $body, $headers);
+}

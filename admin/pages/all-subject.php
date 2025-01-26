@@ -59,6 +59,6 @@ delete_data_message();
 $limit = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offsets = ($page - 1) * $limit;
-get_pagination('users', $conn, $limit, $page, APP_PATH.'/admin/dashboard.php?content=all_subject&&page=');
+get_pagination('subjects', $conn, $limit, $page, APP_PATH.'/admin/dashboard.php?content=all_subject&&page=');
 ?>
 

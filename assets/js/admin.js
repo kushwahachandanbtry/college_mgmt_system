@@ -267,12 +267,12 @@ function confirmDelete(id, category) {
     document.getElementById("confirmModal").style.display = "flex";
 }
 
-deleteWebData = null;
+deleteWebDataId = null;
 deleteWebCategory = "";
 function confirmWebDataDelete(id, category) {
-    deleteWebData = id;
+    deleteWebDataId = id;
     deleteWebCategory = category;
-    deleteRecord(deleteWebData, deleteWebCategory);
+    deleteRecord(deleteWebDataId, deleteWebCategory);
 }
 
 // Event listener for "No" button
@@ -327,6 +327,14 @@ function deleteRecord(id, category) {
             deleteUrl = "actions/delete_subject.php";
             break;
 
+        case "delete_communication":
+        deleteUrl = "actions/delete_communication.php";
+        break;
+
+        case "delete_notice":
+        deleteUrl = "actions/delete_notice.php";
+        break;
+
         //delete web datas
         case "delete_service":
             deleteUrl = "actions/delete_service.php";
@@ -361,7 +369,15 @@ function deleteRecord(id, category) {
             break;
 
         case "delete_gallery":
-        deleteUrl = "actions/delete_gallery.php";
+            deleteUrl = "actions/delete_gallery.php";
+            break;
+
+        case "delete_popups":
+            deleteUrl = "actions/delete_popups.php";
+            break;
+
+        case "delete_blogs":
+        deleteUrl = "actions/delete_blogs.php";
         break;
 
         default:
@@ -420,7 +436,45 @@ function showNotification(message, type = "success") {
 --------------------------------------------------------------------------------------------------------------------*/
 
 
+ // Apply formatting commands to the content in the editor
+ function formatText(command, value = null) {
+    document.execCommand(command, false, value);
+}
 
+// Add a table to the editor
+function addTable() {
+    const rows = prompt('Enter the number of rows:', 2);
+    const cols = prompt('Enter the number of columns:', 2);
+    if (rows && cols) {
+        let table = '<table border="1" style="border-collapse: collapse; width: 100%;">';
+        for (let i = 0; i < rows; i++) {
+            table += '<tr>';
+            for (let j = 0; j < cols; j++) {
+                table += '<td style="padding: 5px;">&nbsp;</td>';
+            }
+            table += '</tr>';
+        }
+        table += '</table>';
+        document.execCommand('insertHTML', false, table);
+    }
+}
+
+// Sync the content of the editor to the hidden textarea before submitting
+function syncEditorContent() {
+    const editorContent = document.getElementById('editor').innerHTML;
+    document.getElementById('hiddenOverview').value = editorContent;
+}
+
+// Reset the editor content
+function resetEditor() {
+    document.getElementById('editor').innerHTML = '';
+    document.getElementById('hiddenOverview').value = '';
+}
+
+// Enable focus on the editor when clicking outside toolbar
+document.getElementById('editor').addEventListener('click', () => {
+    document.execCommand('styleWithCSS', false, true); // For better formatting consistency
+});
 
 window.addEventListener('load', function () {
     handleNotification();

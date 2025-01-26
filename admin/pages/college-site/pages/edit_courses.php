@@ -1,5 +1,3 @@
-<h3><i>Edit Courses</i></h3>
-
 <?php
 if (isset($_GET['edit_id'])) {
     $id = $_GET['edit_id'];
@@ -31,10 +29,25 @@ if (isset($_GET['edit_id'])) {
         $result = mysqli_query($conn, $query);
         $current_images = mysqli_fetch_assoc($result);
 
-        // Handle course image upload
+        // Validate and handle course image upload
         $course_image_name = $current_images['course_image'];
         if (isset($_FILES['course_image']) && $_FILES['course_image']['error'] == 0) {
-            // Delete the old course image if it exists
+            // Validate image format
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $file_extension = strtolower(pathinfo($_FILES['course_image']['name'], PATHINFO_EXTENSION));
+            $file_size = $_FILES['course_image']['size'];
+
+            if (!in_array($file_extension, $allowed_extensions)) {
+                echo "Invalid course image format. Only JPG, JPEG, and PNG are allowed.";
+                exit();
+            }
+
+            if ($file_size > 2 * 1024 * 1024) { // 2MB
+                echo "Course image size must be less than 2MB.";
+                exit();
+            }
+
+            // Delete old course image if exists
             $old_course_image_path = $course_image_dir . $current_images['course_image'];
             if (file_exists($old_course_image_path)) {
                 unlink($old_course_image_path);
@@ -49,10 +62,25 @@ if (isset($_GET['edit_id'])) {
             }
         }
 
-        // Handle syllabus image upload
+        // Validate and handle syllabus image upload
         $syllabus_image_name = $current_images['syllabus_image'];
         if (isset($_FILES['syllabus_image']) && $_FILES['syllabus_image']['error'] == 0) {
-            // Delete the old syllabus image if it exists
+            // Validate image format
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $file_extension = strtolower(pathinfo($_FILES['syllabus_image']['name'], PATHINFO_EXTENSION));
+            $file_size = $_FILES['syllabus_image']['size'];
+
+            if (!in_array($file_extension, $allowed_extensions)) {
+                echo "Invalid syllabus image format. Only JPG, JPEG, and PNG are allowed.";
+                exit();
+            }
+
+            if ($file_size > 2 * 1024 * 1024) { // 2MB
+                echo "Syllabus image size must be less than 2MB.";
+                exit();
+            }
+
+            // Delete old syllabus image if exists
             $old_syllabus_image_path = $syllabus_image_dir . $current_images['syllabus_image'];
             if (file_exists($old_syllabus_image_path)) {
                 unlink($old_syllabus_image_path);
@@ -87,7 +115,7 @@ if (isset($_GET['edit_id'])) {
         }
     }
 
-
+    // Fetch current course details for the form
     $sql = "SELECT * FROM courses WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
@@ -112,20 +140,15 @@ if (isset($_GET['edit_id'])) {
                 <div class="form-floating py-3">
                     <select id="country" name="categories" class="form-control col-12">
                         <option value="" disabled>Select Categories</option>
-                        <option <?php $row['categories'] == 'Graduate' ? 'selected' : ''; ?> value="Graduate" data-code="Graduate"
-                            data-flag="🇳🇵">Graduate</option>
-                        <option <?php $row['categories'] == 'Undergraduate' ? 'selected' : ''; ?> value="Undergraduate"
-                            data-code="Undergraduate" data-flag="🇺🇸">Undergraduate</option>
-                        <option <?php $row['categories'] == 'Proffessional' ? 'selected' : ''; ?> value="Proffessional"
-                            data-code="Proffessional" data-flag="🇨🇦">Proffessional</option>
-                        <!-- Add more countries as needed -->
+                        <option <?php echo ($row['categories'] == 'Graduate' ? 'selected' : ''); ?> value="Graduate">Graduate</option>
+                        <option <?php echo ($row['categories'] == 'Undergraduate' ? 'selected' : ''); ?> value="Undergraduate">Undergraduate</option>
+                        <option <?php echo ($row['categories'] == 'Professional' ? 'selected' : ''); ?> value="Professional">Professional</option>
                     </select>
                 </div>
                 <label for="course_description">Course Description: </label>
                 <div class="form-floating">
                     <textarea class="form-control" cols="20" rows="10" placeholder="Leave about Course Description"
-                        id="course_description"
-                        name="course_description"><?php echo htmlspecialchars($row['course_description']); ?></textarea>
+                        id="course_description" name="course_description"><?php echo htmlspecialchars($row['course_description']); ?></textarea>
                 </div>
 
                 <label for="course_objectives">Course Objectives: </label>
@@ -191,6 +214,4 @@ if (isset($_GET['edit_id'])) {
             <?php
         }
     }
-
-
 }

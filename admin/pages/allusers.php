@@ -27,7 +27,7 @@ delete_data_message();
             ?>
             <tr class="fs-1">
                 <td><?php echo $user['id']; ?></td>
-                <td><img src="./pages/message_app/<?php echo $user['image']; ?>" alt="student-img"
+                <td><img src="../assets/images/users/<?php echo $user['image']; ?>" alt="student-img"
                         style="width: 60px; height: 60px; border-radius: 50%;"></td>
                 <td><?php echo $user['username']; ?></td>
                 <td><?php echo $user['email']; ?></td>

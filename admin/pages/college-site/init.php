@@ -25,6 +25,8 @@ class Init {
                 'menu9' => 'All_Features',
                 'menu7' => 'FAQ',
                 'menu10' => 'All_FAQ',
+                'menu11' => 'Popup',
+                'menu12' => 'Current_Popup',
             );
             return $home;
         }
@@ -66,6 +68,13 @@ class Init {
                 'menu2' => 'Gallery',
             );
             return $gallery;
+        }
+        if ($this->data == 'blogs') {
+            $blogs = array(
+                'menu1' => 'Add_Blogs',
+                'menu2' => 'All_Blogs',
+            );
+            return $blogs;
         }
     }
 }

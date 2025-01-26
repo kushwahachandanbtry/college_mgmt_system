@@ -28,25 +28,45 @@ if (isset($_GET['edit_id'])) {
             $current_image = $current_image_row['og_image'];
         }
     
+        // Handle image upload
         if (isset($_FILES['og_image']) && $_FILES['og_image']['error'] == 0) {
             // Define the upload directory
             $upload_dir = dirname(__DIR__, 4) . '/assets/images/Og_images/';
             $file_name = basename($_FILES['og_image']['name']);
             $file_path = $upload_dir . $file_name;
     
-            // Check if the directory exists
+            // Check file type (jpg, jpeg, png)
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    
+            if (!in_array($file_extension, $allowed_extensions)) {
+                echo "Invalid file type. Only JPG, JPEG, and PNG images are allowed.";
+                exit();
+            }
+    
+            // Check file size (must be less than 2MB)
+            $file_size = $_FILES['og_image']['size'];
+            if ($file_size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
+                echo "File size must be less than 2MB.";
+                exit();
+            }
+    
+            // Check if the directory exists; if not, create it
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0777, true); // Create directory if it doesn't exist
             }
     
             // Delete the old image file if it exists
-            if (file_exists($upload_dir . $current_image) && !empty($current_image)) {
+            if (!empty($current_image) && file_exists($upload_dir . $current_image)) {
                 unlink($upload_dir . $current_image);
             }
     
             // Move the uploaded file to the destination folder
             if (move_uploaded_file($_FILES['og_image']['tmp_name'], $file_path)) {
                 $current_image = $file_name; // Update the image name
+            } else {
+                echo "Failed to upload the image.";
+                exit();
             }
         }
     
@@ -64,8 +84,8 @@ if (isset($_GET['edit_id'])) {
         }
     }
     
-
-
+    
+    
     $sql = "SELECT * FROM meta_setting WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {

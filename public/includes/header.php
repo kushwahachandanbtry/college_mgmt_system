@@ -75,7 +75,7 @@ if (!empty($meta_setting_datas) && is_array($meta_setting_datas)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="vendor.css">
+    <!-- <link rel="stylesheet" href="vendor.css"> -->
     <title><?php echo htmlspecialchars($collegeName, ENT_QUOTES, 'UTF-8'); ?></title>
 
     <!-- fontawesome icon link -->

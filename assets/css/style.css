@@ -219,6 +219,57 @@ h6 {
     }
 }
 
+
+/* First-level dropdown (directly under "Courses") */
+.navmenu ul .submenu > .dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 0; /* Align below the parent */
+    left: 0;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+/* Second-level dropdown (submenus like Graduate Course 1) */
+.navmenu ul .submenu .dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 40px;
+    left: 0px; /* Positioned to the right of the parent menu */
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    
+    box-shadow: 0 4px 8px rgba(206, 22, 22, 0.1);
+    z-index: 10;
+}
+
+/* Hover effect to show the dropdown */
+.navmenu ul .submenu:hover > .dropdown {
+    display: block;
+}
+
+/* Link styles */
+.navmenu ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: #000;
+    text-decoration: none;
+}
+
+.navmenu ul li a:hover {
+    color: red;
+}
+
+/* Ensure the text doesn't wrap and dropdown looks neat */
+.navmenu ul .dropdown li {
+    white-space: nowrap;
+}
+
+
 /* Index Page Header
   ------------------------------*/
 .index-page .header {
@@ -2410,6 +2461,31 @@ section,
     pointer-events: none;
     
 }
+
+.blog-overlay{
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    text-align: center;
+    /* Background Image */
+    background: url(../images/ui/blog.jpeg) no-repeat center center;
+    background-size: cover;
+    padding: 90px 0 0 0;
+}
+.blog-overlay::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Overlay Color */
+    background: rgba(77, 26, 26, 0.5); /* Adjust the color and opacity as needed */
+    pointer-events: none;
+    
+}
+
 .our-staff-overlay{
     position: relative;
     width: 100%;

@@ -57,11 +57,21 @@ if (isset($_POST['save'])) {
         $errors[] = 'Password must be at least 8 characters.';
     }
 
+    // Check if email already exists
+    $stmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $errors[] = "The email address is already registered.";
+    }
+    $stmt->close();
+
     // Validate file upload
     if (empty($_FILES['student_image']['name'])) {
         $errors[] = "Please select an image.";
     } else {
-        $upload_dir = dirname(__DIR__, 2) . '/admin/pages/message_app/uploads/';
+        $upload_dir = dirname(__DIR__, 2) . '/assets/images/users/';
         $file_name = basename($_FILES['student_image']['name']);
         $target_file = $upload_dir . uniqid() . "_" . $file_name; // Generate a unique file name
         $uploadOk = 1;
@@ -92,7 +102,7 @@ if (isset($_POST['save'])) {
         }
     }
 
-    $file = 'uploads/' . basename($target_file);
+    $file = basename($target_file);
 
     // If no errors, insert data into the database
     if (empty($errors)) {

@@ -5,58 +5,74 @@ if (isset($_GET['edit_id'])) {
 
     if (isset($_POST['update'])) {
         include dirname(__DIR__, 4) . '/helpers.php';
-
+    
         // Retrieve form data
         $staff_name = mysqli_real_escape_string($conn, $_POST['staff_name']);
         $staff_phone = mysqli_real_escape_string($conn, $_POST['staff_phone']);
         $staff_email = mysqli_real_escape_string($conn, $_POST['staff_email']);
         $about_staff = mysqli_real_escape_string($conn, $_POST['about_staff']);
-
+    
         // Fetch the current image to delete later if updated
         $sql_fetch = "SELECT staff_image FROM staff WHERE id = $id";
         $result_fetch = mysqli_query($conn, $sql_fetch);
         $current_image = mysqli_fetch_assoc($result_fetch)['staff_image'];
-
+    
         // Handle file upload
         if (isset($_FILES['staff_image']) && $_FILES['staff_image']['error'] === UPLOAD_ERR_OK) {
             // Define upload directory
             $upload_dir = dirname(__DIR__, 5) . '/assets/images/staff/';
             $file_name = basename($_FILES['staff_image']['name']);
             $file_path = $upload_dir . $file_name;
-
+    
+            // Check file size (must be less than 2MB)
+            $file_size = $_FILES['staff_image']['size'];
+            if ($file_size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
+                echo "File size must be less than 2MB.";
+                exit();
+            }
+    
+            // Check file type (jpg, jpeg, png)
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    
+            if (!in_array($file_extension, $allowed_extensions)) {
+                echo "Invalid file type. Only JPG, JPEG, and PNG images are allowed.";
+                exit();
+            }
+    
             // Check if the directory exists; if not, create it
             if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0755, true);
+                mkdir($upload_dir, 0755, true); // Create directory if it doesn't exist
             }
-
+    
             // Move the uploaded file to the designated folder
             if (move_uploaded_file($_FILES['staff_image']['tmp_name'], $file_path)) {
-                // Delete the old image
+                // Delete the old image if it exists
                 if ($current_image && file_exists($upload_dir . $current_image)) {
                     unlink($upload_dir . $current_image);
                 }
-
+    
                 // Update database with the new image
                 $sql = "UPDATE staff SET staff_name = '$staff_name', staff_phone = '$staff_phone',
-                                        staff_email = '$staff_email', about_staff = '$about_staff',
-                                        staff_image = '$file_name' WHERE id = $id";
+                                            staff_email = '$staff_email', about_staff = '$about_staff',
+                                            staff_image = '$file_name' WHERE id = $id";
             } else {
                 edit_failed_message();
                 exit();
             }
         } else {
-            // Update database without changing the image
+            // If no new image, update the database without changing the image
             $sql = "UPDATE staff SET staff_name = '$staff_name', staff_phone = '$staff_phone',
-                                    staff_email = '$staff_email', about_staff = '$about_staff' WHERE id = $id";
+                                        staff_email = '$staff_email', about_staff = '$about_staff' WHERE id = $id";
         }
-
+    
         // Execute the query
         if (mysqli_query($conn, $sql)) {
             edit_success_message();
         } else {
             edit_failed_message();
         }
-    }
+    }    
 
     // Fetch the current staff details
     $sql = "SELECT * FROM staff WHERE id = $id";

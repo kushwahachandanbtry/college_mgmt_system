@@ -27,13 +27,13 @@ include('templates/header.php'); ?>
         <ul class="list-unstyled components">
 
             <li
-                class="<?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users']) ? 'active' : '' ?>">
+                class="<?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users', 'communications']) ? 'active' : '' ?>">
                 <a href="#usersMenu" data-toggle="collapse"
                     aria-expanded="<?= in_array($activePage, ['allusers', 'item0']) ? 'true' : 'false' ?>"
                     class="dropdown-toggle">
                     <i class="fa-solid fa-users pr-2"></i> Users
                 </a>
-                <ul class="collapse list-unstyled <?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users']) ? 'show' : '' ?>"
+                <ul class="collapse list-unstyled <?= in_array($activePage, ['allusers', 'item0', 'register_users', 'enquiry_users', 'communications']) ? 'show' : '' ?>"
                     id="usersMenu">
                     <li class="<?= $activePage == 'allusers' ? 'active' : '' ?>">
                         <a href="?content=allusers">All Users</a>
@@ -44,6 +44,9 @@ include('templates/header.php'); ?>
                     </li>
                     <li class="<?= $activePage == 'enquiry_users' ? 'active' : '' ?>">
                         <a href="?content=enquiry_users">Enquiry Users</a>
+                    </li>
+                    <li class="<?= $activePage == 'communications' ? 'active' : '' ?>">
+                        <a href="?content=communications">AI chat Record</a>
                     </li>
                     <?php } ?>
                     <?php if ($_SESSION['role'] == 'admin') { ?>
@@ -212,12 +215,23 @@ include('templates/header.php'); ?>
                 </ul>
             </li>
 
-            <li class="<?= $activePage == 'item14' ? 'active' : '' ?>">
-                <a href="?content=item14"><i class="fa-solid fa-flag pr-2"></i> Notice</a>
-            </li>
-
-            <li class="<?= $activePage == '' ? 'active' : '' ?>">
-                <a target="_blank" href="pages/message_app"><i class="fa-solid fa-message pr-2"></i> Message</a>
+            <li class="<?= in_array($activePage, ['all_notice', 'add_notice']) ? 'active' : '' ?>">
+                <a href="#notice" data-toggle="collapse"
+                    aria-expanded="<?= in_array($activePage, ['all_notice', 'add_notice']) ? 'true' : 'false' ?>"
+                    class="dropdown-toggle">
+                    <i class="fa-solid fa-book pr-2"></i> Notice
+                </a>
+                <ul class="collapse list-unstyled <?= in_array($activePage, ['all_notice', 'add_notice']) ? 'show' : '' ?>"
+                    id="notice">
+                    <li class="<?= $activePage == 'all_notice' ? 'active' : '' ?>">
+                        <a href="?content=all_notice">All Notice</a>
+                    </li>
+                    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'teacher') { ?>
+                        <li class="<?= $activePage == 'add_notice' ? 'active' : '' ?>">
+                            <a href="?content=add_notice">Add New Notice</a>
+                        </li>
+                    <?php } ?>
+                </ul>
             </li>
 
             <li class="<?= $activePage == 'item18' ? 'active' : '' ?>">
@@ -280,7 +294,7 @@ include('templates/header.php'); ?>
                                     if (mysqli_num_rows($image_result) > 0) {
                                         while ($image_row = mysqli_fetch_assoc($image_result)) {
                                             ?>
-                                            <img src="pages/message_app/<?php echo $image_row['image']; ?>"
+                                            <img src="../assets/images/users/<?php echo $image_row['image']; ?>"
                                                 style="width: 60px; height: 60px; border-radius: 50%;" alt="">
                                             <?php
                                         }

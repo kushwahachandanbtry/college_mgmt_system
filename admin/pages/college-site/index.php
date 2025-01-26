@@ -97,6 +97,11 @@ if (isset($_GET['err_msg'])) {
                         <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=gallery">Gallery</a>
                         </li>
                     </div>
+                    <div class="text-center">
+                        <i class="fa-solid fa-blog"></i>
+                        <li><a href="<?php $base_url ?>dashboard.php?content=college-website&&page=blogs">Blogs</a>
+                        </li>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -147,6 +152,10 @@ if (isset($_GET['err_msg'])) {
                             case 'edit_services':
                                 include 'pages/edit_services.php';
                                 break;
+
+                            case 'edit_popups':
+                                include 'pages/edit_popups.php';
+                                break;
                         }
                     }
                     if ($_GET['page'] == 'about') {
@@ -191,6 +200,14 @@ if (isset($_GET['err_msg'])) {
                         switch ($content) {
                             case 'edit_gallery':
                                 include 'pages/edit_gallery.php';
+                                break;
+                        }
+                    }
+
+                    if ($_GET['page'] == 'blogs') {
+                        switch ($content) {
+                            case 'edit_blogs':
+                                include 'pages/edit_blogs.php';
                                 break;
                         }
                     }

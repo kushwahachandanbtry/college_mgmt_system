@@ -50,8 +50,6 @@ if (isset($_GET['id'])) {
     
         // Error field is emtpty the insert valid data
         if ( empty( $errors ) ) {
-            include_once 'config.php';
-    
             
             $sql = "UPDATE books SET bname = '{$bname}', wname = '{$wname}', class = '{$class}', pubdate = '{$pubdate}',
             book_id = '{$book_id}', uploade = '{$uploade}' WHERE id = '{$id}'";

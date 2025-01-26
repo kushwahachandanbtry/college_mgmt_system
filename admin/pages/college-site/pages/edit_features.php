@@ -22,6 +22,23 @@ if (isset($_GET['edit_id'])) {
 
         // Handling the image upload
         if (isset($_FILES['features_image']) && $_FILES['features_image']['error'] == 0) {
+            // Validate image file format and size
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $file_extension = strtolower(pathinfo($_FILES['features_image']['name'], PATHINFO_EXTENSION));
+            $file_size = $_FILES['features_image']['size'];
+
+            // Check if file extension is allowed
+            if (!in_array($file_extension, $allowed_extensions)) {
+                echo "Invalid file format. Only JPG, JPEG, and PNG are allowed.";
+                exit();
+            }
+
+            // Check if file size is less than 2MB (2 * 1024 * 1024 bytes)
+            if ($file_size > 2 * 1024 * 1024) {
+                echo "Image size must be less than 2MB.";
+                exit();
+            }
+
             // Define the upload directory
             $upload_dir = dirname(__DIR__, 4) . '/assets/images/features/';
             $file_name = basename($_FILES['features_image']['name']);
@@ -76,7 +93,7 @@ if (isset($_GET['edit_id'])) {
         }
     }
 
-
+    // Retrieve the feature data to populate the form
     $sql = "SELECT * FROM features WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
@@ -87,23 +104,23 @@ if (isset($_GET['edit_id'])) {
                 <label for="card-title">Features Title: </label>
                 <div class="input-group flex-nowrap">
                     <input type="text" class="form-control" id="card-title" placeholder="Features Title" name="features_title"
-                        value="<?php echo $row['features_title']; ?>">
+                        value="<?php echo htmlspecialchars($row['features_title']); ?>">
                 </div>
                 <label for="card-s">Features Heading: </label>
                 <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control" id="card-s" placeholder="Features Title" name="features_heading"
-                        value="<?php echo $row['features_heading']; ?>">
+                    <input type="text" class="form-control" id="card-s" placeholder="Features Heading" name="features_heading"
+                        value="<?php echo htmlspecialchars($row['features_heading']); ?>">
                 </div>
                 <label for="floatingTextareas">Features Description: </label>
                 <div class="form-floating">
                     <textarea cols="30" rows="8" class="form-control" placeholder="Leave a features description here"
-                        id="floatingTextareas" name="features_description"><?php echo $row['features_description']; ?></textarea>
+                        id="floatingTextareas" name="features_description"><?php echo htmlspecialchars($row['features_description']); ?></textarea>
                 </div>
                 <label for="inputGroupFile02">Features Image: </label>
                 <div class="input-group mb-3">
                     <div class="mr-3">
                         <img id="featuresImagePreview" width="200px" height="200px"
-                            src="<?php echo APP_PATH . 'assets/images/features/' . $row['features_image']; ?>" alt="Student">
+                            src="<?php echo APP_PATH . 'assets/images/features/' . $row['features_image']; ?>" alt="Features Image">
                         <br>
                         <button type="button" onclick="document.getElementById('imageInput').click();"
                             class="btn btn-secondary mt-2">Change Image</button>
@@ -127,9 +144,7 @@ if (isset($_GET['edit_id'])) {
                     reader.readAsDataURL(event.target.files[0]);
                 }
             </script>
-        <?php
+            <?php
         }
     }
-
-
 }

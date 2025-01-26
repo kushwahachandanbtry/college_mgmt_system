@@ -11,7 +11,7 @@ if (isset($_GET['edit_id'])) {
         $overview = mysqli_real_escape_string($conn, $_POST['overview']);
         $name = mysqli_real_escape_string($conn, $_POST['name']);
         $batch = mysqli_real_escape_string($conn, $_POST['batch']);
-
+    
         // Retrieve the old image
         $sql = "SELECT image FROM what_people_say WHERE id = $id";
         $result = mysqli_query($conn, $sql);
@@ -20,39 +20,55 @@ if (isset($_GET['edit_id'])) {
             $row = mysqli_fetch_assoc($result);
             $old_image = $row['image'];
         }
-
+    
         // Handling the image upload
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             // Define the upload directory
             $upload_dir = dirname(__DIR__, 4) . '/assets/images/what_people_say/';
             $file_name = basename($_FILES['image']['name']);
             $file_path = $upload_dir . $file_name;
-
-            // Check if the directory exists
+    
+            // Check file size (must be less than 2MB)
+            $file_size = $_FILES['image']['size'];
+            if ($file_size > 2 * 1024 * 1024) { // 2MB = 2 * 1024 * 1024 bytes
+                echo "File size must be less than 2MB.";
+                exit();
+            }
+    
+            // Check file type (jpg, jpeg, png)
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    
+            if (!in_array($file_extension, $allowed_extensions)) {
+                echo "Invalid file type. Only JPG, JPEG, and PNG images are allowed.";
+                exit();
+            }
+    
+            // Check if the directory exists; if not, create it
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0777, true); // Create directory if it doesn't exist
             }
-
+    
             // Move uploaded file to the destination folder
             if (move_uploaded_file($_FILES['image']['tmp_name'], $file_path)) {
-                // Delete the old image file
+                // Delete the old image file if it exists
                 if (!empty($old_image)) {
                     $old_image_path = $upload_dir . $old_image;
                     if (file_exists($old_image_path)) {
                         unlink($old_image_path);
                     }
                 }
-
+    
                 // File successfully uploaded, now update the database
                 $image_path_db = $file_name; // Store only the filename in the DB
-
+    
                 $sql = "UPDATE what_people_say 
                         SET overview = '$overview', 
                             name = '$name', 
                             batch = '$batch', 
                             image = '$image_path_db' 
                         WHERE id = $id";
-
+    
                 if (mysqli_query($conn, $sql)) {
                     edit_success_message();
                 } else {
@@ -68,14 +84,14 @@ if (isset($_GET['edit_id'])) {
                         name = '$name', 
                         batch = '$batch' 
                     WHERE id = $id";
-
+    
             if (mysqli_query($conn, $sql)) {
                 edit_success_message();
             } else {
                 edit_failed_message();
             }
         }
-    }
+    }    
 
     // Fetch existing data for the edit form
     $sql = "SELECT * FROM what_people_say WHERE id = $id";

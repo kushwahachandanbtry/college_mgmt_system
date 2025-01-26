@@ -17,7 +17,7 @@ $allowed_pages = [
     'item11' => 'Add Books',
     'item12' => 'All Fee Collection',
     'item13' => 'Add New Expenses',
-    'item14' => 'Notice Board',
+    'add_notice' => 'Add New Notice',
     'item15' => 'All Classes',
     'item16' => 'Add New Classes',
     'item17' => 'Messaging',
@@ -28,7 +28,6 @@ $allowed_pages = [
     'item22' => 'View Class Attendance',
     'item23' => 'View Student Attendance',
     'download_attendance' => 'Download Attendance',
-    'item24' => 'Message App',
     'allusers' => 'All Users',
     'college-website' => 'College Website',
     'add-routine' => 'Add Routine',
@@ -40,11 +39,12 @@ $allowed_pages = [
     'edit_class' => 'Edit Class',
     'edit_routine' => 'Edit Routine',
     'edit_exam_routine' => 'Edit Exam Routine',
+    'edit_notice' => 'Edit Notice',
     'checkout-khalti' => 'Khalti Checkout',
-    'message' => 'Message',
-    'notice' => 'Notice',
+    'all_notice' => 'All Notice',
     'register_users' => 'Registered Users',
-    'enquiry_users' => 'Enquiry Users'
+    'enquiry_users' => 'Enquiry Users',
+    'communications' => 'AI Chat Records',
 ];
 
 // Check if 'content' is set and sanitize the input
@@ -121,8 +121,12 @@ if (isset($_GET['content'])) {
                 include("pages/add-new-expenses.php");
                 break;
 
-            case 'item14':
-                include("pages/notice.php");
+            case 'add_notice':
+                include("pages/add-notice.php");
+                break;
+
+            case 'all_notice':
+                include("pages/all-notice.php");
                 break;
 
             case 'item15':
@@ -131,10 +135,6 @@ if (isset($_GET['content'])) {
 
             case 'item16':
                 include("pages/add-new-classes.php");
-                break;
-
-            case 'item17':
-                include("pages/message_app/index.php");
                 break;
 
             case 'item18':
@@ -165,12 +165,12 @@ if (isset($_GET['content'])) {
                 include("pages/attendance/download_attendance.php");
                 break;
 
-            case 'item24':
-                include("pages/message_app/index.php");
-                break;
-
             case 'allusers':
                 include("pages/allusers.php");
+                break;
+
+            case 'communications':
+                include("pages/communications.php");
                 break;
 
             case 'college-website':
@@ -183,6 +183,10 @@ if (isset($_GET['content'])) {
 
             case 'edit_user':
                 include("actions/edit_user.php");
+                break;
+
+            case 'edit_notice':
+                include("actions/edit_notice.php");
                 break;
 
             case 'edit_student':
@@ -215,10 +219,6 @@ if (isset($_GET['content'])) {
 
             case 'checkout-khalti':
                 include("khalti/checkout.php");
-                break;
-
-            case 'message':
-                include("actions/message.php");
                 break;
 
             case 'notice':

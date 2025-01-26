@@ -165,6 +165,24 @@ class FetchDataController
     }
 
     /**
+     * Fetch popup from database
+     * 
+     * @return array - Array of popup data
+     */
+    public function getPopups(){
+        return $this->fetchData('SELECT * FROM popup');
+    }
+
+    /**
+     * Fetch blog from database
+     * 
+     * @return array - Array of blog data
+     */
+    public function getblogs(){
+        return $this->fetchData('SELECT * FROM blogs');
+    }
+
+    /**
      * Fetch the college logo
      *
      * @return string|null - The logo image or null if not found
@@ -302,3 +320,5 @@ $meta_setting_datas = $FetchDataController->getMetaSettingDatas();
 $teachers = $FetchDataController->getTeachers();
 $classes = $FetchDataController->getClasses();
 $subjects = $FetchDataController->getSubjects();
+$popups = $FetchDataController->getPopups();
+$blogs = $FetchDataController->getblogs();

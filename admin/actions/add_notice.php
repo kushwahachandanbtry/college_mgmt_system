@@ -31,7 +31,7 @@ if (isset($_POST['post'])) {
         $result = mysqli_query( $conn, $sql );
         if ($result) {
             $msg = "Notice added successfully!";
-            header("Location: ".APP_PATH."admin/dashboard.php?content=item14&msg=" . urlencode($msg));
+            header("Location: ".APP_PATH."admin/dashboard.php?content=add_notice&msg=" . urlencode($msg));
             exit(); // Use exit to prevent further code execution
         } 
     } else {
@@ -39,7 +39,7 @@ if (isset($_POST['post'])) {
         foreach( $errors as $error ) {
             $msg .= $error . "</br>";
         }
-        header("Location: ".APP_PATH."admin/dashboard.php?content=item14&errors=" . urlencode($msg));
+        header("Location: ".APP_PATH."admin/dashboard.php?content=add_notice&errors=" . urlencode($msg));
     }
     
     
