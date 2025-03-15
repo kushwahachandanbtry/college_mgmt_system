@@ -13,7 +13,7 @@ $collegeName = htmlspecialchars($collegeName, ENT_QUOTES, 'UTF-8');
             <div class="col-lg-3">
                 <ul>
                     <li>
-                        <h4 style="border-bottom: 4px solid #fff; display: inline-block;">About</h4>
+                        <h4 style="border-bottom: 2px solid #061A70; display: inline-block;">About</h4>
                     </li>
                     <li>
                         <p>At <?php echo $collegeName; ?>, we believe education is the foundation of a successful and fulfilling life. Our college is committed to providing a transformative learning experience that empowers students to excel academically.</p>
@@ -29,7 +29,7 @@ $collegeName = htmlspecialchars($collegeName, ENT_QUOTES, 'UTF-8');
             <div class="col-lg-4">
                 <ul class="footer-courses">
                     <li>
-                        <h4 style="border-bottom: 4px solid #fff; display: inline-block;">Outstanding Courses</h4>
+                        <h4 style="border-bottom: 2px solid #061A70; display: inline-block;">Outstanding Courses</h4>
                     </li>
                     <?php 
                     // Ensure $courses is an array and not empty
@@ -51,7 +51,7 @@ $collegeName = htmlspecialchars($collegeName, ENT_QUOTES, 'UTF-8');
             <div class="col-lg-2">
                 <ul>
                     <li>
-                        <h4 style="border-bottom: 4px solid #fff; display: inline-block;">Support</h4>
+                        <h4 style="border-bottom: 2px solid #061A70; display: inline-block;">Support</h4>
                     </li>
                     <li>
                         <a href="?page=about">About Us</a>
@@ -73,7 +73,7 @@ $collegeName = htmlspecialchars($collegeName, ENT_QUOTES, 'UTF-8');
             <div class="col-lg-3">
                 <ul>
                     <li>
-                        <h4 style="border-bottom: 4px solid #fff; display: inline-block;">Flexible Learning</h4>
+                        <h4 style="border-bottom: 2px solid #061A70; display: inline-block;">Flexible Learning</h4>
                     </li>
                     <li>
                         <p>At <?php echo $collegeName; ?>, we believe education is the foundation of a successful and fulfilling life.</p>
@@ -99,7 +99,7 @@ $collegeName = htmlspecialchars($collegeName, ENT_QUOTES, 'UTF-8');
             <hr>
             <div class="end-footer">
                 <div>
-                    <p class="py-2"><?php echo date("Y"); ?> &#169; <?php echo $collegeName; ?>, All Rights Reserved, Developed By: <a target="_blank" class="text-light" href="https://github.com/kushwahachandanbtry"><u>Chandan Kushwaha</u></a></p>
+                    <p class="py-2"><?php echo date("Y"); ?> &#169; <?php echo $collegeName; ?>, All Rights Reserved, Developed By: <a target="_blank" class="text-primary" href="https://github.com/kushwahachandanbtry"><u>Chandan Kushwaha</u></a></p>
                 </div>
                 <div class="d-flex">
                     <div class="">

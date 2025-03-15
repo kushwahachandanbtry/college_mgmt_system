@@ -451,7 +451,7 @@
                                             <img src="assets/images/courses/course_images/<?php echo htmlspecialchars($course['course_image'], ENT_QUOTES, 'UTF-8'); ?>"
                                                 class="card-img-top" alt="">
                                             <div class="card-body">
-                                                <h5 style="color: #B21237;" class="card-title">
+                                                <h5 style="color: #000;" class="card-title">
                                                     <?php echo htmlspecialchars($course['course_title'], ENT_QUOTES, 'UTF-8'); ?>
                                                 </h5>
                                             </div>

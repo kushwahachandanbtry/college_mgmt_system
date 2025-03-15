@@ -20,8 +20,9 @@
 
     /* STRUCTURE */
     .login {
-        background-color: #FFC6C5;
+        background-color: #ffffff;
         padding-top: 40px;
+        padding-bottom: 40px;
     }
 
     .wrapper {
@@ -67,7 +68,7 @@
 
     h2.active {
         color: #0d0d0d;
-        border-bottom: 2px solid #5fbae9;
+        border-bottom: 2px solid #266DB3;
     }
 
 
@@ -77,7 +78,7 @@
     input[type=button],
     input[type=submit],
     input[type=reset] {
-        background-color: #56baed;
+        background-color: #266DB3;
         border: none;
         color: white;
         padding: 15px 80px;
@@ -293,7 +294,7 @@
         bottom: -10px;
         width: 0;
         height: 2px;
-        background-color: #56baed;
+        background-color: #0054A6;
         content: "";
         transition: width 0.2s;
     }
@@ -355,7 +356,7 @@
 
             <!-- Register link -->
             <div id="formFooter">
-                <a class="underlineHover" href="?page=register">Register now</a>
+                <a class="underlineHover" href="?page=register" style="color: #0054A6;">Register now</a>
             </div>
         </div>
     </div>

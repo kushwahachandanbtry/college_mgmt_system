@@ -25,7 +25,7 @@
                                 <img src="assets/images/gallery/<?php echo urlencode($gallery['image_path']); ?>"
                                     style="width: 100%; height: 280px;" class="img-fluid"
                                     alt="<?php echo htmlspecialchars($gallery['image_name']); ?>">
-                                <h5 class="text-center py-3"><?php echo htmlspecialchars($gallery['image_name']); ?></h5>
+                                <h5 class=" text-center py-3"><?php echo htmlspecialchars($gallery['image_name']); ?></h5>
                             </div>
                         </a>
                     </div>

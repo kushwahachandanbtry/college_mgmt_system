@@ -3,7 +3,7 @@
         #message-icon {
             position: fixed;
             background-color: #0054A6;
-            box-shadow: 0 0 8px 3px red;
+            /* box-shadow: 0 0 8px 3px red; */
             border-radius: 10px;
             padding: 10px;
             bottom: 20px;

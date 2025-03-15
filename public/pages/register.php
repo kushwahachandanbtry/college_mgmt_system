@@ -1,3 +1,188 @@
+<style>
+    input, textarea, select, button {
+  font-family: "Muli-Regular";
+  color: #333;
+  font-size: 13px; }
+
+p, h1, h2, h3, h4, h5, h6, ul {
+  margin: 0; }
+
+img {
+  max-width: 100%; }
+
+ul {
+  padding-left: 0;
+  margin-bottom: 0; }
+
+a:hover {
+  text-decoration: none; }
+
+:focus {
+  outline: none; }
+
+.wrapper {
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center; }
+
+.inner {
+  min-width: 850px;
+  height: 1500px;
+  margin: auto;
+  padding-top: 68px;
+  padding-bottom: 48px;
+  background: url("assets/img/registration-form-2.jpg"); 
+background-repeat: no-repeat;
+}
+  .inner h3 {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-family: "Muli-Bold";
+    text-align: center;
+    margin-bottom: 32px;
+    color: #333;
+    letter-spacing: 2px; }
+
+form {
+  width: 50%;
+  padding-left: 45px; }
+
+.form-group {
+  display: flex; }
+  .form-group .form-wrapper {
+    width: 50%; }
+    .form-group .form-wrapper:first-child {
+      margin-right: 20px; }
+
+.form-wrapper {
+  margin-bottom: 17px; }
+  .form-wrapper label {
+    margin-bottom: 9px;
+    display: block; }
+
+.form-control {
+  border: 1px solid #ccc;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+  font-family: "Muli-Bold";
+  background: none; }
+  .form-control:focus {
+    border: 1px solid #ae3c33; }
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-left: 20px; }
+  select option[value=""][disabled] {
+    display: none; }
+
+button {
+  border: none;
+  width: 152px;
+  height: 40px;
+  margin: auto;
+  margin-top: 29px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #ae3c33;
+  font-size: 13px;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Muli-SemiBold";
+  border-radius: 20px;
+  overflow: hidden;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s; }
+  button:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f11a09;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out; }
+  button:hover:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+
+.checkbox {
+  position: relative; }
+  .checkbox label {
+    padding-left: 22px;
+    cursor: pointer; }
+  .checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer; }
+  .checkbox input:checked ~ .checkmark:after {
+    display: block; }
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 12px;
+  width: 13px;
+  border-radius: 2px;
+  background-color: #ebebeb;
+  border: 1px solid #ccc;
+  font-family: Material-Design-Iconic-Font;
+  color: #000;
+  font-size: 10px;
+  font-weight: bolder; }
+  .checkmark:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    content: '\f26b'; }
+
+@media (max-width: 991px) {
+  .inner {
+    min-width: 768px; } }
+@media (max-width: 767px) {
+  .inner {
+    min-width: auto;
+    background: none;
+    padding-top: 0;
+    padding-bottom: 0; }
+
+  form {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px; } }
+</style>
+
 <?php
 /**
  * This file is used to register users
@@ -98,10 +283,8 @@ if (isset($_POST['submit'])) {
 ?>
 
 <!-- New register student form -->
-<div class="studentForm py-5" style="background-color: #FFC6C5">
-    <div class="new-studentRegister-form show-form py-5 px-5">
-        <div class="container py-5 px-5" style="background-color: #FFF; width: 60%;">
-            <h1 class="text-center">Registration Form</h1>
+<div class="wrapper" style="background-image: url('assets/img/bg-registration-form-2.jpg');">
+			<div class="inner">
             <?php if( !empty( $errors ) && is_array( $errors ) ) {
                 foreach( $errors as $error ) {
                     ?>
@@ -115,61 +298,58 @@ if (isset($_POST['submit'])) {
                 <?php 
             }
             ?>
-            <form action="" method="POST">
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">First Name *</span>
-                    <input type="text" class="form-control" name="fname" placeholder="First Name" aria-label=""
-                        aria-describedby="addon-wrapping" value="<?php echo htmlspecialchars($fname ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <span style="color: red;"><?= $errors['fname'] ?? '' ?></span>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Middle Name</span>
-                    <input type="text" class="form-control" name="mname" placeholder="Middle Name" aria-label="mname"
-                        aria-describedby="addon-wrapping" value="<?php echo htmlspecialchars($mname ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Last Name *</span>
-                    <input type="text" class="form-control" name="lname" placeholder="Last Name" aria-label="lname"
-                        aria-describedby="addon-wrapping" required value="<?php echo htmlspecialchars($lname ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <span style="color: red;"><?= $errors['lname'] ?? '' ?></span>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Phone Number *</span>
-                    <input type="number" class="form-control" name="pnumber" placeholder="Phone Number"
-                        aria-label="pnumber" aria-describedby="addon-wrapping" required value="<?php echo htmlspecialchars($phnumber ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <span style="color: red;"><?= $errors['pnumber'] ?? '' ?></span>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Email *</span>
-                    <input type="email" class="form-control" name="email" placeholder="Email" aria-label="email"
-                        aria-describedby="addon-wrapping" required value="<?php echo htmlspecialchars($email ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <span style="color: red;"><?= $errors['email'] ?? '' ?></span>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Password *</span>
-                    <input type="password" class="form-control" name="pass" placeholder="Password" aria-label="password"
-                        aria-describedby="addon-wrapping" required>
-                </div>
-                <span style="color: red;"><?= $errors['password'] ?? '' ?></span>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Father Name</span>
-                    <input type="text" class="form-control" name="fathername" placeholder="Father Name"
-                        aria-label="fname" aria-describedby="addon-wrapping" value="<?php echo htmlspecialchars($fathername ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <div class="input-group py-2 flex-nowrap">
-                    <span class="input-group-text" id="addon-wrapping">Permanenet Address *</span>
-                    <input type="text" class="form-control" name="paddress" placeholder="Permanenet Address"
-                        aria-label="password" aria-describedby="addon-wrapping" required value="<?php echo htmlspecialchars($paddress ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                </div>
-                <span style="color: red;"><?= $errors['address'] ?? '' ?></span>
-                <div class="gender">
-                    <label>Gender *</label>
-                    <input type="radio" name="gender" value="male" required <?php echo isset($gender) && $gender == 'male' ? 'checked' : ''; ?>><span>Male</span>
-                    <input type="radio" name="gender" value="female" required <?php echo isset($gender) && $gender == 'female' ? 'checked' : ''; ?>><span>Female</span>
-                    <input type="radio" name="gender" value="others" required <?php echo isset($gender) && $gender == 'others' ? 'checked' : ''; ?>><span>Others</span>
-                </div>
-                <span style="color: red;"><?= $errors['gender'] ?? '' ?></span>
-                <select class="form-select" name="cource">
+				<form action="" method="POST">
+					<h3>Registration Form</h3>
+					<div class="form-group">
+						<div class="form-wrapper">
+							<label for="">First Name *</label>
+							<input type="text" required value="<?php echo htmlspecialchars($fname ?? '', ENT_QUOTES, 'UTF-8'); ?>" name="fname" class="form-control">
+						</div>
+                        <span style="color: red;"><?= $errors['fname'] ?? '' ?></span>
+
+                        <div class="form-wrapper">
+							<label for="">Middle Name</label>
+							<input type="text" name="mname" value="<?php echo htmlspecialchars($mname ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control">
+						</div>
+						
+					</div>
+                    
+                    <div class="form-group">
+						<div class="form-wrapper">
+							<label for="">Last Name</label>
+							<input type="text" name="lname" required value="<?php echo htmlspecialchars($lname ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control">
+						</div>
+                        <span style="color: red;"><?= $errors['lname'] ?? '' ?></span>
+
+                        <div class="form-wrapper">
+							<label for="">Phone Number</label>
+							<input type="number" name="pnumber" required value="<?php echo htmlspecialchars($phnumber ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control">
+						</div>
+                        <span style="color: red;"><?= $errors['pnumber'] ?? '' ?></span>
+						
+					</div>
+                    <div class="form-group">
+						<div class="form-wrapper">
+							<label for="">Father Name</label>
+							<input type="text" name="fathername" value="<?php echo htmlspecialchars($fathername ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control">
+						</div>
+                        <div class="form-wrapper">
+							<label for="">Permanent Address</label>
+							<input type="text" name="paddress" required value="<?php echo htmlspecialchars($paddress ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control">
+						</div>
+                        <span style="color: red;"><?= $errors['address'] ?? '' ?></span>
+						
+					</div>
+                    <div class="form-group">
+						<div class="form-wrapper">
+							<label for="">Gender</label>
+							<input type="radio" name="gender" value="male" required <?php echo isset($gender) && $gender == 'male' ? 'checked' : ''; ?>><span>Male</span>
+                            <input type="radio" name="gender" value="female" required <?php echo isset($gender) && $gender == 'female' ? 'checked' : ''; ?>><span>Female</span>
+						</div>
+                        <span style="color: red;"><?= $errors['gender'] ?? '' ?></span>
+                        <div class="form-wrapper">
+							<label for="">Courses</label>
+							<select class="form-select" name="cource">
                     <option disabled>Select Your Cources</option>
                     <option value="BCA" <?php echo isset($cources) && $cources == 'BCA' ? 'selected' : ''; ?>>BCA</option>
                     <option value="BHM" <?php echo isset($cources) && $cources == 'BHM' ? 'selected' : ''; ?>>BHM</option>
@@ -178,12 +358,28 @@ if (isset($_POST['submit'])) {
                     <option value="ARTS" <?php echo isset($cources) && $cources == 'ARTS' ? 'selected' : ''; ?>>ARTS</option>
                 </select></br>
                 <span style="color: red;"><?= $errors['course'] ?? '' ?></span>
-                <div class="d-grid gap-2">
-                    <button class="btn btn-primary" name="submit" type="submit">SUBMIT</button>
-                </div>
-            </form>
-            <!-- /New register student form -->
+						</div>
+						
+					</div>
+					<div class="form-wrapper">
+						<label for="">Email</label>
+						<input type="email" name="email" required value="<?php echo htmlspecialchars($email ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="form-control">
+					</div>
+                    <span style="color: red;"><?= $errors['email'] ?? '' ?></span>
 
-        </div>
-    </div>
-</div>
+					<div class="form-wrapper">
+						<label for="">Password</label>
+						<input type="password" name="pass" required class="form-control">
+					</div>
+                    <span style="color: red;"><?= $errors['password'] ?? '' ?></span>
+					
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"> I caccept the Terms of Use & Privacy Policy.
+							<span class="checkmark"></span>
+						</label>
+					</div>
+					<button name="submit" type="submit">Register Now</button>
+				</form>
+			</div>
+		</div>

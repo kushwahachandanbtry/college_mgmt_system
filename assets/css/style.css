@@ -20,7 +20,7 @@
     /* Background color for the entire website, including individual sections */
     --default-color: #444444;
     /* Default color used for the majority of the text content across the entire website */
-    --heading-color: #b21237;
+    --heading-color: #0054A6;
     /* Color for headings, subheadings and title throughout the website */
     --accent-color: #0054A6;
     /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
@@ -49,12 +49,12 @@
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 .light-background {
-    --background-color: #ffc6c5;
+    --background-color: #fff6f6;
     --surface-color: #ffffff;
 }
 
 .dark-background {
-    --background-color: #c43d3d;
+    --background-color: #061a70;
     --default-color: #ffffff;
     --heading-color: #ffffff;
     --surface-color: #af3c3c;
@@ -281,8 +281,9 @@ h6 {
 /* Index Page Header on Scroll
   ------------------------------*/
 .index-page.scrolled .header {
-    --background-color: #ffb3b3;
+    --background-color: #ffffff;
     color: #fff;
+    box-shadow: 0 0 5px 1px gray;
 }
 .index-page.scrolled .header .navmenu a, .navmenu a:focus{
     color: #000;
@@ -292,7 +293,7 @@ h6 {
     Top Menu
 --------------------------------------------------------------*/
 .top_menu{
-    --background-color : #C43D3D;
+    --background-color : #061A70;
     padding: 12px 20px 0px 20px;
     background-color: var(--background-color);
     color: #fff;
@@ -770,15 +771,15 @@ section,
 }
 
 .hero .btn-get-started {
-    color: var(--contrast-color);
-    background: var(--accent-color);
+    color: #061A70;
+    background: var(--contrast-color);
     font-family: var(--heading-font);
     font-weight: 500;
-    font-size: 15px;
+    font-size: 18px;
     letter-spacing: 1px;
     display: inline-block;
     padding: 10px 28px 12px 28px;
-    border-radius: 50px;
+    border-radius: 6px;
     transition: 0.5s;
 }
 
@@ -792,7 +793,11 @@ section,
     transition: 0.5s;
     margin-left: 25px;
     color: var(--default-color);
+    border: 1px solid red;
+    padding: 0 20px;
     font-weight: 600;
+    background-color: red;
+    border-radius: 6px;
 }
 
 .hero .btn-watch-video i {
@@ -801,14 +806,17 @@ section,
     transition: 0.3s;
     line-height: 0;
     margin-right: 8px;
+    
 }
 
 .hero .btn-watch-video:hover {
-    color: var(--accent-color);
+    color: red;
+    background: var(--contrast-color);
+    border: 1px solid var(--contrast-color);
 }
 
 .hero .btn-watch-video:hover i {
-    color: color-mix(in srgb, var(--accent-color), transparent 15%);
+    color: color-mix(in srgb, red, transparent 15%);
 }
 
 .hero .animated {
@@ -2234,6 +2242,7 @@ section,
 
 .studentForm .new-studentRegister-form .container{
     border-radius: 30px;
+    box-shadow: 0 0 5px 10px;
 }
 .studentForm .new-studentRegister-form form input{
     background-color: #F0F1F3;
@@ -2324,38 +2333,38 @@ section,
 }
 
 .footer{
-    background: #C43D3D;
+    background: rgb(238, 255, 254);
     padding: 100px 100px 0px 100px;
-    color: #fff;
+    color: #000000;
 }
 .footer ul li{
     list-style: none;
 }
 .footer ul li a{
     text-decoration: none;
-    color: #FFF;
+    color: #000000;
     line-height: 39px;
     font-size: 16px;
 }
 .footer ul li a:hover{
-    color: #47B2E4;
+    color: #ff0000;
 }
 .footer ul li img{
     padding: 10px;
 }
 .footer ul li h4{
     font-size: 25px;
-    color: #fff;
+    color: #000000;
 }
 .footer-cources li a{
     text-transform: uppercase;
 }
 .footer ul .ph-number a{
-    color: #fff;
+    color: #000000;
     font-size: 22px;
 }
 .footer ul .time a{
-    color: #fff;
+    color: #000000;
 }
 .footer .end-footer{
     display: flex;
@@ -2706,13 +2715,14 @@ form .robot-checkbox label{
 /* - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - -*/
 
 .gallery-body-section .image-items{
-    background: linear-gradient(#0b0b0b, #0e0d0d);
+    /* background: linear-gradient(#0b0b0b, #0e0d0d); */
     z-index: 9;
     opacity: 1;
     color: #FFFFFF;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    box-shadow: 0 0 10px 1px rgb(194, 194, 194);
     
 }
 .gallery-body-section .image-items img{
@@ -2880,6 +2890,6 @@ form .robot-checkbox label{
 
 .bi::before, [class^="bi-"]::before, [class*=" bi-"]::before{
     /* background-color: red; */
-    color: red;
+    /* color: red; */
 }
 
