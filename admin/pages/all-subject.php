@@ -41,7 +41,7 @@ delete_data_message();
                         ...
                         <div action_id="<?php echo $subject['id']; ?>" class="actions" style="display:none;">
                             <ul>
-                                <li><a href="?content=edit_class&&id=<?php echo $subject['id']; ?>">Edit</a></li>
+                                <li><a href="?content=edit_subject&&id=<?php echo $subject['id']; ?>">Edit</a></li>
                                 <li style="color: red;" onclick="confirmDelete(<?php echo $subject['id']; ?>, 'subjects')">Delete</li>
                             </ul>
                         </div>

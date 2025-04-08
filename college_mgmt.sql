@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2025 at 04:03 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 08, 2025 at 05:46 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,16 +37,22 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`id`, `attendance`) VALUES
-(4, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"1\",\"date\":\"2024-11-18\"}'),
-(5, '{\"name\":\"chandan1 kushwahah\",\"admission_id\":\"1\",\"class\":\"BBA\",\"semester\":\"3rd\",\"status\":\"1\",\"date\":\"2024-11-18\"}'),
-(6, '{\"name\":\"Ananta Mainali\",\"admission_id\":\"12\",\"class\":\"BBA\",\"semester\":\"2nd\",\"status\":\"0\",\"date\":\"2024-11-18\"}'),
-(7, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"1\",\"date\":\"2024-11-18\"}'),
-(8, '{\"name\":\"Ananta Mainali\",\"admission_id\":\"12\",\"class\":\"BBA\",\"semester\":\"2nd\",\"status\":\"1\",\"date\":\"2024-11-19\"}'),
-(9, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"1\",\"date\":\"2024-11-21\"}'),
-(10, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"0\",\"date\":\"2024-11-21\"}'),
-(11, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"1\",\"date\":\"2024-11-22\"}'),
-(12, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"1\",\"date\":\"2024-12-04\"}'),
-(13, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"status\":\"1\",\"date\":\"2024-12-12\"}');
+(1, '{\"name\":\"chandan kushwahah\",\"admission_id\":\"1\",\"class\":\"BCA\",\"semester\":\"1st\",\"subject\":\"math I\",\"status\":\"1\",\"date\":\"2025-04-08\",\"taken_by\":\"yeti\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL,
+  `heading` text NOT NULL,
+  `overview` text NOT NULL,
+  `image` varchar(200) NOT NULL,
+  `publisher` varchar(100) NOT NULL,
+  `publish_date` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -75,21 +81,45 @@ INSERT INTO `books` (`id`, `bname`, `wname`, `class`, `pubdate`, `book_id`, `upl
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `history` text NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `created_at` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id`, `history`, `name`, `phone`, `email`, `created_at`) VALUES
+(1, '[{\"question\":\"Which course?\",\"answer\":\"BA( MICE [Event] Management)~ BA-MM\"},{\"question\":\"What is your name?\",\"answer\":\"chandan\"},{\"question\":\"What is your phone number?\",\"answer\":\"9823196848\"},{\"question\":\"What is your email address?\",\"answer\":\"chandan@gmail.com\"}]', 'chandan', '9823196848', 'chandan@gmail.com', '2025-04-08 09:29:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `classes`
 --
 
 CREATE TABLE `classes` (
   `id` int(11) NOT NULL,
-  `classes` varchar(10) NOT NULL
+  `classes` varchar(10) NOT NULL,
+  `university` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `classes`
 --
 
-INSERT INTO `classes` (`id`, `classes`) VALUES
-(13, 'bbs'),
-(14, 'bba');
+INSERT INTO `classes` (`id`, `classes`, `university`) VALUES
+(1, 'bca', 'tu'),
+(2, 'bhm', 'spu'),
+(3, 'bba', 'TU');
 
 -- --------------------------------------------------------
 
@@ -385,6 +415,25 @@ INSERT INTO `message` (`id`, `msgid`, `sender`, `receiver`, `message`, `files`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `meta_setting`
+--
+
+CREATE TABLE `meta_setting` (
+  `id` int(11) NOT NULL,
+  `pages` varchar(255) NOT NULL,
+  `meta_title` varchar(255) NOT NULL,
+  `meta_description` text NOT NULL,
+  `meta_keywords` varchar(255) NOT NULL,
+  `canonical_tag` varchar(255) NOT NULL,
+  `og_title` varchar(255) NOT NULL,
+  `og_description` text NOT NULL,
+  `og_url` varchar(255) NOT NULL,
+  `og_image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `notice`
 --
 
@@ -432,6 +481,17 @@ CREATE TABLE `parents` (
 
 INSERT INTO `parents` (`id`, `name`, `gender`, `occupation`, `email`, `address`, `phone`, `childrens_name`) VALUES
 (2, 'chandan kushwaha', 'male', 'farmer', 'chandan@gmail.com', 'Imadol', '9823196848', 'dsfwrfew');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `popup`
+--
+
+CREATE TABLE `popup` (
+  `id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -618,6 +678,27 @@ INSERT INTO `students` (`id`, `fname`, `lname`, `gender`, `dob`, `blood`, `relig
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL,
+  `s_name` varchar(255) NOT NULL,
+  `class` varchar(100) NOT NULL,
+  `semester` varchar(100) NOT NULL,
+  `teacher` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `s_name`, `class`, `semester`, `teacher`) VALUES
+(1, 'math I', 'bca', '1st', 'chandan11 kushwahah');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teachers`
 --
 
@@ -665,8 +746,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `userid`, `username`, `email`, `gender`, `password`, `image`, `date`, `online`, `role`) VALUES
-(1, 32859348, 'chandanone', 'test@gmail.com', '', 'test@123', 'uploads/IMG_20241224_132521.jpg', '0000-00-00 00:00:00', 0, 'student'),
-(2, 63269363, 'dhiraj', 'dhiraj@gmail.com', '', 'dhiraj@123', 'uploads/320673188_693809542181058_364238290040878925_n.jpg', '0000-00-00 00:00:00', 0, 'student');
+(1, 978962642266382, 'yeti', 'yeti@gmail.com', '', '$2y$10$.MXhR3DCBzVDD17gojfrJ.hmrCO3TUcypAqQN0UurOOS86AGr.2Qy', '67f492756043e_logo (2).png', '0000-00-00 00:00:00', 0, 'admin');
 
 -- --------------------------------------------------------
 
@@ -723,9 +803,21 @@ ALTER TABLE `attendance`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `books`
 --
 ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -801,6 +893,12 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `meta_setting`
+--
+ALTER TABLE `meta_setting`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `notice`
 --
 ALTER TABLE `notice`
@@ -810,6 +908,12 @@ ALTER TABLE `notice`
 -- Indexes for table `parents`
 --
 ALTER TABLE `parents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `popup`
+--
+ALTER TABLE `popup`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -855,6 +959,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -886,7 +996,13 @@ ALTER TABLE `what_people_say`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `books`
@@ -895,10 +1011,16 @@ ALTER TABLE `books`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `college_info`
@@ -967,6 +1089,12 @@ ALTER TABLE `message`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `meta_setting`
+--
+ALTER TABLE `meta_setting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
@@ -977,6 +1105,12 @@ ALTER TABLE `notice`
 --
 ALTER TABLE `parents`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `popup`
+--
+ALTER TABLE `popup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -1021,6 +1155,12 @@ ALTER TABLE `students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -1030,7 +1170,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `video_and_content`

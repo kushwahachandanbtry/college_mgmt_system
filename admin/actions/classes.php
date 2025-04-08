@@ -38,7 +38,6 @@ if ( isset( $_POST['save'] ) ) {
 
 	// Error field is emtpty the insert valid data
 	if ( empty( $errors ) ) {
-		include_once 'config.php';
 
 		// print_r( $conn );
 		$sql = "INSERT INTO classes(classes, university) VALUES('{$classes}', '{$university}')";

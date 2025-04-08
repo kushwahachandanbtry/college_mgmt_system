@@ -45,6 +45,7 @@ $allowed_pages = [
     'register_users' => 'Registered Users',
     'enquiry_users' => 'Enquiry Users',
     'communications' => 'AI Chat Records',
+    'edit_subject' => 'Edit Subjects',
 ];
 
 // Check if 'content' is set and sanitize the input
@@ -215,6 +216,10 @@ if (isset($_GET['content'])) {
 
             case 'edit_exam_routine':
                 include("actions/edit-exam-routin.php");
+                break;
+
+            case 'edit_subject':
+                include("actions/edit-subject.php");
                 break;
 
             case 'checkout-khalti':

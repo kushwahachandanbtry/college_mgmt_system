@@ -9,8 +9,6 @@ if (isset($_GET['id'])) {
 
 
     if ( isset( $_POST['update'] ) ) {
-        // assign in all variable null data
-        $tname = $gender = $time = $email = $address = $classes = $sections = $Phone = '';
     
     
         /**
@@ -27,6 +25,7 @@ if (isset($_GET['id'])) {
         }
     
         $classes = check_input( $_POST['classes'] );
+        $university = check_input( $_POST['university'] );
     
         $errors = array(); // assign all errors in this array
 
@@ -43,7 +42,7 @@ if (isset($_GET['id'])) {
         if ( empty( $errors ) ) {
     
             // print_r( $conn );
-            $sql = "UPDATE classes SET classes = '{$classes}' WHERE id = '{$id}'";
+            $sql = "UPDATE classes SET classes = '{$classes}', university = '{$university}' WHERE id = '{$id}'";
     
     
     
@@ -71,6 +70,11 @@ if (isset($_GET['id'])) {
         <div class="">
                 <lable>Class Name *</lable>
                 <input type="text"  name="classes" value="<?php echo $row['classes']; ?>" aria-label="First name" class="form-control py-2 px-4">
+            </div>
+
+            <div class="mx-3">
+                <lable>University *</lable>
+                <input type="text"  name="university" value="<?php echo $row['university']; ?>" aria-label="First name" class="form-control py-2 px-4">
             </div>
         </div>
        
