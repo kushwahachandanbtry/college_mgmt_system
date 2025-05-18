@@ -23,5 +23,5 @@ The College Management System is a comprehensive digital platform designed to st
 ## Dashboard Access
 For further details or access to the dashboard, please contact us:
 
-* Email: kushwaharadheshyam44@gmail.com
+* Email: infokushwahachandan@gmail.com
 * WhatsApp: 9823196848
